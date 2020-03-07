@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "160443086583",
+    "firebase_url": "https://koda-78e6a.firebaseio.com",
+    "project_id": "koda-78e6a",
+    "storage_bucket": "koda-78e6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:160443086583:android:45ea93a42309ff116545f2",
+        "android_client_info": {
+          "package_name": "com.koda.koda"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "160443086583-7j7n87q8cb3ng03hfrc1en7d6hf21f4m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy_pv0O35gaAXPhyWuLTZ_16F3XJV07hg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "160443086583-7j7n87q8cb3ng03hfrc1en7d6hf21f4m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "160443086583-9f52t756t0i2bf03t1jec7km2vrvl6su.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.koda.koda"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
