@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -76,10 +77,10 @@ export default class LoginScreen extends React.Component {
   }
 
   render() {
-    let validInputs = this.validate(this.state.email);
+    let validInputs = this.validate(this.state.email) && this.state.password.length >= 8;
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.contentContainer}>
+        <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
           <Text style={styles.appTitle}>KODA</Text>
           <View style={styles.dividerContainer}>
             <View style={styles.dividerLine} />
@@ -100,6 +101,7 @@ export default class LoginScreen extends React.Component {
               ]}
               placeholder={'Email'}
               placeholderTextColor={colors.opaqueBlack}
+              autoCapitalize="none"
               onChangeText={email => this.onChangeEmail(email)}
               value={this.state.email}
             />
@@ -143,7 +145,7 @@ export default class LoginScreen extends React.Component {
               <Text style={styles.registerButtonText}>Register for free</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -156,7 +158,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   contentContainer: {
-    flex: 1,
     justifyContent: 'center',
     marginHorizontal: 40,
   },
@@ -168,6 +169,7 @@ const styles = StyleSheet.create({
     padding: 20,
     fontSize: 50,
     color: colors.black,
+    marginTop: 40,
     marginBottom: 14,
   },
   errorText: {
@@ -186,6 +188,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.black,
     paddingLeft: 10,
+    marginBottom: 2,
   },
   textInput: {
     fontFamily: 'Apple SD Gothic Neo',
@@ -243,7 +246,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 4,
+    marginTop: 10,
   },
   registerText: {
     fontFamily: 'Apple SD Gothic Neo',

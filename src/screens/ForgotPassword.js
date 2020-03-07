@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -34,7 +35,7 @@ export default class ForgotPasswordScreen extends React.Component {
 
   onChangeEmail(email) {
     this.setState({
-      email: email,
+      email: email.toLowerCase(),
     });
   }
 
@@ -48,7 +49,7 @@ export default class ForgotPasswordScreen extends React.Component {
     let validInputs = this.validate(this.state.email);
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.contentContainer}>
+        <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
           <Text style={styles.appTitle}>KODA</Text>
           <View style={styles.dividerContainer}>
             <View style={styles.dividerLine} />
@@ -62,6 +63,7 @@ export default class ForgotPasswordScreen extends React.Component {
             style={styles.textInput}
             placeholder={'Enter your email'}
             placeholderTextColor={colors.opaqueBlack}
+            autoCapitalize="none"
             onChangeText={email => this.onChangeEmail(email)}
             value={this.state.email}
           />
@@ -93,7 +95,7 @@ export default class ForgotPasswordScreen extends React.Component {
               <Text style={styles.bottomButtonText}>Get help</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -106,7 +108,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
   },
   contentContainer: {
-    flex: 1,
     justifyContent: 'center',
     marginHorizontal: 40,
   },
@@ -118,6 +119,7 @@ const styles = StyleSheet.create({
     padding: 20,
     fontSize: 50,
     color: colors.black,
+    marginTop: 40,
   },
   forgotPasswordText: {
     fontFamily: 'Apple SD Gothic Neo',
