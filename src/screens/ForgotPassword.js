@@ -49,7 +49,9 @@ export default class ForgotPasswordScreen extends React.Component {
     let validInputs = this.validate(this.state.email);
     return (
       <SafeAreaView style={styles.container}>
-        <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
+        <ScrollView
+          contentContainerStyle={styles.contentContainer}
+          keyboardShouldPersistTaps="handled">
           <Text style={styles.appTitle}>KODA</Text>
           <View style={styles.dividerContainer}>
             <View style={styles.dividerLine} />
@@ -180,6 +182,7 @@ const styles = StyleSheet.create({
   bottomContentContainer: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
     marginTop: 10,
   },

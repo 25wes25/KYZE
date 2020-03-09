@@ -77,10 +77,13 @@ export default class LoginScreen extends React.Component {
   }
 
   render() {
-    let validInputs = this.validate(this.state.email) && this.state.password.length >= 8;
+    let validInputs =
+      this.validate(this.state.email) && this.state.password.length >= 8;
     return (
       <SafeAreaView style={styles.container}>
-        <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps="handled">
+        <ScrollView
+          contentContainerStyle={styles.contentContainer}
+          keyboardShouldPersistTaps="handled">
           <Text style={styles.appTitle}>KODA</Text>
           <View style={styles.dividerContainer}>
             <View style={styles.dividerLine} />
@@ -245,6 +248,7 @@ const styles = StyleSheet.create({
   registerContainer: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
     marginTop: 10,
   },
