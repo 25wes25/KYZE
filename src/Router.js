@@ -4,10 +4,12 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import LandingScreen from './screens/Landing';
 import LoginScreen from './screens/Login';
 import ForgotPasswordScreen from './screens/ForgotPassword';
-import RegisterScreen from './screens/Register';
+import RegisterScreen from './screens/RegisterStudent';
 import DashboardScreen from './screens/Dashboard';
 import ProfileScreen from './screens/Profile';
 import SettingsScreen from './screens/Settings';
+import TermsOfServiceScreen from './screens/TermsOfService';
+import PrivacyPolicyScreen from './screens/PrivacyPolicy';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -57,6 +59,8 @@ export default function AppStack() {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Screen name="Terms of Service" component={TermsOfServiceScreen} />
+      <Stack.Screen name="Privacy Policy" component={PrivacyPolicyScreen} />
       <Stack.Screen
         name="DrawerNavigator"
         component={DrawerNavigator}
