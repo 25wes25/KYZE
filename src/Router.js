@@ -4,7 +4,13 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import LandingScreen from './screens/Landing';
 import LoginScreen from './screens/Login';
 import ForgotPasswordScreen from './screens/ForgotPassword';
-import RegisterScreen from './screens/RegisterStudent';
+import RegisterScreen from './screens/Register';
+import SubjectsScreen from './screens/TutorRegistration/Subjects';
+import PersonalizeProfileScreen from './screens/TutorRegistration/PersonalizeProfile';
+import TermsAndAgreementScreen from './screens/TutorRegistration/TermsAndAgreement';
+import EmailConfirmationScreen from './screens/TutorRegistration/EmailConfirmation';
+import PreferencesScreen from './screens/TutorRegistration/Preferences';
+import BasicInfoScreen from './screens/TutorRegistration/BasicInfo';
 import DashboardScreen from './screens/Dashboard';
 import ProfileScreen from './screens/Profile';
 import SettingsScreen from './screens/Settings';
@@ -94,6 +100,36 @@ export default function AppStack() {
       />
       <Stack.Screen name="Forgot Password" component={ForgotPasswordScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Screen
+        name="Subjects"
+        component={SubjectsScreen}
+        options={{title: 'Select Subjects: Step 2 of 6'}}
+      />
+      <Stack.Screen
+        name="Basic Info"
+        component={BasicInfoScreen}
+        options={{title: 'Basic Info: Step 3 of 6'}}
+      />
+      <Stack.Screen
+        name="Preferences"
+        component={PreferencesScreen}
+        options={{title: 'Preferences: Step 4 of 6'}}
+      />
+      <Stack.Screen
+        name="Personalize Profile"
+        component={PersonalizeProfileScreen}
+        options={{title: 'Personalize Profile: Step 5 of 6'}}
+      />
+      <Stack.Screen
+        name="Terms and Agreement"
+        component={TermsAndAgreementScreen}
+        options={{title: 'Terms & Agreement: Step 6 of 6'}}
+      />
+      <Stack.Screen
+        name="Email Confirmation"
+        component={EmailConfirmationScreen}
+        options={{title: 'Email Confirmation'}}
+      />
       <Stack.Screen name="Terms of Service" component={TermsOfServiceScreen} />
       <Stack.Screen name="Privacy Policy" component={PrivacyPolicyScreen} />
       <Stack.Screen

@@ -54,6 +54,7 @@ export default class LoginScreen extends React.Component {
     this.props.navigation.dispatch(
       CommonActions.navigate({
         name: 'Register',
+        params: {type: this.props.route.params.type},
       }),
     );
   };
