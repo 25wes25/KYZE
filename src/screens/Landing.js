@@ -16,10 +16,20 @@ export default class LandingScreen extends React.Component {
     header: null,
   };
 
-  onPressLogin = () => {
+  onPressLoginAsStudent = () => {
     this.props.navigation.dispatch(
       CommonActions.navigate({
         name: 'Login',
+        params: {type: 'Student'},
+      }),
+    );
+  };
+
+  onPressLoginAsTutor = () => {
+    this.props.navigation.dispatch(
+      CommonActions.navigate({
+        name: 'Login',
+        params: {type: 'Tutor'},
       }),
     );
   };
@@ -34,7 +44,7 @@ export default class LandingScreen extends React.Component {
           <View style={styles.buttonsContainer}>
             <TouchableOpacity
               style={styles.buttonContainer}
-              onPress={this.onPressLogin}>
+              onPress={this.onPressLoginAsStudent}>
               <Text style={styles.buttonText}>Student / Parent</Text>
             </TouchableOpacity>
             <View style={styles.dividerContainer}>
@@ -44,7 +54,7 @@ export default class LandingScreen extends React.Component {
             </View>
             <TouchableOpacity
               style={styles.buttonContainer}
-              onPress={this.onPressLogin}>
+              onPress={this.onPressLoginAsTutor}>
               <Text style={styles.buttonText}>Tutor</Text>
             </TouchableOpacity>
           </View>
