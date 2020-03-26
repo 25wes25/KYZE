@@ -5,16 +5,25 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 import {colors} from '../../styles';
 import nextArrow from '../../../res/images/nextArrow.png';
+import plusSign from '../../../res/images/plusSign.png';
 
 export default class BasicInfoScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      degrees: [
+        {
+          college: "",
+          degree: "",
+        }
+      ],
+    };
   }
 
   onPressNext = () => {
@@ -33,6 +42,84 @@ export default class BasicInfoScreen extends React.Component {
             <View style={styles.dividerLine} />
             <Text style={styles.dividerText}>{'Tutor Registration'}</Text>
             <View style={styles.dividerLine} />
+          </View>
+          <Text style={styles.sectionTitle}>Your Address</Text>
+          <View style={styles.textInputContainer}>
+            <Text style={styles.textInputTitle}>Street</Text>
+            <TextInput
+              style={styles.textInput}
+            />
+          </View>
+          <View style={styles.textInputContainer}>
+            <Text style={styles.textInputTitle}>Apt/Suite</Text>
+            <TextInput
+              style={styles.textInput}
+            />
+          </View><
+          View style={styles.textInputContainer}>
+            <Text style={styles.textInputTitle}>City</Text>
+            <TextInput
+              style={styles.textInput}
+            />
+          </View>
+          <View style={styles.textInputContainerInline}>
+            <View style={styles.textInputContainer}>
+              <Text style={styles.textInputTitle}>State</Text>
+              <TextInput
+                style={styles.textInput}
+              />
+            </View>
+            <View style={styles.inlineFiller} />
+            <View style={styles.textInputContainer}>
+              <Text style={styles.textInputTitle}>Zip Code</Text>
+              <TextInput
+                style={styles.textInput}
+              />
+            </View>
+          </View>
+          <Text style={styles.sectionTitle}>Educational Background</Text>
+          <View style={styles.textInputContainer}>
+            <Text style={styles.textInputTitle}>Undergraduate College</Text>
+            <TextInput
+              style={styles.textInput}
+            />
+          </View>
+          <View style={styles.textInputContainer}>
+            <Text style={styles.textInputTitle}>Undergraduate Degree</Text>
+            <TextInput
+              style={styles.textInput}
+            />
+          </View>
+          {
+            this.state.degrees.map((element, index) => {
+              return (
+                <View>
+                  <View style={styles.textInputContainer}>
+                    <Text style={styles.textInputTitle}>Graduate College {index+1}</Text>
+                    <TextInput
+                      style={styles.textInput}
+                    />
+                  </View>
+                  <View style={styles.textInputContainer}>
+                    <Text style={styles.textInputTitle}>Graduate Degree {index+1}</Text>
+                    <TextInput
+                      style={styles.textInput}
+                    />
+                  </View>
+                </View>
+            );})
+          }
+          <View style={styles.addDegreeContainer}>
+            <TouchableOpacity
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                alignItems: 'center',
+              }}
+              onPress={this.onPressAddDegree}>
+              <Image source={plusSign}/>
+              <Text style={styles.addDegreeText}>Add more credentials </Text>
+            </TouchableOpacity>
           </View>
           <TouchableOpacity
             style={[
@@ -109,6 +196,44 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingHorizontal: 12,
     fontSize: 18,
+    color: colors.black,
+  },
+  inlineFiller: {
+    flex: 1,
+  },
+  textInputContainer: {
+    flex: 3,
+    marginVertical: 10,
+  },
+  textInputContainerInline: {
+    flexDirection: 'row',
+  },
+  textInputTitle: {
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 14,
+    color: colors.black,
+    paddingLeft: 10,
+    marginBottom: 2,
+  },
+  textInput: {
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 18,
+    lineHeight: 22,
+    color: colors.black,
+    borderWidth: 1,
+    borderRadius: 4,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+  },
+  sectionTitle: {
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 18,
+    color: colors.black,
+    marginTop: 20,
+  },
+  addDegreeText: {
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 14,
     color: colors.black,
   },
 });
