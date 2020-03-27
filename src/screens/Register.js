@@ -237,25 +237,23 @@ export default class RegisterScreen extends React.Component {
             <View style={styles.dividerLine} />
           </View>
           <View style={styles.textInputContainerInline}>
-            <View style={styles.textInputContainer}>
-              <Text style={styles.textInputTitle}>First Name</Text>
-              <TextInput
-                style={styles.textInput}
-                autoCapitalize="words"
-                onChangeText={firstName => this.onChangeFirstName(firstName)}
-                value={this.state.firstName}
-              />
-            </View>
+            <TextInputComponent
+              title='First Name'
+              placeholderText='First Name'
+              autoCapitalize="words"
+              onChangeText={firstName => this.onChangeFirstName(firstName)}
+              value={this.state.firstName}
+              >
+            </TextInputComponent>
             <View style={styles.inlineFiller} />
-            <View style={styles.textInputContainer}>
-              <Text style={styles.textInputTitle}>Last Name</Text>
-              <TextInput
-                style={styles.textInput}
-                autoCapitalize="words"
-                onChangeText={lastName => this.onChangeLastName(lastName)}
-                value={this.state.lastName}
-              />
-            </View>
+            <TextInputComponent
+              title='Last Name'
+              placeholderText='Last Name'
+              autoCapitalize="words"
+              onChangeText={lastName => this.onChangeLastName(lastName)}
+              value={this.state.lastName}
+              >
+            </TextInputComponent>
           </View>
           <TextInputComponent
             title='Phone Number'
@@ -276,26 +274,24 @@ export default class RegisterScreen extends React.Component {
             >
           </TextInputComponent>
           <View style={styles.textInputContainerInline}>
-            <View style={styles.textInputContainer}>
-              <Text style={styles.textInputTitle}>State</Text>
-              <TextInput
-                style={styles.textInput}
-                autoCapitalize="characters"
-                maxLength={2}
-                onChangeText={state => this.onChangeState(state)}
-                value={this.state.state}
-              />
-            </View>
+            <TextInputComponent
+              title='State'
+              placeholderText='State'
+              autoCapitalize="characters"
+              maxLength={2}
+              onChangeText={state => this.onChangeState(state)}
+              value={this.state.state}
+              >
+            </TextInputComponent>
             <View style={styles.inlineFiller} />
-            <View style={styles.textInputContainer}>
-              <Text style={styles.textInputTitle}>Zip Code</Text>
-              <TextInput
-                style={styles.textInput}
-                autoCapitalize="none"
-                onChangeText={zipCode => this.onChangeZipCode(zipCode)}
-                value={this.state.zipCode}
-              />
-            </View>
+            <TextInputComponent
+              title='Zip Code'
+              placeholderText='Zip Code'
+              maxLength={6}
+              onChangeText={zipCode => this.onChangeZipCode(zipCode)}
+              value={this.state.zipCode}
+              >
+            </TextInputComponent>
           </View>
           <TextInputComponent
             title='Password'
@@ -432,29 +428,8 @@ const styles = StyleSheet.create({
     color: colors.black,
     overflow: 'hidden',
   },
-  textInputContainer: {
-    flex: 3,
-    marginVertical: 10,
-  },
   textInputContainerInline: {
     flexDirection: 'row',
-  },
-  textInputTitle: {
-    fontFamily: 'Apple SD Gothic Neo',
-    fontSize: 14,
-    color: colors.black,
-    paddingLeft: 10,
-    marginBottom: 2,
-  },
-  textInput: {
-    fontFamily: 'Apple SD Gothic Neo',
-    fontSize: 18,
-    lineHeight: 22,
-    color: colors.black,
-    borderWidth: 1,
-    borderRadius: 4,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
   },
   dividerContainer: {
     display: 'flex',

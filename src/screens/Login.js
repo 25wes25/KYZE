@@ -174,26 +174,6 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     color: colors.red,
   },
-  textInputContainer: {
-    marginVertical: 10,
-  },
-  textInputTitle: {
-    fontFamily: 'Apple SD Gothic Neo',
-    fontSize: 14,
-    color: colors.black,
-    paddingLeft: 10,
-    marginBottom: 2,
-  },
-  textInput: {
-    fontFamily: 'Apple SD Gothic Neo',
-    fontSize: 18,
-    lineHeight: 22,
-    color: colors.black,
-    borderWidth: 1,
-    borderRadius: 4,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
   loginButtonContainer: {
     borderWidth: 1,
     borderRadius: 4,
