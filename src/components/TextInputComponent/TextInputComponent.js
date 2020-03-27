@@ -26,6 +26,7 @@ class TextInputComponent extends React.Component {
           placeholderTextColor={colors.opaqueBlack}
           autoCapitalize={this.props.autoCapitalize}
           secureTextEntry={this.props.secureTextEntry}
+          maxLength={this.props.maxLength}
           keyboardType={this.props.keyboardType}
           onChangeText={this.props.onChangeText}
           value={this.props.value}
@@ -41,6 +42,7 @@ TextInputComponent.propTypes = {
   value: PropTypes.string,
   autoCapitalize: PropTypes.string,
   secureTextEntry: PropTypes.bool,
+  maxLength: PropTypes.number,
   keyboardType: PropTypes.string,
   invalid: PropTypes.bool,
   onChangeText: PropTypes.func,
@@ -52,6 +54,7 @@ TextInputComponent.defaultProps = {
   value: '',
   autoCapitalize: 'none',
   secureTextEntry: false,
+  maxLength: 255,
   keyboardType: 'default',
   invalid: false,
   onChangeText: () => console.log('Text Changed'),
