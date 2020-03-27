@@ -14,6 +14,7 @@ import {CommonActions} from '@react-navigation/native';
 import {colors} from '../styles';
 import checkmarkImage from '../../res/images/checkmark.png';
 import nextArrow from '../../res/images/nextArrow.png';
+import TextInputComponent from '../components/TextInputComponent';
 
 const user = {
   email: 'test@gmail.com',
@@ -256,30 +257,24 @@ export default class RegisterScreen extends React.Component {
               />
             </View>
           </View>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Phone Number</Text>
-            <TextInput
-              style={styles.textInput}
-              autoCapitalize="none"
-              keyboardType="phone-pad"
-              onChangeText={phoneNumber =>
-                this.onChangePhoneNumber(phoneNumber)
-              }
-              value={this.state.phoneNumber}
-            />
-          </View>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Email Address</Text>
-            <TextInput
-              style={[
-                styles.textInput,
-                this.state.invalidEmail && {borderColor: colors.red},
-              ]}
-              autoCapitalize="none"
-              onChangeText={email => this.onChangeEmail(email)}
-              value={this.state.email}
-            />
-          </View>
+          <TextInputComponent
+            title='Phone Number'
+            placeholderText='Phone Number'
+            keyboardType="phone-pad"
+            onChangeText={phoneNumber =>
+              this.onChangePhoneNumber(phoneNumber)
+            }
+            value={this.state.phoneNumber}
+            >
+          </TextInputComponent>
+          <TextInputComponent
+            title='Email Address'
+            placeholderText='Email Address'
+            onChangeText={email => this.onChangeEmail(email)}
+            value={this.state.email}
+            invalid={this.state.invalidEmail}
+            >
+          </TextInputComponent>
           <View style={styles.textInputContainerInline}>
             <View style={styles.textInputContainer}>
               <Text style={styles.textInputTitle}>State</Text>
@@ -302,48 +297,35 @@ export default class RegisterScreen extends React.Component {
               />
             </View>
           </View>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Password</Text>
-            <TextInput
-              style={[
-                styles.textInput,
-                this.state.invalidPassword && {borderColor: colors.red},
-              ]}
-              secureTextEntry={true}
-              placeholderTextColor={colors.opaqueBlack}
-              onChangeText={password => this.onChangePassword(password)}
-              value={this.state.password}
-            />
-          </View>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Confirm Password</Text>
-            <TextInput
-              style={[
-                styles.textInput,
-                this.state.invalidPassword && {borderColor: colors.red},
-              ]}
-              secureTextEntry={true}
-              placeholderTextColor={colors.opaqueBlack}
-              onChangeText={confirmPassword =>
-                this.onChangeConfirmPassword(confirmPassword)
-              }
-              value={this.state.confirmPassword}
-            />
-          </View>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>
-              Promotional Code (optional)
-            </Text>
-            <TextInput
-              style={[
-                styles.textInput,
-                this.state.invalidPromo && {borderColor: colors.red},
-              ]}
-              autoCapitalize="characters"
-              onChangeText={promoCode => this.onChangePromoCode(promoCode)}
-              value={this.state.promoCode}
-            />
-          </View>
+          <TextInputComponent
+            title='Password'
+            placeholderText='Password'
+            secureTextEntry={true}
+            onChangeText={password => this.onChangePassword(password)}
+            value={this.state.password}
+            invalid={this.state.invalidPassword}
+            >
+          </TextInputComponent>
+          <TextInputComponent
+            title='Confirm Password'
+            placeholderText='Confirm Password'
+            secureTextEntry={true}
+            onChangeText={confirmPassword =>
+              this.onChangeConfirmPassword(confirmPassword)
+            }
+            value={this.state.confirmPassword}
+            invalid={this.state.invalidPassword}
+            >
+          </TextInputComponent>
+          <TextInputComponent
+            title='Promotional Code (optional)'
+            placeholderText='Promotional Code'
+            autoCapitalize='characters'
+            onChangeText={promoCode => this.onChangePromoCode(promoCode)}
+            value={this.state.promoCode}
+            invalid={this.state.invalidPromo}
+            >
+          </TextInputComponent>
           <View style={styles.tosContainer}>
             <TouchableOpacity
               style={[

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {CommonActions} from '@react-navigation/native';
 import {colors} from '../styles';
+import TextInputComponent from '../components/TextInputComponent';
 
 const user = {
   email: 'test@gmail.com',
@@ -96,34 +97,23 @@ export default class LoginScreen extends React.Component {
           ) : (
             <View style={{height: 20}} />
           )}
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Email Address</Text>
-            <TextInput
-              style={[
-                styles.textInput,
-                this.state.invalidLogin && {borderColor: colors.red},
-              ]}
-              placeholder={'Email'}
-              placeholderTextColor={colors.opaqueBlack}
-              autoCapitalize="none"
-              onChangeText={email => this.onChangeEmail(email)}
-              value={this.state.email}
-            />
-          </View>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Password</Text>
-            <TextInput
-              style={[
-                styles.textInput,
-                this.state.invalidLogin && {borderColor: colors.red},
-              ]}
-              secureTextEntry={true}
-              placeholder={'Password'}
-              placeholderTextColor={colors.opaqueBlack}
-              onChangeText={password => this.onChangePassword(password)}
-              value={this.state.password}
-            />
-          </View>
+          <TextInputComponent
+            title='Email Address'
+            placeholderText='Email'
+            onChangeText={email => this.onChangeEmail(email)}
+            value={this.state.email}
+            invalid={this.state.invalidLogin}
+            >
+          </TextInputComponent>
+          <TextInputComponent
+            title='Password'
+            placeholderText='Password'
+            secureTextEntry={true}
+            onChangeText={password => this.onChangePassword(password)}
+            value={this.state.password}
+            invalid={this.state.invalidLogin}
+            >
+          </TextInputComponent>
           <TouchableOpacity
             style={[
               styles.loginButtonContainer,
