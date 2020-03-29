@@ -14,6 +14,7 @@ import {CommonActions} from '@react-navigation/native';
 import {colors} from '../styles';
 import checkmarkImage from '../../res/images/checkmark.png';
 import nextArrow from '../../res/images/nextArrow.png';
+import TitleComponent from '../components/TitleComponent';
 
 const user = {
   email: 'test@gmail.com',
@@ -227,14 +228,8 @@ export default class RegisterScreen extends React.Component {
         <ScrollView
           contentContainerStyle={styles.contentContainer}
           keyboardShouldPersistTaps="handled">
-          <Text style={styles.appTitle}>KODA</Text>
-          <View style={styles.dividerContainer}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>
-              {this.state.type + ' Registration'}
-            </Text>
-            <View style={styles.dividerLine} />
-          </View>
+          <TitleComponent title={this.state.type + ' Registration'}>
+          </TitleComponent>
           <View style={styles.textInputContainerInline}>
             <View style={styles.textInputContainer}>
               <Text style={styles.textInputTitle}>First Name</Text>
