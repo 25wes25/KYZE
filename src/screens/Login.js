@@ -11,6 +11,7 @@ import {
 import {CommonActions} from '@react-navigation/native';
 import {colors} from '../styles';
 import TextInputComponent from '../components/TextInputComponent';
+import TitleComponent from '../components/TitleComponent';
 
 const user = {
   email: 'test@gmail.com',
@@ -86,12 +87,8 @@ export default class LoginScreen extends React.Component {
         <ScrollView
           contentContainerStyle={styles.contentContainer}
           keyboardShouldPersistTaps="handled">
-          <Text style={styles.appTitle}>KODA</Text>
-          <View style={styles.dividerContainer}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>Log in</Text>
-            <View style={styles.dividerLine} />
-          </View>
+          <TitleComponent title="Log in">
+          </TitleComponent>
           {this.state.invalidLogin ? (
             <Text style={styles.errorText}>Invalid email or password</Text>
           ) : (
