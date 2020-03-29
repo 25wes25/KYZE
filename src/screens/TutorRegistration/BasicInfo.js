@@ -12,11 +12,18 @@ import {
 import {colors} from '../../styles';
 import nextArrow from '../../../res/images/nextArrow.png';
 import plusSign from '../../../res/images/plusSign.png';
+import TitleComponent from '../../components/TitleComponent';
+import TextInputComponent from '../../components/TextInputComponent';
 
 export default class BasicInfoScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      street: "",
+      aptNum: "",
+      city: "",
+      state: "",
+      zipCode: "",
       degrees: [
         {
           college: "",
@@ -30,6 +37,62 @@ export default class BasicInfoScreen extends React.Component {
     this.props.navigation.navigate('Preferences');
   };
 
+  onPressAddDegree = () => {
+    this.state.degrees.push(
+      {
+        key: this.state.degrees.length + 1,
+        college: "",
+        degree: "",
+      }
+    );
+    this.forceUpdate();
+  };
+
+  onChangeStreet(street) {
+    this.setState({
+      street: street,
+    });
+  }
+
+  onChangeAptNum(aptNum) {
+    this.setState({
+      aptNum: aptNum,
+    });
+  }
+
+  onChangeCity(city) {
+    this.setState({
+      city: city,
+    });
+  }
+
+  onChangeState(state) {
+    this.setState({
+      state: state,
+    });
+  }
+
+  onChangeZipCode(zipCode) {
+    this.setState({
+      zipCode: zipCode,
+    });
+  }
+
+  onChangeDegrees(value, index, key) {
+    newDegrees = this.state.degrees;
+    newDegrees[index][key] = value;
+    this.setState({
+      degrees: newDegrees,
+    });
+  }
+
+  onChangeTest(test) {
+    console.log(test);
+    this.setState({
+      test: test,
+    });
+  }
+
   render() {
     let validInputs = true;
     return (
@@ -37,76 +100,107 @@ export default class BasicInfoScreen extends React.Component {
         <ScrollView
           contentContainerStyle={styles.contentContainer}
           keyboardShouldPersistTaps="handled">
-          <Text style={styles.appTitle}>KODA</Text>
-          <View style={styles.dividerContainer}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>{'Tutor Registration'}</Text>
-            <View style={styles.dividerLine} />
-          </View>
+          <TitleComponent title="Tutor Registration">
+          </TitleComponent>
           <Text style={styles.sectionTitle}>Your Address</Text>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Street</Text>
-            <TextInput
-              style={styles.textInput}
-            />
-          </View>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Apt/Suite</Text>
-            <TextInput
-              style={styles.textInput}
-            />
-          </View><
-          View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>City</Text>
-            <TextInput
-              style={styles.textInput}
-            />
-          </View>
+          <TextInputComponent
+            title='Street'
+            placeholderText='Street'
+            autoCapitalize='words'
+            onChangeText={street =>
+              this.onChangeStreet(street)
+            }
+            value={this.state.street}
+            >
+          </TextInputComponent>
+          <TextInputComponent
+            title='Apt/Suite'
+            placeholderText='Apt/Suite'
+            keyboardType='phone-pad'
+            onChangeText={aptNum =>
+              this.onChangeAptNum(aptNum)
+            }
+            value={this.state.aptNum}
+            >
+          </TextInputComponent>
+          <TextInputComponent
+            title='City'
+            placeholderText='City'
+            autoCapitalize='words'
+            onChangeText={city =>
+              this.onChangeCity(city)
+            }
+            value={this.state.city}
+            >
+          </TextInputComponent>
           <View style={styles.textInputContainerInline}>
-            <View style={styles.textInputContainer}>
-              <Text style={styles.textInputTitle}>State</Text>
-              <TextInput
-                style={styles.textInput}
-              />
-            </View>
+            <TextInputComponent
+              title='State'
+              placeholderText='State'
+              onChangeText={state =>
+                this.onChangeState(state)
+              }
+              value={this.state.state}
+              >
+            </TextInputComponent>
             <View style={styles.inlineFiller} />
-            <View style={styles.textInputContainer}>
-              <Text style={styles.textInputTitle}>Zip Code</Text>
-              <TextInput
-                style={styles.textInput}
-              />
-            </View>
+            <TextInputComponent
+              title='Zip Code'
+              placeholderText='Zip Code'
+              keyboardType='phone-pad'
+              onChangeText={zipCode =>
+                this.onChangeZipCode(zipCode)
+              }
+              value={this.state.zipCode}
+              >
+            </TextInputComponent>
           </View>
           <Text style={styles.sectionTitle}>Educational Background</Text>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Undergraduate College</Text>
-            <TextInput
-              style={styles.textInput}
-            />
-          </View>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Undergraduate Degree</Text>
-            <TextInput
-              style={styles.textInput}
-            />
-          </View>
+          <TextInputComponent
+            title='Undergraduate College'
+            placeholderText='Undergraduate College'
+            onChangeText={(degrees, index, key) =>
+              this.onChangeDegrees(degrees, 0, "college")
+            }
+            value={this.state.degrees[0]["college"]}
+            >
+          </TextInputComponent>
+          <TextInputComponent
+            title='Undergraduate Degree'
+            placeholderText='Undergraduate Degree'
+            onChangeText={(degrees, index, key) =>
+              this.onChangeDegrees(degrees, 0, "degree")
+            }
+            value={this.state.degrees[0]["degree"]}
+            >
+          </TextInputComponent>
           {
-            this.state.degrees.map((element, index) => {
+            this.state.degrees.map((element, i) => {
               return (
-                <View>
-                  <View style={styles.textInputContainer}>
-                    <Text style={styles.textInputTitle}>Graduate College {index+1}</Text>
-                    <TextInput
-                      style={styles.textInput}
-                    />
+                i > 0 ? (
+                  <View>
+                    <TextInputComponent
+                      title={'Graduate College ' + i}
+                      placeholderText={'Graduate College ' + i}
+                      onChangeText={(degrees, index, key) =>
+                        this.onChangeDegrees(degrees, i, "college")
+                      }
+                      value={this.state.degrees[i]["college"]}
+                      >
+                    </TextInputComponent>
+                    <TextInputComponent
+                      title={'Graduate Degree ' + i}
+                      placeholderText={'Graduate Degree ' + i}
+                      onChangeText={(degrees, index, key) =>
+                        this.onChangeDegrees(degrees, i, "degree")
+                      }
+                      value={this.state.degrees[i]["degree"]}
+                      >
+                    </TextInputComponent>
                   </View>
-                  <View style={styles.textInputContainer}>
-                    <Text style={styles.textInputTitle}>Graduate Degree {index+1}</Text>
-                    <TextInput
-                      style={styles.textInput}
-                    />
-                  </View>
-                </View>
+                ) : (
+                  <View></View>
+                )
             );})
           }
           <View style={styles.addDegreeContainer}>
@@ -116,6 +210,7 @@ export default class BasicInfoScreen extends React.Component {
                 flexDirection: 'row',
                 alignItems: 'center',
               }}
+              disabled={this.state.degrees.length > 3}
               onPress={this.onPressAddDegree}>
               <Image source={plusSign}/>
               <Text style={styles.addDegreeText}>Add more credentials </Text>
