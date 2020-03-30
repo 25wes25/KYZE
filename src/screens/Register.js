@@ -42,6 +42,8 @@ export default class RegisterScreen extends React.Component {
       state: '',
       tosAgree: false,
       zipCode: '',
+      sex: '',
+      dob: '',
       type: this.props.route.params.type || '',
     };
     if (this.props.route.params.type === 'Tutor') {
@@ -244,6 +246,25 @@ export default class RegisterScreen extends React.Component {
             <TextInputComponent
               title='Last Name'
               placeholderText='Last Name'
+              autoCapitalize="words"
+              onChangeText={lastName => this.onChangeLastName(lastName)}
+              value={this.state.lastName}
+              >
+            </TextInputComponent>
+          </View>
+          <View style={styles.textInputContainerInline}>
+            <TextInputComponent
+              title='Sex'
+              placeholderText='Sex'
+              autoCapitalize="words"
+              onChangeText={firstName => this.onChangeFirstName(firstName)}
+              value={this.state.firstName}
+              >
+            </TextInputComponent>
+            <View style={styles.inlineFiller} />
+            <TextInputComponent
+              title='Date of Birth'
+              placeholderText='1/25/1998'
               autoCapitalize="words"
               onChangeText={lastName => this.onChangeLastName(lastName)}
               value={this.state.lastName}
