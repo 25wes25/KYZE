@@ -15,6 +15,7 @@ import {colors} from '../styles';
 import checkmarkImage from '../../res/images/checkmark.png';
 import nextArrow from '../../res/images/nextArrow.png';
 import TextInputComponent from '../components/TextInputComponent';
+import DropdownComponent from '../components/DropdownComponent';
 import TitleComponent from '../components/TitleComponent';
 
 const user = {
@@ -253,14 +254,11 @@ export default class RegisterScreen extends React.Component {
             </TextInputComponent>
           </View>
           <View style={styles.textInputContainerInline}>
-            <TextInputComponent
+            <DropdownComponent
+              choices={["Sex", "Male", "Female", "Other", "Prefer not to say"]}
               title='Sex'
-              placeholderText='Sex'
-              autoCapitalize="words"
-              onChangeText={firstName => this.onChangeFirstName(firstName)}
-              value={this.state.firstName}
-              >
-            </TextInputComponent>
+            >
+            </DropdownComponent>
             <View style={styles.inlineFiller} />
             <TextInputComponent
               title='Date of Birth'
