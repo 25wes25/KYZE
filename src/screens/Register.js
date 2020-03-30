@@ -14,8 +14,8 @@ import {CommonActions} from '@react-navigation/native';
 import {colors} from '../styles';
 import checkmarkImage from '../../res/images/checkmark.png';
 import nextArrow from '../../res/images/nextArrow.png';
-import TitleComponent from '../components/TitleComponent';
 import TextInputComponent from '../components/TextInputComponent';
+import TitleComponent from '../components/TitleComponent';
 
 const user = {
   email: 'test@gmail.com',

@@ -12,8 +12,8 @@ import {
 import {colors} from '../../styles';
 import nextArrow from '../../../res/images/nextArrow.png';
 import plusSign from '../../../res/images/plusSign.png';
-import TitleComponent from '../../components/TitleComponent';
 import TextInputComponent from '../../components/TextInputComponent';
+import TitleComponent from '../../components/TitleComponent';
 
 export default class BasicInfoScreen extends React.Component {
   constructor(props) {
@@ -93,8 +93,25 @@ export default class BasicInfoScreen extends React.Component {
     });
   }
 
+  validateState(state) {
+    const expression = /^(?:(A[KLRZ]|C[AOT]|D[CE]|FL|GA|HI|I[ADLN]|K[SY]|LA|M[ADEINOST]|N[CDEHJMVY]|O[HKR]|P[AR]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY]))$/;
+
+    return expression.test(String(state).toUpperCase());
+  }
+
+  validateZipCode(zipCode) {
+    const expression = /^\d{5}$/;
+
+    return expression.test(String(zipCode).toUpperCase());
+  }
+
   render() {
-    let validInputs = true;
+    let validInputs =
+      this.state.street.length > 0 &&
+      this.state.aptNum.length > 0 &&
+      this.state.city.length > 0 &&
+      this.validateState(this.state.state) &&
+      this.validateZipCode(this.state.zipCode);
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView
@@ -105,7 +122,7 @@ export default class BasicInfoScreen extends React.Component {
           <Text style={styles.sectionTitle}>Your Address</Text>
           <TextInputComponent
             title='Street'
-            placeholderText='Street'
+            placeholderText='110 Wesley Way'
             autoCapitalize='words'
             onChangeText={street =>
               this.onChangeStreet(street)
@@ -115,7 +132,7 @@ export default class BasicInfoScreen extends React.Component {
           </TextInputComponent>
           <TextInputComponent
             title='Apt/Suite'
-            placeholderText='Apt/Suite'
+            placeholderText='2716'
             keyboardType='phone-pad'
             onChangeText={aptNum =>
               this.onChangeAptNum(aptNum)
@@ -125,7 +142,7 @@ export default class BasicInfoScreen extends React.Component {
           </TextInputComponent>
           <TextInputComponent
             title='City'
-            placeholderText='City'
+            placeholderText='Mission Viejo'
             autoCapitalize='words'
             onChangeText={city =>
               this.onChangeCity(city)
@@ -136,7 +153,9 @@ export default class BasicInfoScreen extends React.Component {
           <View style={styles.textInputContainerInline}>
             <TextInputComponent
               title='State'
-              placeholderText='State'
+              placeholderText='ZZ'
+              maxLength={2}
+              autoCapitalize='characters'
               onChangeText={state =>
                 this.onChangeState(state)
               }
@@ -146,8 +165,9 @@ export default class BasicInfoScreen extends React.Component {
             <View style={styles.inlineFiller} />
             <TextInputComponent
               title='Zip Code'
-              placeholderText='Zip Code'
+              placeholderText='55555'
               keyboardType='phone-pad'
+              maxLength={6}
               onChangeText={zipCode =>
                 this.onChangeZipCode(zipCode)
               }
@@ -178,7 +198,7 @@ export default class BasicInfoScreen extends React.Component {
             this.state.degrees.map((element, i) => {
               return (
                 i > 0 ? (
-                  <View>
+                  <View key={i}>
                     <TextInputComponent
                       title={'Graduate College ' + i}
                       placeholderText={'Graduate College ' + i}
