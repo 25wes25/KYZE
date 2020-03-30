@@ -214,16 +214,16 @@ export default class RegisterScreen extends React.Component {
   }
 
   render() {
-    let validInputs =
-      this.state.firstName.length > 0 &&
-      this.state.lastName.length > 0 &&
-      this.validatePhone(this.state.phoneNumber) &&
-      this.validateEmail(this.state.email) &&
-      this.validateState(this.state.state) &&
-      this.validateZipCode(this.state.zipCode) &&
-      this.state.password.length >= 8 &&
-      this.state.confirmPassword.length >= 8 &&
-      this.state.tosAgree;
+    let validInputs = true
+      //this.state.firstName.length > 0 &&
+      //this.state.lastName.length > 0 &&
+      //this.validatePhone(this.state.phoneNumber) &&
+      //this.validateEmail(this.state.email) &&
+      //this.validateState(this.state.state) &&
+      //this.validateZipCode(this.state.zipCode) &&
+      //this.state.password.length >= 8 &&
+      //this.state.confirmPassword.length >= 8 &&
+      //this.state.tosAgree;
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView
