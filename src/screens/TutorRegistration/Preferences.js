@@ -11,6 +11,7 @@ import {
 import {colors} from '../../styles';
 import nextArrow from '../../../res/images/nextArrow.png';
 import TitleComponent from '../../components/TitleComponent';
+import DropdownComponent from '../../components/DropdownComponent';
 
 export default class PreferencesScreen extends React.Component {
   constructor(props) {
@@ -163,21 +164,27 @@ export default class PreferencesScreen extends React.Component {
             </Text>
           </View>
           <View style={styles.dividerLine} />
-
-
           <Text style={styles.sectionTitle}>Travel Radius</Text>
           <Text style={styles.blockText}>
             <Text>How far do you want to travel from your </Text>
             <Text style={{fontWeight: "bold"}}>current location </Text>
             <Text>to tutor a student</Text>
           </Text>
+          <DropdownComponent
+            choices={["5 miles", "10 miles", "15 miles", "20 miles", "25 miles", "30 miles"]}
+            title=''
+          >
+          </DropdownComponent>
           <Text style={styles.blockText}>
             <Text>How far do you want to travel from your </Text>
             <Text style={{fontWeight: "bold"}}>home </Text>
             <Text>to tutor a student</Text>
           </Text>
-
-
+          <DropdownComponent
+            choices={["5 miles", "10 miles", "15 miles", "20 miles", "25 miles", "30 miles"]}
+            title=''
+          >
+          </DropdownComponent>
           <TouchableOpacity
             style={[
               styles.nextButtonContainer,
