@@ -229,7 +229,7 @@ export default class RegisterScreen extends React.Component {
   }
 
   render() {
-    let validInputs = 
+    let validInputs =
       this.state.firstName.length > 0 &&
       this.state.lastName.length > 0 &&
       this.state.sex != -1 &&
@@ -239,7 +239,7 @@ export default class RegisterScreen extends React.Component {
       this.validateZipCode(this.state.zipCode) &&
       this.state.password.length >= 8 &&
       this.state.confirmPassword.length >= 8 &&
-      this.state.tosAgree;*/
+      this.state.tosAgree;
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView
