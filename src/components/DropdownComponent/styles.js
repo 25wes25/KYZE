@@ -13,8 +13,7 @@ export default StyleSheet.create({
     borderRadius: 4,
   },
   listItem: {
-    paddingLeft: 10,
-    paddingVertical: 10,
+    marginHorizontal: 10,
   },
   title: {
     fontFamily: 'Apple SD Gothic Neo',
@@ -23,11 +22,17 @@ export default StyleSheet.create({
     paddingLeft: 10,
     marginBottom: 2,
   },
-  arrow: {
-    marginLeft: 'auto',
-  },
-  arrowRotated: {
+  arrowDown: {
     marginLeft: 'auto',
     transform: [{ rotate: '90deg' }],
+  },
+  arrowUp: {
+    marginLeft: 'auto',
+    transform: [{ rotate: '-90deg' }],
+  },
+  dividerLine: {
+    flex: 1,
+    backgroundColor: colors.black,
+    height: 1,
   },
 });

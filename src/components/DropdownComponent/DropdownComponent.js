@@ -15,8 +15,8 @@ class DropdownComponent extends React.Component {
     super(props);
 
     this.state = {
-      open: false,
-      selected: 0,
+      open: true,
+      selected: this.props.choices.length,
     }
   }
 
@@ -31,13 +31,20 @@ class DropdownComponent extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{this.props.title}</Text>
+        {
+          this.props.title === '' ? (
+            <View/>
+          ) : (
+            <Text style={styles.title}>{this.props.title}</Text>
+          )
+        }
         <View style={styles.listContainer} >
           <TouchableOpacity
-            style={[styles.listItem,
+            style={
               {
-                paddingVertical: 3,
-              }]}
+                marginVertical: 3,
+                marginLeft: 10,
+              }}
             onPress={(selected) => this.openClose(this.state.selected)}>
             <View
               style={{
@@ -45,11 +52,29 @@ class DropdownComponent extends React.Component {
                 flexDirection: 'row',
                 alignItems: 'center',
               }}>
-              <Text>{this.props.choices[this.state.selected]}</Text>
+              {
+                (this.state.selected==this.props.choices.length) ? (
+                  <Text
+                    style={
+                      {
+                        color: colors.lightGray,
+                        paddingRight: 30,
+                      }}>
+                    {this.props.default}
+                  </Text>
+                ) : (
+                  <Text style={
+                    {
+                      paddingRight: 30,
+                    }}>
+                    {this.props.choices[this.state.selected]}
+                  </Text>
+                )
+              }
               <Image style={this.state.open ? (
-                styles.arrowRotated
+                styles.arrowUp
               ) : (
-                styles.arrow
+                styles.arrowDown
               )} source={nextArrow} />
             </View>
           </TouchableOpacity>
@@ -57,14 +82,24 @@ class DropdownComponent extends React.Component {
             this.props.choices.map((element, index) => {
               return (
                 (index!=this.state.selected && this.state.open) ? (
-                  <TouchableOpacity
-                    key={index}
-                    style={styles.listItem}
-                    onPress={(selected) => this.openClose(index)}>
-                    <Text>{element}</Text>
-                  </TouchableOpacity>
+                  <View key={index}>
+                    {
+                      (index==Math.max(1-this.state.selected, 0)) ? (
+                        <View style={[styles.dividerLine,
+                          {marginHorizontal: 0}]} />
+                      ) : (
+                        <View style={[styles.dividerLine,
+                          {marginHorizontal: 10}]} />
+                      )
+                    }
+                    <TouchableOpacity
+                      style={styles.listItem}
+                      onPress={(selected) => this.openClose(index)}>
+                      <Text style={{marginVertical:10}}>{element}</Text>
+                    </TouchableOpacity>
+                  </View>
                 ) : (
-                  <View/>
+                  <View key={index}/>
                 )
               );
             })
@@ -78,12 +113,14 @@ class DropdownComponent extends React.Component {
 DropdownComponent.propTypes = {
   title: PropTypes.string,
   choices: PropTypes.array,
+  default: PropTypes.string,
   onSelect: PropTypes.func,
 };
 
 DropdownComponent.defaultProps = {
   title: 'Title',
-  choices: ["Select an option", "a", "b", "c"],
+  choices: ["a", "b", "c"],
+  default: "Select an option",
   onSelect: (selected) => console.log(selected),
 };
 
