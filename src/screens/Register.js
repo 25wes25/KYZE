@@ -15,6 +15,7 @@ import {colors} from '../styles';
 import checkmarkImage from '../../res/images/checkmark.png';
 import nextArrow from '../../res/images/nextArrow.png';
 import TextInputComponent from '../components/TextInputComponent';
+import DropdownComponent from '../components/DropdownComponent';
 import TitleComponent from '../components/TitleComponent';
 
 const user = {
@@ -42,6 +43,8 @@ export default class RegisterScreen extends React.Component {
       state: '',
       tosAgree: false,
       zipCode: '',
+      sex: -1,
+      dob: '',
       type: this.props.route.params.type || '',
     };
     if (this.props.route.params.type === 'Tutor') {
@@ -214,16 +217,17 @@ export default class RegisterScreen extends React.Component {
   }
 
   render() {
-    let validInputs = true
-      //this.state.firstName.length > 0 &&
-      //this.state.lastName.length > 0 &&
-      //this.validatePhone(this.state.phoneNumber) &&
-      //this.validateEmail(this.state.email) &&
-      //this.validateState(this.state.state) &&
-      //this.validateZipCode(this.state.zipCode) &&
-      //this.state.password.length >= 8 &&
-      //this.state.confirmPassword.length >= 8 &&
-      //this.state.tosAgree;
+    let validInputs =
+      this.state.firstName.length > 0 &&
+      this.state.lastName.length > 0 &&
+      this.state.sex != -1 &&
+      this.validatePhone(this.state.phoneNumber) &&
+      this.validateEmail(this.state.email) &&
+      this.validateState(this.state.state) &&
+      this.validateZipCode(this.state.zipCode) &&
+      this.state.password.length >= 8 &&
+      this.state.confirmPassword.length >= 8 &&
+      this.state.tosAgree;
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView
@@ -244,6 +248,23 @@ export default class RegisterScreen extends React.Component {
             <TextInputComponent
               title='Last Name'
               placeholderText='Last Name'
+              autoCapitalize="words"
+              onChangeText={lastName => this.onChangeLastName(lastName)}
+              value={this.state.lastName}
+              >
+            </TextInputComponent>
+          </View>
+          <View style={styles.textInputContainerInline}>
+            <DropdownComponent
+              choices={["Male", "Female", "Other", "Prefer not to say"]}
+              default="Sex"
+              title='Sex'
+            >
+            </DropdownComponent>
+            <View style={styles.inlineFiller} />
+            <TextInputComponent
+              title='Date of Birth'
+              placeholderText='1/25/1998'
               autoCapitalize="words"
               onChangeText={lastName => this.onChangeLastName(lastName)}
               value={this.state.lastName}
