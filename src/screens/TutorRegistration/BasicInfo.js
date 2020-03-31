@@ -108,7 +108,6 @@ export default class BasicInfoScreen extends React.Component {
   render() {
     let validInputs =
       this.state.street.length > 0 &&
-      this.state.aptNum.length > 0 &&
       this.state.city.length > 0 &&
       this.validateState(this.state.state) &&
       this.validateZipCode(this.state.zipCode);
