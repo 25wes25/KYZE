@@ -18,6 +18,8 @@ export default class PreferencesScreen extends React.Component {
     super(props);
     this.state = {
       cancellationPolicy: -1,
+      currentRadius: -1,
+      homeRadius: -1,
     };
   }
 
@@ -31,8 +33,23 @@ export default class PreferencesScreen extends React.Component {
     });
   }
 
+  onChangeCurrentRadius(currentRadius) {
+    this.setState({
+      currentRadius: currentRadius,
+    });
+  }
+
+  onChangeHomeRadius(homeRadius) {
+    this.setState({
+      homeRadius: homeRadius,
+    });
+  }
+
   render() {
-    let validInputs = true;
+    let validInputs =
+      this.state.cancellationPolicy != -1 &&
+      this.state.currentRadius != -1 &&
+      this.state.homeRadius != -1;
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView
@@ -172,7 +189,9 @@ export default class PreferencesScreen extends React.Component {
           </Text>
           <DropdownComponent
             choices={["5 miles", "10 miles", "15 miles", "20 miles", "25 miles", "30 miles"]}
+            default="10 miles"
             title=''
+            onSelect={(selected) => this.onChangeCurrentRadius(selected)}
           >
           </DropdownComponent>
           <Text style={styles.blockText}>
@@ -182,7 +201,9 @@ export default class PreferencesScreen extends React.Component {
           </Text>
           <DropdownComponent
             choices={["5 miles", "10 miles", "15 miles", "20 miles", "25 miles", "30 miles"]}
+            default="10 miles"
             title=''
+            onSelect={(selected) => this.onChangeHomeRadius(selected)}
           >
           </DropdownComponent>
           <TouchableOpacity
