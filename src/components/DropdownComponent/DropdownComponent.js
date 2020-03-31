@@ -25,7 +25,7 @@ class DropdownComponent extends React.Component {
       open: !this.state.open,
       selected: selected,
     });
-    this.props.onSelect(this.props.choices[selected]);
+    this.props.onSelect(selected);
   }
 
   render() {
