@@ -255,7 +255,8 @@ export default class RegisterScreen extends React.Component {
           </View>
           <View style={styles.textInputContainerInline}>
             <DropdownComponent
-              choices={["Sex", "Male", "Female", "Other", "Prefer not to say"]}
+              choices={["Male", "Female", "Other", "Prefer not to say"]}
+              default="Sex"
               title='Sex'
             >
             </DropdownComponent>
