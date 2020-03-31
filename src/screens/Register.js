@@ -43,7 +43,7 @@ export default class RegisterScreen extends React.Component {
       state: '',
       tosAgree: false,
       zipCode: '',
-      sex: '',
+      sex: -1,
       dob: '',
       type: this.props.route.params.type || '',
     };
@@ -220,6 +220,7 @@ export default class RegisterScreen extends React.Component {
     let validInputs =
       this.state.firstName.length > 0 &&
       this.state.lastName.length > 0 &&
+      this.state.sex != -1 &&
       this.validatePhone(this.state.phoneNumber) &&
       this.validateEmail(this.state.email) &&
       this.validateState(this.state.state) &&
