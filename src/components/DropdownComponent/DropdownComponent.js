@@ -15,7 +15,7 @@ class DropdownComponent extends React.Component {
     super(props);
 
     this.state = {
-      open: true,
+      open: false,
       selected: this.props.choices.length,
     }
   }
