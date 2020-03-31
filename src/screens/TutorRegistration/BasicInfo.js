@@ -219,7 +219,7 @@ export default class BasicInfoScreen extends React.Component {
                     </TextInputComponent>
                   </View>
                 ) : (
-                  <View></View>
+                  <View key={i}></View>
                 )
             );})
           }
