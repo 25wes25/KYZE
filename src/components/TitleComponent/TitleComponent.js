@@ -16,7 +16,7 @@ class TitleComponent extends React.Component {
   render() {
     return (
       <View>
-        <Text style={styles.appTitle}>KODA</Text>
+        <Text style={styles.appTitle}>KYZE</Text>
         <View style={styles.dividerContainer}>
           <View style={styles.dividerLine} />
           <Text style={styles.dividerText}>{this.props.title}</Text>

@@ -19,6 +19,7 @@ export default class PersonalizeProfileScreen extends React.Component {
     super(props);
     this.state = {
       headline: '',
+      bio: '',
     };
   }
 
@@ -26,8 +27,22 @@ export default class PersonalizeProfileScreen extends React.Component {
     this.props.navigation.navigate('Terms and Agreement');
   };
 
+  onChangeHeadline(headline) {
+    this.setState({
+      headline: headline,
+    });
+  }
+
+  onChangeBio(bio) {
+    this.setState({
+      bio: bio,
+    });
+  }
+
   render() {
-    let validInputs = true;
+    let validInputs =
+      this.state.headline.length > 0 &&
+      this.state.bio.length > 0;
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView
@@ -60,6 +75,7 @@ export default class PersonalizeProfileScreen extends React.Component {
             placeholder='Short headline about yourself'
             multiline={true}
             maxLength={40}
+            onChangeText={(headline) => this.onChangeHeadline(headline)}
           />
 
           <Text style={styles.sectionTitle}>Bio</Text>
@@ -80,6 +96,7 @@ export default class PersonalizeProfileScreen extends React.Component {
               you love about tutoring? What makes you a qualified tutor?'
             multiline={true}
             maxLength={1000}
+            onChangeText={(bio) => this.onChangeBio(bio)}
           />
 
           <TouchableOpacity
