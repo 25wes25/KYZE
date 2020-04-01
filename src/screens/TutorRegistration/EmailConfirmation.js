@@ -11,6 +11,7 @@ import {
 import {colors} from '../../styles';
 import nextArrow from '../../../res/images/nextArrow.png';
 import {CommonActions} from '@react-navigation/routers';
+import TitleComponent from '../../components/TitleComponent';
 
 export default class EmailConfirmationScreen extends React.Component {
   constructor(props) {
@@ -34,12 +35,26 @@ export default class EmailConfirmationScreen extends React.Component {
         <ScrollView
           contentContainerStyle={styles.contentContainer}
           keyboardShouldPersistTaps="handled">
-          <Text style={styles.appTitle}>KODA</Text>
-          <View style={styles.dividerContainer}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>{'Tutor Registration'}</Text>
-            <View style={styles.dividerLine} />
-          </View>
+          <TitleComponent title={'Tutor Registration'}>
+          </TitleComponent>
+          <Text style={styles.header}>
+            Email Confirmation Sent
+          </Text>
+          <Text style={styles.blockText}>
+            An email confirmation has been sent to the provided address. If
+            you don't recieve an email in a few minutes, please double check
+            your email address below and click resend
+          </Text>
+          <Text style={styles.blockText}>
+            example@gmail.com
+          </Text>
+          <TouchableOpacity>
+            <Text style={{
+              color: colors.mintGreen,
+            }}>
+              change email
+            </Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={[
               styles.resendEmailButtonContainer,
@@ -65,17 +80,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginHorizontal: 40,
   },
-  appTitle: {
-    fontFamily: 'Apple SD Gothic Neo',
-    textAlign: 'left',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    padding: 20,
-    fontSize: 50,
-    color: colors.black,
-    marginTop: 40,
-    marginBottom: 14,
-  },
   resendEmailButtonContainer: {
     borderWidth: 1,
     borderRadius: 4,
@@ -92,21 +96,16 @@ const styles = StyleSheet.create({
     color: colors.black,
     overflow: 'hidden',
   },
-  dividerContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  dividerLine: {
-    flex: 1,
-    backgroundColor: colors.black,
-    height: 1,
-  },
-  dividerText: {
+  header: {
     fontFamily: 'Apple SD Gothic Neo',
-    textAlign: 'center',
-    paddingHorizontal: 12,
-    fontSize: 18,
+    fontSize: 20,
     color: colors.black,
+    marginVertical: 10,
+  },
+  blockText: {
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 14,
+    color: colors.black,
+    marginTop: 9,
   },
 });
