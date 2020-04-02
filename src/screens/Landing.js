@@ -40,7 +40,7 @@ export default class LandingScreen extends React.Component {
         source={backgroundImage}
         style={styles.backgroundContainer}>
         <SafeAreaView style={styles.container}>
-          <Text style={styles.appTitle}>KODA</Text>
+          <Text style={styles.appTitle}>KYZE</Text>
           <View style={styles.buttonsContainer}>
             <TouchableOpacity
               style={styles.buttonContainer}

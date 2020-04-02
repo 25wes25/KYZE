@@ -7,3 +7,7 @@ export const colors = {
   mintGreen: '#3D9690',
   red: '#FF0000',
 };
+
+export const fonts = {
+  gothic: 'Apple SD Gothic Neo',
+};

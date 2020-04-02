@@ -14,6 +14,9 @@ import {CommonActions} from '@react-navigation/native';
 import {colors} from '../styles';
 import checkmarkImage from '../../res/images/checkmark.png';
 import nextArrow from '../../res/images/nextArrow.png';
+import TextInputComponent from '../components/TextInputComponent';
+import DropdownComponent from '../components/DropdownComponent';
+import TitleComponent from '../components/TitleComponent';
 
 const user = {
   email: 'test@gmail.com',
@@ -40,6 +43,8 @@ export default class RegisterScreen extends React.Component {
       state: '',
       tosAgree: false,
       zipCode: '',
+      sex: -1,
+      dob: '',
       type: this.props.route.params.type || '',
     };
     if (this.props.route.params.type === 'Tutor') {
@@ -76,7 +81,9 @@ export default class RegisterScreen extends React.Component {
         this.props.navigation.dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [{name: 'DrawerNavigator'}],
+            routes: [
+              {name: this.props.route.params.type + 'BottomTabNavigator'},
+            ],
           }),
         );
       } else if (this.state.type === 'Tutor') {
@@ -183,6 +190,18 @@ export default class RegisterScreen extends React.Component {
     });
   }
 
+  onChangeSex(sex) {
+    this.setState({
+      sex: sex,
+    });
+  }
+
+  onChangeDob(dob) {
+    this.setState({
+      dob: dob,
+    });
+  }
+
   validateEmail(email) {
     const expression = /(?!.*\.{2})^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([\t]*\r\n)?[\t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([\t]*\r\n)?[\t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
 
@@ -215,6 +234,7 @@ export default class RegisterScreen extends React.Component {
     let validInputs =
       this.state.firstName.length > 0 &&
       this.state.lastName.length > 0 &&
+      this.state.sex != -1 &&
       this.validatePhone(this.state.phoneNumber) &&
       this.validateEmail(this.state.email) &&
       this.validateState(this.state.state) &&
@@ -227,123 +247,98 @@ export default class RegisterScreen extends React.Component {
         <ScrollView
           contentContainerStyle={styles.contentContainer}
           keyboardShouldPersistTaps="handled">
-          <Text style={styles.appTitle}>KODA</Text>
-          <View style={styles.dividerContainer}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>
-              {this.state.type + ' Registration'}
-            </Text>
-            <View style={styles.dividerLine} />
-          </View>
+          <TitleComponent title={this.state.type + ' Registration'} />
           <View style={styles.textInputContainerInline}>
-            <View style={styles.textInputContainer}>
-              <Text style={styles.textInputTitle}>First Name</Text>
-              <TextInput
-                style={styles.textInput}
-                autoCapitalize="words"
-                onChangeText={firstName => this.onChangeFirstName(firstName)}
-                value={this.state.firstName}
-              />
-            </View>
-            <View style={styles.inlineFiller} />
-            <View style={styles.textInputContainer}>
-              <Text style={styles.textInputTitle}>Last Name</Text>
-              <TextInput
-                style={styles.textInput}
-                autoCapitalize="words"
-                onChangeText={lastName => this.onChangeLastName(lastName)}
-                value={this.state.lastName}
-              />
-            </View>
-          </View>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Phone Number</Text>
-            <TextInput
-              style={styles.textInput}
-              autoCapitalize="none"
-              keyboardType="phone-pad"
-              onChangeText={phoneNumber =>
-                this.onChangePhoneNumber(phoneNumber)
-              }
-              value={this.state.phoneNumber}
+            <TextInputComponent
+              title="First Name"
+              placeholderText="First Name"
+              autoCapitalize="words"
+              onChangeText={firstName => this.onChangeFirstName(firstName)}
+              value={this.state.firstName}
             />
-          </View>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Email Address</Text>
-            <TextInput
-              style={[
-                styles.textInput,
-                this.state.invalidEmail && {borderColor: colors.red},
-              ]}
-              autoCapitalize="none"
-              onChangeText={email => this.onChangeEmail(email)}
-              value={this.state.email}
+            <View style={styles.inlineFiller} />
+            <TextInputComponent
+              title="Last Name"
+              placeholderText="Last Name"
+              autoCapitalize="words"
+              onChangeText={lastName => this.onChangeLastName(lastName)}
+              value={this.state.lastName}
             />
           </View>
           <View style={styles.textInputContainerInline}>
-            <View style={styles.textInputContainer}>
-              <Text style={styles.textInputTitle}>State</Text>
-              <TextInput
-                style={styles.textInput}
-                autoCapitalize="characters"
-                maxLength={2}
-                onChangeText={state => this.onChangeState(state)}
-                value={this.state.state}
-              />
-            </View>
+            <DropdownComponent
+              choices={['Male', 'Female', 'Other', 'Prefer not to say']}
+              default="Sex"
+              title="Sex"
+              onSelect={selected => this.onChangeSex(selected)}
+            />
             <View style={styles.inlineFiller} />
-            <View style={styles.textInputContainer}>
-              <Text style={styles.textInputTitle}>Zip Code</Text>
-              <TextInput
-                style={styles.textInput}
-                autoCapitalize="none"
-                onChangeText={zipCode => this.onChangeZipCode(zipCode)}
-                value={this.state.zipCode}
-              />
-            </View>
-          </View>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Password</Text>
-            <TextInput
-              style={[
-                styles.textInput,
-                this.state.invalidPassword && {borderColor: colors.red},
-              ]}
-              secureTextEntry={true}
-              placeholderTextColor={colors.opaqueBlack}
-              onChangeText={password => this.onChangePassword(password)}
-              value={this.state.password}
+            <TextInputComponent
+              title="Date of Birth"
+              placeholderText="1/25/1998"
+              autoCapitalize="words"
+              onChangeText={dob => this.onChangeDob(dob)}
+              value={this.state.dob}
             />
           </View>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Confirm Password</Text>
-            <TextInput
-              style={[
-                styles.textInput,
-                this.state.invalidPassword && {borderColor: colors.red},
-              ]}
-              secureTextEntry={true}
-              placeholderTextColor={colors.opaqueBlack}
-              onChangeText={confirmPassword =>
-                this.onChangeConfirmPassword(confirmPassword)
-              }
-              value={this.state.confirmPassword}
-            />
-          </View>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>
-              Promotional Code (optional)
-            </Text>
-            <TextInput
-              style={[
-                styles.textInput,
-                this.state.invalidPromo && {borderColor: colors.red},
-              ]}
+          <TextInputComponent
+            title="Phone Number"
+            placeholderText="Phone Number"
+            keyboardType="phone-pad"
+            onChangeText={phoneNumber => this.onChangePhoneNumber(phoneNumber)}
+            value={this.state.phoneNumber}
+          />
+          <TextInputComponent
+            title="Email Address"
+            placeholderText="Email Address"
+            onChangeText={email => this.onChangeEmail(email)}
+            value={this.state.email}
+            invalid={this.state.invalidEmail}
+          />
+          <View style={styles.textInputContainerInline}>
+            <TextInputComponent
+              title="State"
+              placeholderText="State"
               autoCapitalize="characters"
-              onChangeText={promoCode => this.onChangePromoCode(promoCode)}
-              value={this.state.promoCode}
+              maxLength={2}
+              onChangeText={state => this.onChangeState(state)}
+              value={this.state.state}
+            />
+            <View style={styles.inlineFiller} />
+            <TextInputComponent
+              title="Zip Code"
+              placeholderText="Zip Code"
+              maxLength={6}
+              onChangeText={zipCode => this.onChangeZipCode(zipCode)}
+              value={this.state.zipCode}
             />
           </View>
+          <TextInputComponent
+            title="Password"
+            placeholderText="Password"
+            secureTextEntry={true}
+            onChangeText={password => this.onChangePassword(password)}
+            value={this.state.password}
+            invalid={this.state.invalidPassword}
+          />
+          <TextInputComponent
+            title="Confirm Password"
+            placeholderText="Confirm Password"
+            secureTextEntry={true}
+            onChangeText={confirmPassword =>
+              this.onChangeConfirmPassword(confirmPassword)
+            }
+            value={this.state.confirmPassword}
+            invalid={this.state.invalidPassword}
+          />
+          <TextInputComponent
+            title="Promotional Code (optional)"
+            placeholderText="Promotional Code"
+            autoCapitalize="characters"
+            onChangeText={promoCode => this.onChangePromoCode(promoCode)}
+            value={this.state.promoCode}
+            invalid={this.state.invalidPromo}
+          />
           <View style={styles.tosContainer}>
             <TouchableOpacity
               style={[
@@ -357,7 +352,7 @@ export default class RegisterScreen extends React.Component {
                 <View />
               )}
             </TouchableOpacity>
-            <Text style={styles.tosText}>I agree to Koda's </Text>
+            <Text style={styles.tosText}>I agree to KYZE's </Text>
             <TouchableOpacity
               style={styles.tosButton}
               onPress={this.onPressTOS}>
@@ -450,29 +445,8 @@ const styles = StyleSheet.create({
     color: colors.black,
     overflow: 'hidden',
   },
-  textInputContainer: {
-    flex: 3,
-    marginVertical: 10,
-  },
   textInputContainerInline: {
     flexDirection: 'row',
-  },
-  textInputTitle: {
-    fontFamily: 'Apple SD Gothic Neo',
-    fontSize: 14,
-    color: colors.black,
-    paddingLeft: 10,
-    marginBottom: 2,
-  },
-  textInput: {
-    fontFamily: 'Apple SD Gothic Neo',
-    fontSize: 18,
-    lineHeight: 22,
-    color: colors.black,
-    borderWidth: 1,
-    borderRadius: 4,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
   },
   dividerContainer: {
     display: 'flex',

@@ -1,6 +1,7 @@
 import React from 'react';
+import {Image} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import LandingScreen from './screens/Landing';
 import LoginScreen from './screens/Login';
 import ForgotPasswordScreen from './screens/ForgotPassword';
@@ -11,21 +12,29 @@ import TermsAndAgreementScreen from './screens/TutorRegistration/TermsAndAgreeme
 import EmailConfirmationScreen from './screens/TutorRegistration/EmailConfirmation';
 import PreferencesScreen from './screens/TutorRegistration/Preferences';
 import BasicInfoScreen from './screens/TutorRegistration/BasicInfo';
-import DashboardScreen from './screens/Dashboard';
-import ProfileScreen from './screens/Profile';
-import SettingsScreen from './screens/Settings';
+import StudentDashboardScreen from './screens/Student/StudentDashboard';
+import TutorDashboardScreen from './screens/Tutor/TutorDashboard';
+import SearchScreen from './screens/Student/Search';
+import EarningsScreen from './screens/Tutor/Earnings';
+import ScheduleScreen from './screens/Shared/Schedule';
+import MessagesScreen from './screens/Shared/Messages';
+import StudentProfileScreen from './screens/Student/StudentProfile';
+import TutorProfileScreen from './screens/Tutor/TutorProfile';
+import StudentSettingsScreen from './screens/Student/StudentSettings';
+import TutorSettingsScreen from './screens/Tutor/TutorSettings';
 import TermsOfServiceScreen from './screens/TermsOfService';
 import PrivacyPolicyScreen from './screens/PrivacyPolicy';
 
 import {colors} from './styles';
 
 const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
+const StudentBottomTab = createBottomTabNavigator();
+const TutorBottomTab = createBottomTabNavigator();
 
-function DashboardStack() {
+function StudentDashboardStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Dashboard"
+      initialRouteName="StudentDashboard"
       screenOptions={{
         gestureEnabled: false,
         title: '',
@@ -34,18 +43,18 @@ function DashboardStack() {
         headerBackTitleVisible: false,
       }}>
       <Stack.Screen
-        name="Dashboard"
-        component={DashboardScreen}
-        options={{title: ''}}
+        name="StudentDashboard"
+        component={StudentDashboardScreen}
+        options={{title: 'Dashboard'}}
       />
     </Stack.Navigator>
   );
 }
 
-function ProfileStack() {
+function TutorDashboardStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Profile"
+      initialRouteName="TutorDashboard"
       screenOptions={{
         gestureEnabled: false,
         title: '',
@@ -53,16 +62,149 @@ function ProfileStack() {
         headerTintColor: colors.white,
         headerBackTitleVisible: false,
       }}>
-      <Stack.Screen name="Profile" component={ProfileScreen} />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen
+        name="TutorDashboard"
+        component={TutorDashboardScreen}
+        options={{title: 'Dashboard'}}
+      />
     </Stack.Navigator>
   );
 }
 
-function DrawerNavigator() {
+function SearchStack() {
   return (
-    <Drawer.Navigator
-      initialRouteName="Dashboard"
+    <Stack.Navigator
+      initialRouteName="Search"
+      screenOptions={{
+        gestureEnabled: false,
+        title: '',
+        headerStyle: {backgroundColor: colors.darkGray},
+        headerTintColor: colors.white,
+        headerBackTitleVisible: false,
+      }}>
+      <Stack.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{title: 'Search'}}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function EarningsStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Earnings"
+      screenOptions={{
+        gestureEnabled: false,
+        title: '',
+        headerStyle: {backgroundColor: colors.darkGray},
+        headerTintColor: colors.white,
+        headerBackTitleVisible: false,
+      }}>
+      <Stack.Screen
+        name="Earnings"
+        component={EarningsScreen}
+        options={{title: 'Earnings'}}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function ScheduleStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="ScheduleDashboard"
+      screenOptions={{
+        gestureEnabled: false,
+        title: '',
+        headerStyle: {backgroundColor: colors.darkGray},
+        headerTintColor: colors.white,
+        headerBackTitleVisible: false,
+      }}>
+      <Stack.Screen
+        name="Schedule"
+        component={ScheduleScreen}
+        options={{title: 'Schedule'}}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function MessagesStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="Messages"
+      screenOptions={{
+        gestureEnabled: false,
+        title: '',
+        headerStyle: {backgroundColor: colors.darkGray},
+        headerTintColor: colors.white,
+        headerBackTitleVisible: false,
+      }}>
+      <Stack.Screen
+        name="Messages"
+        component={MessagesScreen}
+        options={{title: 'Messages'}}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function StudentProfileStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="StudentProfile"
+      screenOptions={{
+        gestureEnabled: false,
+        title: '',
+        headerStyle: {backgroundColor: colors.darkGray},
+        headerTintColor: colors.white,
+        headerBackTitleVisible: false,
+      }}>
+      <Stack.Screen
+        name="StudentProfile"
+        component={StudentProfileScreen}
+        options={{title: 'Profile'}}
+      />
+      <Stack.Screen
+        name="StudentSettings"
+        component={StudentSettingsScreen}
+        options={{title: 'Settings'}}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function TutorProfileStack() {
+  return (
+    <Stack.Navigator
+      initialRouteName="TutorProfile"
+      screenOptions={{
+        gestureEnabled: false,
+        title: '',
+        headerStyle: {backgroundColor: colors.darkGray},
+        headerTintColor: colors.white,
+        headerBackTitleVisible: false,
+      }}>
+      <Stack.Screen
+        name="TutorProfile"
+        component={TutorProfileScreen}
+        options={{title: 'Profile'}}
+      />
+      <Stack.Screen
+        name="TutorSettings"
+        component={TutorSettingsScreen}
+        options={{title: 'Settings'}}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function StudentBottomTabNavigator() {
+  return (
+    <StudentBottomTab.Navigator
+      initialRouteName="StudentDashboard"
       screenOptions={{
         gestureEnabled: false,
         headerShown: false,
@@ -70,10 +212,121 @@ function DrawerNavigator() {
         headerStyle: {backgroundColor: colors.darkGray},
         headerTintColor: colors.white,
         headerBackTitleVisible: false,
+      }}
+      tabBarOptions={{
+        activeTintColor: colors.black,
+        inactiveTintColor: colors.lightGray,
+        labelStyle: {
+          fontFamily: 'Apple SD Gothic Neo',
+          fontSize: 12,
+        },
+        style: {
+          height: 60,
+          borderTopColor: colors.black,
+        },
       }}>
-      <Drawer.Screen name="Dashboard" component={DashboardStack} />
-      <Drawer.Screen name="Profile" component={ProfileStack} />
-    </Drawer.Navigator>
+      <StudentBottomTab.Screen
+        name="StudentDashboard"
+        component={StudentDashboardStack}
+        options={{
+          tabBarLabel: 'Dashboard',
+          tabBarIcon: ({focused}) => {
+            if (focused) {
+              return (
+                <Image
+                  style={{height: 42, width: 42}}
+                  source={require('../res/images/dashboardIconSelected.png')}
+                />
+              );
+            } else {
+              return (
+                <Image
+                  style={{height: 42, width: 42}}
+                  source={require('../res/images/dashboardIconUnselected.png')}
+                />
+              );
+            }
+          },
+        }}
+      />
+      <StudentBottomTab.Screen
+        name="Search"
+        component={SearchStack}
+        options={{tabBarLabel: 'Search'}}
+      />
+      <StudentBottomTab.Screen
+        name="Schedule"
+        component={ScheduleStack}
+        options={{tabBarLabel: 'Schedule'}}
+      />
+      <StudentBottomTab.Screen
+        name="Messages"
+        component={MessagesStack}
+        options={{tabBarLabel: 'Messages'}}
+      />
+      <StudentBottomTab.Screen
+        name="StudentProfile"
+        component={StudentProfileStack}
+        options={{tabBarLabel: 'Profile'}}
+      />
+    </StudentBottomTab.Navigator>
+  );
+}
+
+function TutorBottomTabNavigator() {
+  return (
+    <TutorBottomTab.Navigator
+      initialRouteName="TutorDashboard"
+      screenOptions={{
+        gestureEnabled: false,
+        headerShown: false,
+        title: '',
+        headerStyle: {backgroundColor: colors.darkGray},
+        headerTintColor: colors.white,
+        headerBackTitleVisible: false,
+        borderTopColor: colors.black,
+      }}
+      tabBarOptions={{
+        activeTintColor: colors.black,
+        inactiveTintColor: colors.lightGray,
+        labelStyle: {
+          fontFamily: 'Apple SD Gothic Neo',
+          fontSize: 12,
+          marginBottom: 5,
+        },
+        style: {
+          height: 60,
+        },
+        iconStyle: {
+          marginTop: 12,
+        },
+      }}>
+      <TutorBottomTab.Screen
+        name="TutorDashboard"
+        component={TutorDashboardStack}
+        options={{tabBarLabel: 'Dashboard'}}
+      />
+      <TutorBottomTab.Screen
+        name="Search"
+        component={SearchStack}
+        options={{tabBarLabel: 'Search'}}
+      />
+      <TutorBottomTab.Screen
+        name="Schedule"
+        component={ScheduleStack}
+        options={{tabBarLabel: 'Schedule'}}
+      />
+      <TutorBottomTab.Screen
+        name="Messages"
+        component={MessagesStack}
+        options={{tabBarLabel: 'Messages'}}
+      />
+      <TutorBottomTab.Screen
+        name="TutorProfile"
+        component={TutorProfileStack}
+        options={{tabBarLabel: 'Profile'}}
+      />
+    </TutorBottomTab.Navigator>
   );
 }
 
@@ -133,8 +386,13 @@ export default function AppStack() {
       <Stack.Screen name="Terms of Service" component={TermsOfServiceScreen} />
       <Stack.Screen name="Privacy Policy" component={PrivacyPolicyScreen} />
       <Stack.Screen
-        name="DrawerNavigator"
-        component={DrawerNavigator}
+        name="StudentBottomTabNavigator"
+        component={StudentBottomTabNavigator}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="TutorBottomTabNavigator"
+        component={TutorBottomTabNavigator}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

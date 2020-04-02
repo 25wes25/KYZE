@@ -4,12 +4,13 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 import {CommonActions} from '@react-navigation/native';
 import {colors} from '../styles';
+import TextInputComponent from '../components/TextInputComponent';
+import TitleComponent from '../components/TitleComponent';
 
 const user = {
   email: 'test@gmail.com',
@@ -33,8 +34,8 @@ export default class LoginScreen extends React.Component {
     ) {
       this.props.navigation.dispatch(
         CommonActions.reset({
-          index: 1,
-          routes: [{name: 'DrawerNavigator'}],
+          index: 0,
+          routes: [{name: this.props.route.params.type + 'BottomTabNavigator'}],
         }),
       );
     } else {
@@ -85,45 +86,27 @@ export default class LoginScreen extends React.Component {
         <ScrollView
           contentContainerStyle={styles.contentContainer}
           keyboardShouldPersistTaps="handled">
-          <Text style={styles.appTitle}>KODA</Text>
-          <View style={styles.dividerContainer}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>Log in</Text>
-            <View style={styles.dividerLine} />
-          </View>
+          <TitleComponent title="Log in" />
           {this.state.invalidLogin ? (
             <Text style={styles.errorText}>Invalid email or password</Text>
           ) : (
             <View style={{height: 20}} />
           )}
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Email Address</Text>
-            <TextInput
-              style={[
-                styles.textInput,
-                this.state.invalidLogin && {borderColor: colors.red},
-              ]}
-              placeholder={'Email'}
-              placeholderTextColor={colors.opaqueBlack}
-              autoCapitalize="none"
-              onChangeText={email => this.onChangeEmail(email)}
-              value={this.state.email}
-            />
-          </View>
-          <View style={styles.textInputContainer}>
-            <Text style={styles.textInputTitle}>Password</Text>
-            <TextInput
-              style={[
-                styles.textInput,
-                this.state.invalidLogin && {borderColor: colors.red},
-              ]}
-              secureTextEntry={true}
-              placeholder={'Password'}
-              placeholderTextColor={colors.opaqueBlack}
-              onChangeText={password => this.onChangePassword(password)}
-              value={this.state.password}
-            />
-          </View>
+          <TextInputComponent
+            title="Email Address"
+            placeholderText="Email"
+            onChangeText={email => this.onChangeEmail(email)}
+            value={this.state.email}
+            invalid={this.state.invalidLogin}
+          />
+          <TextInputComponent
+            title="Password"
+            placeholderText="Password"
+            secureTextEntry={true}
+            onChangeText={password => this.onChangePassword(password)}
+            value={this.state.password}
+            invalid={this.state.invalidLogin}
+          />
           <TouchableOpacity
             style={[
               styles.loginButtonContainer,
@@ -183,26 +166,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 20,
     color: colors.red,
-  },
-  textInputContainer: {
-    marginVertical: 10,
-  },
-  textInputTitle: {
-    fontFamily: 'Apple SD Gothic Neo',
-    fontSize: 14,
-    color: colors.black,
-    paddingLeft: 10,
-    marginBottom: 2,
-  },
-  textInput: {
-    fontFamily: 'Apple SD Gothic Neo',
-    fontSize: 18,
-    lineHeight: 22,
-    color: colors.black,
-    borderWidth: 1,
-    borderRadius: 4,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
   },
   loginButtonContainer: {
     borderWidth: 1,
