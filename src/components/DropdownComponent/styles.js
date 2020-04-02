@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import {colors} from '../../styles';
 
 export default StyleSheet.create({
@@ -24,11 +24,11 @@ export default StyleSheet.create({
   },
   arrowDown: {
     marginLeft: 'auto',
-    transform: [{ rotate: '90deg' }],
+    transform: [{rotate: '90deg'}],
   },
   arrowUp: {
     marginLeft: 'auto',
-    transform: [{ rotate: '-90deg' }],
+    transform: [{rotate: '-90deg'}],
   },
   dividerLine: {
     flex: 1,

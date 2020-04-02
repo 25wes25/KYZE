@@ -19,16 +19,16 @@ export default class BasicInfoScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      street: "",
-      aptNum: "",
-      city: "",
-      state: "",
-      zipCode: "",
+      street: '',
+      aptNum: '',
+      city: '',
+      state: '',
+      zipCode: '',
       degrees: [
         {
-          college: "",
-          degree: "",
-        }
+          college: '',
+          degree: '',
+        },
       ],
     };
   }
@@ -38,13 +38,11 @@ export default class BasicInfoScreen extends React.Component {
   };
 
   onPressAddDegree = () => {
-    this.state.degrees.push(
-      {
-        key: this.state.degrees.length + 1,
-        college: "",
-        degree: "",
-      }
-    );
+    this.state.degrees.push({
+      key: this.state.degrees.length + 1,
+      college: '',
+      degree: '',
+    });
     this.forceUpdate();
   };
 
@@ -79,7 +77,7 @@ export default class BasicInfoScreen extends React.Component {
   }
 
   onChangeDegrees(value, index, key) {
-    newDegrees = this.state.degrees;
+    let newDegrees = this.state.degrees;
     newDegrees[index][key] = value;
     this.setState({
       degrees: newDegrees,
@@ -116,112 +114,89 @@ export default class BasicInfoScreen extends React.Component {
         <ScrollView
           contentContainerStyle={styles.contentContainer}
           keyboardShouldPersistTaps="handled">
-          <TitleComponent title="Tutor Registration">
-          </TitleComponent>
+          <TitleComponent title="Tutor Registration" />
           <Text style={styles.sectionTitle}>Your Address</Text>
           <TextInputComponent
-            title='Street'
-            placeholderText='110 Wesley Way'
-            autoCapitalize='words'
-            onChangeText={street =>
-              this.onChangeStreet(street)
-            }
+            title="Street"
+            placeholderText="110 Wesley Way"
+            autoCapitalize="words"
+            onChangeText={street => this.onChangeStreet(street)}
             value={this.state.street}
-            >
-          </TextInputComponent>
+          />
           <TextInputComponent
-            title='Apt/Suite'
-            placeholderText='2716'
-            keyboardType='phone-pad'
-            onChangeText={aptNum =>
-              this.onChangeAptNum(aptNum)
-            }
+            title="Apt/Suite"
+            placeholderText="2716"
+            keyboardType="phone-pad"
+            onChangeText={aptNum => this.onChangeAptNum(aptNum)}
             value={this.state.aptNum}
-            >
-          </TextInputComponent>
+          />
           <TextInputComponent
-            title='City'
-            placeholderText='Mission Viejo'
-            autoCapitalize='words'
-            onChangeText={city =>
-              this.onChangeCity(city)
-            }
+            title="City"
+            placeholderText="Mission Viejo"
+            autoCapitalize="words"
+            onChangeText={city => this.onChangeCity(city)}
             value={this.state.city}
-            >
-          </TextInputComponent>
+          />
           <View style={styles.textInputContainerInline}>
             <TextInputComponent
-              title='State'
-              placeholderText='ZZ'
+              title="State"
+              placeholderText="ZZ"
               maxLength={2}
-              autoCapitalize='characters'
-              onChangeText={state =>
-                this.onChangeState(state)
-              }
+              autoCapitalize="characters"
+              onChangeText={state => this.onChangeState(state)}
               value={this.state.state}
-              >
-            </TextInputComponent>
+            />
             <View style={styles.inlineFiller} />
             <TextInputComponent
-              title='Zip Code'
-              placeholderText='55555'
-              keyboardType='phone-pad'
+              title="Zip Code"
+              placeholderText="55555"
+              keyboardType="phone-pad"
               maxLength={6}
-              onChangeText={zipCode =>
-                this.onChangeZipCode(zipCode)
-              }
+              onChangeText={zipCode => this.onChangeZipCode(zipCode)}
               value={this.state.zipCode}
-              >
-            </TextInputComponent>
+            />
           </View>
           <Text style={styles.sectionTitle}>Educational Background</Text>
           <TextInputComponent
-            title='Undergraduate College'
-            placeholderText='Undergraduate College'
+            title="Undergraduate College"
+            placeholderText="Undergraduate College"
             onChangeText={(degrees, index, key) =>
-              this.onChangeDegrees(degrees, 0, "college")
+              this.onChangeDegrees(degrees, 0, 'college')
             }
-            value={this.state.degrees[0]["college"]}
-            >
-          </TextInputComponent>
+            value={this.state.degrees[0].college}
+          />
           <TextInputComponent
-            title='Undergraduate Degree'
-            placeholderText='Undergraduate Degree'
+            title="Undergraduate Degree"
+            placeholderText="Undergraduate Degree"
             onChangeText={(degrees, index, key) =>
-              this.onChangeDegrees(degrees, 0, "degree")
+              this.onChangeDegrees(degrees, 0, 'degree')
             }
-            value={this.state.degrees[0]["degree"]}
-            >
-          </TextInputComponent>
-          {
-            this.state.degrees.map((element, i) => {
-              return (
-                i > 0 ? (
-                  <View key={i}>
-                    <TextInputComponent
-                      title={'Graduate College ' + i}
-                      placeholderText={'Graduate College ' + i}
-                      onChangeText={(degrees, index, key) =>
-                        this.onChangeDegrees(degrees, i, "college")
-                      }
-                      value={this.state.degrees[i]["college"]}
-                      >
-                    </TextInputComponent>
-                    <TextInputComponent
-                      title={'Graduate Degree ' + i}
-                      placeholderText={'Graduate Degree ' + i}
-                      onChangeText={(degrees, index, key) =>
-                        this.onChangeDegrees(degrees, i, "degree")
-                      }
-                      value={this.state.degrees[i]["degree"]}
-                      >
-                    </TextInputComponent>
-                  </View>
-                ) : (
-                  <View key={i}></View>
-                )
-            );})
-          }
+            value={this.state.degrees[0].degree}
+          />
+          {this.state.degrees.map((element, i) => {
+            return i > 0 ? (
+              <View key={i}>
+                <TextInputComponent
+                  title={'Graduate College ' + i}
+                  placeholderText={'Graduate College ' + i}
+                  onChangeText={(degrees, index, key) =>
+                    this.onChangeDegrees(degrees, i, 'college')
+                  }
+                  value={this.state.degrees[i].college}
+                />
+                <TextInputComponent
+                  title={'Graduate Degree ' + i}
+                  placeholderText={'Graduate Degree ' + i}
+                  onChangeText={(degrees, index, key) =>
+                    this.onChangeDegrees(degrees, i, 'degree')
+                  }
+                  value={this.state.degrees[i].degree}
+                />
+              </View>
+            ) : (
+              <View key={i} />
+            );
+          })}
           <View style={styles.addDegreeContainer}>
             <TouchableOpacity
               style={{
@@ -231,7 +206,7 @@ export default class BasicInfoScreen extends React.Component {
               }}
               disabled={this.state.degrees.length > 3}
               onPress={this.onPressAddDegree}>
-              <Image source={plusSign}/>
+              <Image source={plusSign} />
               <Text style={styles.addDegreeText}>Add more credentials </Text>
             </TouchableOpacity>
           </View>

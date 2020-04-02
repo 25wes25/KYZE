@@ -18,36 +18,42 @@ export default class SubjectsScreen extends React.Component {
     super(props);
     this.state = {
       subjects: [
-        {'title': 'Math',
-         'expanded': false,
-         'courses': [
-          {'title': 'Below Algebra I', 'selected': false},
-          {'title': 'Algebra I',       'selected': false},
-          {'title': 'Geometry',        'selected': false},
-          {'title': 'Algebra II',      'selected': false},
-          {'title': 'ACT & SAT Math',  'selected': false},
-          {'title': 'Statistics',      'selected': false},
-        ]},
-        {'title': 'Chemistry',
-         'expanded': false,
-         'courses': [
-          {'title': 'Below General Chemistry',  'selected': false},
-          {'title': 'General Chemistry I',      'selected': false},
-          {'title': 'General Chrmistry II',     'selected': false},
-          {'title': 'Organic Chemistry I',      'selected': false},
-          {'title': 'Organic Chemistry II',     'selected': false},
-          {'title': 'Above Organic Chemistry',  'selected': false},
-        ]},
-        {'title': 'English',
-         'expanded': false,
-         'courses': [
-          {'title': 'Below High School Level Writing',        'selected': false},
-          {'title': 'High School Level Writing',              'selected': false},
-          {'title': 'ACT & SAT Writing',                      'selected': false},
-          {'title': 'ACT & SAT Reading Comprehension',        'selected': false},
-          {'title': 'College/University Level Writing',       'selected': false},
-          {'title': 'Above College/University Level Writing', 'selected': false},
-        ]},
+        {
+          title: 'Math',
+          expanded: false,
+          courses: [
+            {title: 'Below Algebra I', selected: false},
+            {title: 'Algebra I', selected: false},
+            {title: 'Geometry', selected: false},
+            {title: 'Algebra II', selected: false},
+            {title: 'ACT & SAT Math', selected: false},
+            {title: 'Statistics', selected: false},
+          ],
+        },
+        {
+          title: 'Chemistry',
+          expanded: false,
+          courses: [
+            {title: 'Below General Chemistry', selected: false},
+            {title: 'General Chemistry I', selected: false},
+            {title: 'General Chrmistry II', selected: false},
+            {title: 'Organic Chemistry I', selected: false},
+            {title: 'Organic Chemistry II', selected: false},
+            {title: 'Above Organic Chemistry', selected: false},
+          ],
+        },
+        {
+          title: 'English',
+          expanded: false,
+          courses: [
+            {title: 'Below High School Level Writing', selected: false},
+            {title: 'High School Level Writing', selected: false},
+            {title: 'ACT & SAT Writing', selected: false},
+            {title: 'ACT & SAT Reading Comprehension', selected: false},
+            {title: 'College/University Level Writing', selected: false},
+            {title: 'Above College/University Level Writing', selected: false},
+          ],
+        },
       ],
     };
   }
@@ -57,17 +63,18 @@ export default class SubjectsScreen extends React.Component {
   };
 
   openClose(index) {
-    newSubjects = this.state.subjects;
-    newSubjects[index]['expanded'] = !newSubjects[index]['expanded'];
+    let newSubjects = this.state.subjects;
+    newSubjects[index].expanded = !newSubjects[index].expanded;
     this.setState({
       subjects: newSubjects,
     });
   }
 
   onPressCheck(indexI, indexJ) {
-    newSubjects = this.state.subjects;
-    newSubjects[indexI]['courses'][indexJ]['selected'] =
-      !newSubjects[indexI]['courses'][indexJ]['selected'];
+    let newSubjects = this.state.subjects;
+    newSubjects[indexI].courses[indexJ].selected = !newSubjects[indexI].courses[
+      indexJ
+    ].selected;
     this.setState({
       subjects: newSubjects,
     });
@@ -80,16 +87,13 @@ export default class SubjectsScreen extends React.Component {
         <ScrollView
           contentContainerStyle={styles.contentContainer}
           keyboardShouldPersistTaps="handled">
-          <TitleComponent title={'Tutor Registration'}>
-          </TitleComponent>
+          <TitleComponent title={'Tutor Registration'} />
           <Text style={styles.blockText}>
             <Text>
-              Click on a subject and check ALL the courses that you
-              would like to tutor{'\n\n'}
+              Click on a subject and check ALL the courses that you would like
+              to tutor{'\n\n'}
             </Text>
-            <Text style={{fontWeight: 'bold'}}>
-              Note:{' '}
-            </Text>
+            <Text style={{fontWeight: 'bold'}}>Note: </Text>
             <Text>
               You must complete and successfully pass an individual assessment
               for each course you select in order to be verified to tutor that
@@ -97,62 +101,58 @@ export default class SubjectsScreen extends React.Component {
               has been created)
             </Text>
           </Text>
-          {
-            this.state.subjects.map((subject, i) => {
-              return (
-                <View key={i}>
-                  <TouchableOpacity
-                    style={{
-                      flex: 1,
-                      flexDirection: 'row',
-                    }}
-                    onPress={(index) => this.openClose(i)}>
-                    <Image source={nextArrow} style={
-                        subject['expanded'] ? (
-                          styles.arrowUp
-                        ) : (
-                          styles.arrowDown
-                        )
-                      }/>
-                    <Text style={styles.subjectText}>
-                      {subject['title']}
-                    </Text>
-                  </TouchableOpacity>
-                  {
-                    subject['expanded'] ? (
-                      subject['courses'].map((course, j) => {
-                        return (
-                          <View key={j} style={{
-                            flex: 1,
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                          }}>
-                            <TouchableOpacity
-                              style={[
-                                styles.checkbox,
-                                course['selected'] && {backgroundColor: colors.mintGreen},
-                              ]}
-                              onPress={(indexI, indexJ) => this.onPressCheck(i, j)}>
-                              {course['selected'] ? (
-                                <Image source={checkmarkImage} style={styles.checkmark} />
-                              ) : (
-                                <View />
-                              )}
-                            </TouchableOpacity>
-                            <Text style={styles.courseText}>
-                              {course['title']}
-                            </Text>
-                          </View>
-                        );
-                      })
-                    ) : (
-                      <View/>
-                    )
-                  }
-                </View>
-              );
-            })
-          }
+          {this.state.subjects.map((subject, i) => {
+            return (
+              <View key={i}>
+                <TouchableOpacity
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                  }}
+                  onPress={index => this.openClose(i)}>
+                  <Image
+                    source={nextArrow}
+                    style={subject.expanded ? styles.arrowUp : styles.arrowDown}
+                  />
+                  <Text style={styles.subjectText}>{subject.title}</Text>
+                </TouchableOpacity>
+                {subject.expanded ? (
+                  subject.courses.map((course, j) => {
+                    return (
+                      <View
+                        key={j}
+                        style={{
+                          flex: 1,
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                        }}>
+                        <TouchableOpacity
+                          style={[
+                            styles.checkbox,
+                            course.selected && {
+                              backgroundColor: colors.mintGreen,
+                            },
+                          ]}
+                          onPress={(indexI, indexJ) => this.onPressCheck(i, j)}>
+                          {course.selected ? (
+                            <Image
+                              source={checkmarkImage}
+                              style={styles.checkmark}
+                            />
+                          ) : (
+                            <View />
+                          )}
+                        </TouchableOpacity>
+                        <Text style={styles.courseText}>{course.title}</Text>
+                      </View>
+                    );
+                  })
+                ) : (
+                  <View />
+                )}
+              </View>
+            );
+          })}
           <TouchableOpacity
             style={[
               styles.nextButtonContainer,
@@ -232,10 +232,10 @@ const styles = StyleSheet.create({
     marginTop: 3,
   },
   arrowDown: {
-    transform: [{ rotate: '90deg' }],
+    transform: [{rotate: '90deg'}],
   },
   arrowUp: {
-    transform: [{ rotate: '-90deg' }],
+    transform: [{rotate: '-90deg'}],
   },
   checkbox: {
     width: 20,

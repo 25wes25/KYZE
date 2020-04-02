@@ -4,7 +4,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -35,8 +34,8 @@ export default class LoginScreen extends React.Component {
     ) {
       this.props.navigation.dispatch(
         CommonActions.reset({
-          index: 1,
-          routes: [{name: 'DrawerNavigator'}],
+          index: 0,
+          routes: [{name: this.props.route.params.type + 'BottomTabNavigator'}],
         }),
       );
     } else {
@@ -87,30 +86,27 @@ export default class LoginScreen extends React.Component {
         <ScrollView
           contentContainerStyle={styles.contentContainer}
           keyboardShouldPersistTaps="handled">
-          <TitleComponent title="Log in">
-          </TitleComponent>
+          <TitleComponent title="Log in" />
           {this.state.invalidLogin ? (
             <Text style={styles.errorText}>Invalid email or password</Text>
           ) : (
             <View style={{height: 20}} />
           )}
           <TextInputComponent
-            title='Email Address'
-            placeholderText='Email'
+            title="Email Address"
+            placeholderText="Email"
             onChangeText={email => this.onChangeEmail(email)}
             value={this.state.email}
             invalid={this.state.invalidLogin}
-            >
-          </TextInputComponent>
+          />
           <TextInputComponent
-            title='Password'
-            placeholderText='Password'
+            title="Password"
+            placeholderText="Password"
             secureTextEntry={true}
             onChangeText={password => this.onChangePassword(password)}
             value={this.state.password}
             invalid={this.state.invalidLogin}
-            >
-          </TextInputComponent>
+          />
           <TouchableOpacity
             style={[
               styles.loginButtonContainer,
