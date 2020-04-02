@@ -23,7 +23,7 @@ export default class EmailConfirmationScreen extends React.Component {
     this.props.navigation.dispatch(
       CommonActions.reset({
         index: 0,
-        routes: [{name: 'DrawerNavigator'}],
+        routes: [{name: this.props.route.params.type + 'BottomTabNavigator'}],
       }),
     );
   };
@@ -35,23 +35,19 @@ export default class EmailConfirmationScreen extends React.Component {
         <ScrollView
           contentContainerStyle={styles.contentContainer}
           keyboardShouldPersistTaps="handled">
-          <TitleComponent title={'Tutor Registration'}>
-          </TitleComponent>
-          <Text style={styles.header}>
-            Email Confirmation Sent
-          </Text>
+          <TitleComponent title={'Tutor Registration'} />
+          <Text style={styles.header}>Email Confirmation Sent</Text>
           <Text style={styles.blockText}>
-            An email confirmation has been sent to the provided address. If
-            you don't recieve an email in a few minutes, please double check
-            your email address below and click resend
+            An email confirmation has been sent to the provided address. If you
+            don't recieve an email in a few minutes, please double check your
+            email address below and click resend
           </Text>
-          <Text style={styles.blockText}>
-            example@gmail.com
-          </Text>
+          <Text style={styles.blockText}>example@gmail.com</Text>
           <TouchableOpacity>
-            <Text style={{
-              color: colors.mintGreen,
-            }}>
+            <Text
+              style={{
+                color: colors.mintGreen,
+              }}>
               change email
             </Text>
           </TouchableOpacity>

@@ -81,7 +81,9 @@ export default class RegisterScreen extends React.Component {
         this.props.navigation.dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [{name: 'DrawerNavigator'}],
+            routes: [
+              {name: this.props.route.params.type + 'BottomTabNavigator'},
+            ],
           }),
         );
       } else if (this.state.type === 'Tutor') {
@@ -245,112 +247,98 @@ export default class RegisterScreen extends React.Component {
         <ScrollView
           contentContainerStyle={styles.contentContainer}
           keyboardShouldPersistTaps="handled">
-          <TitleComponent title={this.state.type + ' Registration'}>
-          </TitleComponent>
+          <TitleComponent title={this.state.type + ' Registration'} />
           <View style={styles.textInputContainerInline}>
             <TextInputComponent
-              title='First Name'
-              placeholderText='First Name'
+              title="First Name"
+              placeholderText="First Name"
               autoCapitalize="words"
               onChangeText={firstName => this.onChangeFirstName(firstName)}
               value={this.state.firstName}
-              >
-            </TextInputComponent>
+            />
             <View style={styles.inlineFiller} />
             <TextInputComponent
-              title='Last Name'
-              placeholderText='Last Name'
+              title="Last Name"
+              placeholderText="Last Name"
               autoCapitalize="words"
               onChangeText={lastName => this.onChangeLastName(lastName)}
               value={this.state.lastName}
-              >
-            </TextInputComponent>
+            />
           </View>
           <View style={styles.textInputContainerInline}>
             <DropdownComponent
-              choices={["Male", "Female", "Other", "Prefer not to say"]}
+              choices={['Male', 'Female', 'Other', 'Prefer not to say']}
               default="Sex"
-              title='Sex'
+              title="Sex"
               onSelect={selected => this.onChangeSex(selected)}
-            >
-            </DropdownComponent>
+            />
             <View style={styles.inlineFiller} />
             <TextInputComponent
-              title='Date of Birth'
-              placeholderText='1/25/1998'
+              title="Date of Birth"
+              placeholderText="1/25/1998"
               autoCapitalize="words"
               onChangeText={dob => this.onChangeDob(dob)}
               value={this.state.dob}
-              >
-            </TextInputComponent>
+            />
           </View>
           <TextInputComponent
-            title='Phone Number'
-            placeholderText='Phone Number'
+            title="Phone Number"
+            placeholderText="Phone Number"
             keyboardType="phone-pad"
-            onChangeText={phoneNumber =>
-              this.onChangePhoneNumber(phoneNumber)
-            }
+            onChangeText={phoneNumber => this.onChangePhoneNumber(phoneNumber)}
             value={this.state.phoneNumber}
-            >
-          </TextInputComponent>
+          />
           <TextInputComponent
-            title='Email Address'
-            placeholderText='Email Address'
+            title="Email Address"
+            placeholderText="Email Address"
             onChangeText={email => this.onChangeEmail(email)}
             value={this.state.email}
             invalid={this.state.invalidEmail}
-            >
-          </TextInputComponent>
+          />
           <View style={styles.textInputContainerInline}>
             <TextInputComponent
-              title='State'
-              placeholderText='State'
+              title="State"
+              placeholderText="State"
               autoCapitalize="characters"
               maxLength={2}
               onChangeText={state => this.onChangeState(state)}
               value={this.state.state}
-              >
-            </TextInputComponent>
+            />
             <View style={styles.inlineFiller} />
             <TextInputComponent
-              title='Zip Code'
-              placeholderText='Zip Code'
+              title="Zip Code"
+              placeholderText="Zip Code"
               maxLength={6}
               onChangeText={zipCode => this.onChangeZipCode(zipCode)}
               value={this.state.zipCode}
-              >
-            </TextInputComponent>
+            />
           </View>
           <TextInputComponent
-            title='Password'
-            placeholderText='Password'
+            title="Password"
+            placeholderText="Password"
             secureTextEntry={true}
             onChangeText={password => this.onChangePassword(password)}
             value={this.state.password}
             invalid={this.state.invalidPassword}
-            >
-          </TextInputComponent>
+          />
           <TextInputComponent
-            title='Confirm Password'
-            placeholderText='Confirm Password'
+            title="Confirm Password"
+            placeholderText="Confirm Password"
             secureTextEntry={true}
             onChangeText={confirmPassword =>
               this.onChangeConfirmPassword(confirmPassword)
             }
             value={this.state.confirmPassword}
             invalid={this.state.invalidPassword}
-            >
-          </TextInputComponent>
+          />
           <TextInputComponent
-            title='Promotional Code (optional)'
-            placeholderText='Promotional Code'
-            autoCapitalize='characters'
+            title="Promotional Code (optional)"
+            placeholderText="Promotional Code"
+            autoCapitalize="characters"
             onChangeText={promoCode => this.onChangePromoCode(promoCode)}
             value={this.state.promoCode}
             invalid={this.state.invalidPromo}
-            >
-          </TextInputComponent>
+          />
           <View style={styles.tosContainer}>
             <TouchableOpacity
               style={[
@@ -364,7 +352,7 @@ export default class RegisterScreen extends React.Component {
                 <View />
               )}
             </TouchableOpacity>
-            <Text style={styles.tosText}>I agree to Koda's </Text>
+            <Text style={styles.tosText}>I agree to KYZE's </Text>
             <TouchableOpacity
               style={styles.tosButton}
               onPress={this.onPressTOS}>

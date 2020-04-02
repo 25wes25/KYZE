@@ -64,25 +64,25 @@ export default class TermsAndAgreementScreen extends React.Component {
         <ScrollView
           contentContainerStyle={styles.contentContainer}
           keyboardShouldPersistTaps="handled">
-          <TitleComponent title={'Tutor Registration'}>
-          </TitleComponent>
+          <TitleComponent title={'Tutor Registration'} />
           <Text style={styles.blockText}>
             The agreement on this page is a binding legal contract between .....
             {'\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'}
             ....... etc
           </Text>
-          <View style={{
-            flex: 1,
-            flexDirection: 'row',
-            alignItems: 'center',
-            marginVertical: 10,
-          }}>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginVertical: 10,
+            }}>
             <TouchableOpacity
               style={[
                 styles.checkbox,
                 this.state.termsAgree && {backgroundColor: colors.mintGreen},
               ]}
-              onPress={(termsAgree) => this.onChangeTermsAgree(termsAgree)}>
+              onPress={termsAgree => this.onChangeTermsAgree(termsAgree)}>
               {this.state.termsAgree ? (
                 <Image source={checkmarkImage} style={styles.checkmark} />
               ) : (
@@ -93,17 +93,18 @@ export default class TermsAndAgreementScreen extends React.Component {
               I agree to the terms stated above
             </Text>
           </View>
-          <View style={{
-            flex: 1,
-            flexDirection: 'row',
-            marginVertical: 10,
-          }}>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              marginVertical: 10,
+            }}>
             <TouchableOpacity
               style={[
                 styles.checkbox,
                 this.state.legalWorking && {backgroundColor: colors.mintGreen},
               ]}
-              onPress={(legalWorking) => this.onChangeLegalWorking(legalWorking)}>
+              onPress={legalWorking => this.onChangeLegalWorking(legalWorking)}>
               {this.state.legalWorking ? (
                 <Image source={checkmarkImage} style={styles.checkmark} />
               ) : (
@@ -117,22 +118,20 @@ export default class TermsAndAgreementScreen extends React.Component {
           </View>
           <View style={styles.textInputContainerInline}>
             <TextInputComponent
-              title='Legal First Name'
-              placeholderText='First'
+              title="Legal First Name"
+              placeholderText="First"
               autoCapitalize="words"
               onChangeText={firstName => this.onChangeFirstName(firstName)}
               value={this.state.firstName}
-              >
-            </TextInputComponent>
+            />
             <View style={styles.inlineFiller} />
             <TextInputComponent
-              title='Legal Last Name'
-              placeholderText='Last'
+              title="Legal Last Name"
+              placeholderText="Last"
               autoCapitalize="words"
               onChangeText={lastName => this.onChangeLastName(lastName)}
               value={this.state.lastName}
-              >
-            </TextInputComponent>
+            />
           </View>
           <TouchableOpacity
             style={[

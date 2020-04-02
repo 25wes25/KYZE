@@ -41,15 +41,13 @@ export default class PersonalizeProfileScreen extends React.Component {
 
   render() {
     let validInputs =
-      this.state.headline.length > 0 &&
-      this.state.bio.length > 0;
+      this.state.headline.length > 0 && this.state.bio.length > 0;
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView
           contentContainerStyle={styles.contentContainer}
           keyboardShouldPersistTaps="handled">
-          <TitleComponent title='Tutor Registration'>
-          </TitleComponent>
+          <TitleComponent title="Tutor Registration" />
           <Text style={styles.sectionTitle}>Profile Picture</Text>
           <View
             style={{
@@ -57,12 +55,11 @@ export default class PersonalizeProfileScreen extends React.Component {
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <TouchableOpacity
-              style={styles.profilePhoto}
-              >
+            <TouchableOpacity style={styles.profilePhoto}>
               <Image
                 source={addProfilePhoto}
-                style={{marginHorizontal: 17, marginVertical: 29}}/>
+                style={{marginHorizontal: 17, marginVertical: 29}}
+              />
             </TouchableOpacity>
           </View>
           <Text style={styles.sectionTitle}>Profile Headline</Text>
@@ -72,31 +69,31 @@ export default class PersonalizeProfileScreen extends React.Component {
           </Text>
           <TextInput
             style={styles.input}
-            placeholder='Short headline about yourself'
+            placeholder="Short headline about yourself"
             multiline={true}
             maxLength={40}
-            onChangeText={(headline) => this.onChangeHeadline(headline)}
+            onChangeText={headline => this.onChangeHeadline(headline)}
           />
 
           <Text style={styles.sectionTitle}>Bio</Text>
           <Text style={styles.blockText}>
             <Text>
-              Help students get to know you and encourage them to contact
-              you{'\n\n'}
+              Help students get to know you and encourage them to contact you
+              {'\n\n'}
             </Text>
-            <Text style={{fontWeight: "bold"}}>Note: </Text>
+            <Text style={{fontWeight: 'bold'}}>Note: </Text>
             <Text>
-              this section must be 1-2 paragraphs long and cannot be in ALL
-              CAPS or resume format
+              this section must be 1-2 paragraphs long and cannot be in ALL CAPS
+              or resume format
             </Text>
           </Text>
           <TextInput
             style={[styles.input, {minHeight: 200}]}
-            placeholder='Do you have experience tutoring or teaching? What do
-              you love about tutoring? What makes you a qualified tutor?'
+            placeholder="Do you have experience tutoring or teaching? What do
+              you love about tutoring? What makes you a qualified tutor?"
             multiline={true}
             maxLength={1000}
-            onChangeText={(bio) => this.onChangeBio(bio)}
+            onChangeText={bio => this.onChangeBio(bio)}
           />
 
           <TouchableOpacity
@@ -162,11 +159,11 @@ const styles = StyleSheet.create({
     height: 120,
   },
   blockText: {
-   fontFamily: 'Apple SD Gothic Neo',
-   fontSize: 14,
-   color: colors.black,
-   marginTop: 9,
-   marginBottom: 5,
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 14,
+    color: colors.black,
+    marginTop: 9,
+    marginBottom: 5,
   },
   input: {
     fontFamily: 'Apple SD Gothic Neo',

@@ -97,3 +97,6 @@ It's recommended to run the project through Xcode or Android Studio for the bene
 3. Install and run the project on an emulator by running: 
 `npm run android` or `react-native run-android`
 4. If emulator has issues connecting to the packager, run: `adb reverse tcp:8081 tcp:8081`
+
+## Copyright
+Copyright 2020, Wesley Swanson, All rights reserved.
