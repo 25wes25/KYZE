@@ -393,10 +393,10 @@ function TutorBottomTabNavigator() {
         }}
       />
       <TutorBottomTab.Screen
-        name="Search"
-        component={SearchStack}
+        name="Earnings"
+        component={EarningsStack}
         options={{
-          tabBarLabel: 'Search',
+          tabBarLabel: 'Earnings',
           tabBarIcon: ({focused}) => {
             if (focused) {
               return (
