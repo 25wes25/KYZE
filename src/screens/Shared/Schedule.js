@@ -71,70 +71,74 @@ let dates = [
 export default class ScheduleScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
+    this.state = {};
   }
 
   render() {
     return (
-        <SafeAreaView style={styles.container}>
-          <View style={styles.dateHeaderContainer}>
-            <View style={styles.dateSelectionContainer}>
-              <TouchableOpacity style={styles.dateSelectionButton}>
-                <Text style={styles.dateSelectionText}>3 Day</Text>
-              </TouchableOpacity>
-              <View style={styles.dateSelectionDivider} />
-              <TouchableOpacity style={[styles.dateSelectionButton, {backgroundColor: colors.lightGray}]}>
-                <Text style={styles.dateSelectionText}>Week</Text>
-              </TouchableOpacity>
-              <View style={styles.dateSelectionDivider} />
-              <TouchableOpacity style={styles.dateSelectionButton}>
-                <Text style={styles.dateSelectionText}>Month</Text>
-              </TouchableOpacity>
-            </View>
-            <Text style={styles.dateHeaderText}>MARCH 2020</Text>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.dateHeaderContainer}>
+          <View style={styles.dateSelectionContainer}>
+            <TouchableOpacity style={styles.dateSelectionButton}>
+              <Text style={styles.dateSelectionText}>3 Day</Text>
+            </TouchableOpacity>
+            <View style={styles.dateSelectionDivider} />
+            <TouchableOpacity
+              style={[
+                styles.dateSelectionButton,
+                {backgroundColor: colors.lightGray},
+              ]}>
+              <Text style={styles.dateSelectionText}>Week</Text>
+            </TouchableOpacity>
+            <View style={styles.dateSelectionDivider} />
+            <TouchableOpacity style={styles.dateSelectionButton}>
+              <Text style={styles.dateSelectionText}>Month</Text>
+            </TouchableOpacity>
           </View>
+          <Text style={styles.dateHeaderText}>MARCH 2020</Text>
+        </View>
+        <View style={styles.dateListContainer}>
           <FlatList
-              data={dates}
-              renderItem={({item}) => this.renderDay(item)}
-              keyExtractor={item => item.id}
+            data={dates}
+            renderItem={({item}) => this.renderDay(item)}
+            keyExtractor={item => item.id}
           />
-        </SafeAreaView>
+        </View>
+      </SafeAreaView>
     );
   }
 
   renderSession(day) {
     return (
+      <View>
+        <View />
         <View>
-          <View />
-          <View>
-            <Text>{day.session[0].subject}</Text>
-            <Text>{day.session[0].time}</Text>
-          </View>
+          <Text>{day.session[0].subject}</Text>
+          <Text>{day.session[0].time}</Text>
         </View>
+      </View>
     );
   }
 
   renderDay(item) {
     return (
-        <View style={styles.dateRowContainer}>
-          <View style={styles.dateDayContainer}>
-            <View style={styles.dateDayPair}>
-              <Text style={styles.dateWeekdayText}>{item.weekday}</Text>
-              <Text style={styles.dateText}>{item.date}</Text>
-            </View>
-          </View>
-          <View
-              style={[
-                styles.dateContentContainer,
-                item.date % 2 === 1
-                    ? {backgroundColor: colors.calendarBlue}
-                    : {backgroundColor: colors.calendarBlueLight},
-              ]}>
-            {/*{day.session.length > 0 && this.renderSession(day)}*/}
+      <View style={styles.dateRowContainer}>
+        <View style={styles.dateDayContainer}>
+          <View style={styles.dateDayPair}>
+            <Text style={styles.dateWeekdayText}>{item.weekday}</Text>
+            <Text style={styles.dateText}>{item.date}</Text>
           </View>
         </View>
+        <View
+          style={[
+            styles.dateContentContainer,
+            item.date % 2 === 1
+              ? {backgroundColor: colors.calendarBlue}
+              : {backgroundColor: colors.calendarBlueLight},
+          ]}>
+          {/*{day.session.length > 0 && this.renderSession(day)}*/}
+        </View>
+      </View>
     );
   }
 }
@@ -167,6 +171,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 20,
     fontWeight: '600',
+  },
+  dateListContainer: {
+    flexGrow: 1,
   },
   dateContentContainer: {
     flex: 1,
