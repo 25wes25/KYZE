@@ -215,10 +215,11 @@ function StudentBottomTabNavigator() {
       }}
       tabBarOptions={{
         activeTintColor: colors.black,
-        inactiveTintColor: colors.lightGray,
+        inactiveTintColor: colors.mediumGray,
         labelStyle: {
           fontFamily: 'Apple SD Gothic Neo',
           fontSize: 12,
+          fontWeight: 'bold',
         },
         style: {
           height: 60,
@@ -234,14 +235,12 @@ function StudentBottomTabNavigator() {
             if (focused) {
               return (
                 <Image
-                  style={{height: 42, width: 42}}
                   source={require('../res/images/dashboardIconSelected.png')}
                 />
               );
             } else {
               return (
                 <Image
-                  style={{height: 42, width: 42}}
                   source={require('../res/images/dashboardIconUnselected.png')}
                 />
               );
@@ -252,22 +251,90 @@ function StudentBottomTabNavigator() {
       <StudentBottomTab.Screen
         name="Search"
         component={SearchStack}
-        options={{tabBarLabel: 'Search'}}
+        options={{
+          tabBarLabel: 'Search',
+          tabBarIcon: ({focused}) => {
+            if (focused) {
+              return (
+                <Image
+                  source={require('../res/images/searchIconSelected.png')}
+                />
+              );
+            } else {
+              return (
+                <Image
+                  source={require('../res/images/searchIconUnselected.png')}
+                />
+              );
+            }
+          },
+        }}
       />
       <StudentBottomTab.Screen
         name="Schedule"
         component={ScheduleStack}
-        options={{tabBarLabel: 'Schedule'}}
+        options={{
+          tabBarLabel: 'Schedule',
+          tabBarIcon: ({focused}) => {
+            if (focused) {
+              return (
+                <Image
+                  source={require('../res/images/scheduleIconSelected.png')}
+                />
+              );
+            } else {
+              return (
+                <Image
+                  source={require('../res/images/scheduleIconUnselected.png')}
+                />
+              );
+            }
+          },
+        }}
       />
       <StudentBottomTab.Screen
         name="Messages"
         component={MessagesStack}
-        options={{tabBarLabel: 'Messages'}}
+        options={{
+          tabBarLabel: 'Messages',
+          tabBarIcon: ({focused}) => {
+            if (focused) {
+              return (
+                <Image
+                  source={require('../res/images/messagesIconSelected.png')}
+                />
+              );
+            } else {
+              return (
+                <Image
+                  source={require('../res/images/messagesIconUnselected.png')}
+                />
+              );
+            }
+          },
+        }}
       />
       <StudentBottomTab.Screen
         name="StudentProfile"
         component={StudentProfileStack}
-        options={{tabBarLabel: 'Profile'}}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({focused}) => {
+            if (focused) {
+              return (
+                <Image
+                  source={require('../res/images/profileIconSelected.png')}
+                />
+              );
+            } else {
+              return (
+                <Image
+                  source={require('../res/images/profileIconUnselected.png')}
+                />
+              );
+            }
+          },
+        }}
       />
     </StudentBottomTab.Navigator>
   );
@@ -288,10 +355,11 @@ function TutorBottomTabNavigator() {
       }}
       tabBarOptions={{
         activeTintColor: colors.black,
-        inactiveTintColor: colors.lightGray,
+        inactiveTintColor: colors.mediumGray,
         labelStyle: {
           fontFamily: 'Apple SD Gothic Neo',
           fontSize: 12,
+          fontWeight: 'bold',
           marginBottom: 5,
         },
         style: {
@@ -304,27 +372,112 @@ function TutorBottomTabNavigator() {
       <TutorBottomTab.Screen
         name="TutorDashboard"
         component={TutorDashboardStack}
-        options={{tabBarLabel: 'Dashboard'}}
+        options={{
+          tabBarLabel: 'Dashboard',
+          tabBarIcon: ({focused}) => {
+            if (focused) {
+              return (
+                <Image
+                  source={require('../res/images/dashboardIconSelected.png')}
+                />
+              );
+            } else {
+              return (
+                <Image
+                  source={require('../res/images/dashboardIconUnselected.png')}
+                />
+              );
+            }
+          },
+        }}
       />
       <TutorBottomTab.Screen
         name="Search"
         component={SearchStack}
-        options={{tabBarLabel: 'Search'}}
+        options={{
+          tabBarLabel: 'Search',
+          tabBarIcon: ({focused}) => {
+            if (focused) {
+              return (
+                <Image
+                  source={require('../res/images/earningsIconSelected.png')}
+                />
+              );
+            } else {
+              return (
+                <Image
+                  source={require('../res/images/earningsIconUnselected.png')}
+                />
+              );
+            }
+          },
+        }}
       />
       <TutorBottomTab.Screen
         name="Schedule"
         component={ScheduleStack}
-        options={{tabBarLabel: 'Schedule'}}
+        options={{
+          tabBarLabel: 'Schedule',
+          tabBarIcon: ({focused}) => {
+            if (focused) {
+              return (
+                <Image
+                  source={require('../res/images/scheduleIconSelected.png')}
+                />
+              );
+            } else {
+              return (
+                <Image
+                  source={require('../res/images/scheduleIconUnselected.png')}
+                />
+              );
+            }
+          },
+        }}
       />
       <TutorBottomTab.Screen
         name="Messages"
         component={MessagesStack}
-        options={{tabBarLabel: 'Messages'}}
+        options={{
+          tabBarLabel: 'Messages',
+          tabBarIcon: ({focused}) => {
+            if (focused) {
+              return (
+                <Image
+                  source={require('../res/images/messagesIconSelected.png')}
+                />
+              );
+            } else {
+              return (
+                <Image
+                  source={require('../res/images/messagesIconUnselected.png')}
+                />
+              );
+            }
+          },
+        }}
       />
       <TutorBottomTab.Screen
         name="TutorProfile"
         component={TutorProfileStack}
-        options={{tabBarLabel: 'Profile'}}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({focused}) => {
+            if (focused) {
+              return (
+                <Image
+                  source={require('../res/images/profileIconSelected.png')}
+                />
+              );
+            } else {
+              return (
+                <Image
+                  source={require('../res/images/profileIconUnselected.png')}
+                />
+              );
+            }
+          },
+        }}
       />
     </TutorBottomTab.Navigator>
   );
