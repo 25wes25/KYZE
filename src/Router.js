@@ -25,7 +25,7 @@ import TutorSettingsScreen from './screens/Tutor/TutorSettings';
 import TermsOfServiceScreen from './screens/TermsOfService';
 import PrivacyPolicyScreen from './screens/PrivacyPolicy';
 
-import {colors} from './styles';
+import {colors, dynamicSizes} from './styles';
 
 const Stack = createStackNavigator();
 const StudentBottomTab = createBottomTabNavigator();
@@ -222,7 +222,7 @@ function StudentBottomTabNavigator() {
           fontWeight: 'bold',
         },
         style: {
-          height: 60,
+          height: dynamicSizes.tabNavigatorHeight,
           borderTopColor: colors.black,
         },
       }}>
@@ -363,7 +363,8 @@ function TutorBottomTabNavigator() {
           marginBottom: 5,
         },
         style: {
-          height: 60,
+          height: dynamicSizes.tabNavigatorHeight,
+          borderTopColor: colors.black,
         },
         iconStyle: {
           marginTop: 12,
