@@ -1,3 +1,5 @@
+import { Dimensions, Platform } from 'react-native';
+
 export const colors = {
   white: '#ffffff',
   black: '#000000',
@@ -12,3 +14,13 @@ export const colors = {
 export const fonts = {
   gothic: 'Apple SD Gothic Neo',
 };
+
+export let dynamicSizes = {
+  tabNavigatorHeight: isIphoneXorGreater() ? 100 : 60,
+};
+
+function isIphoneXorGreater() {
+  const dim = Dimensions.get('window');
+
+  return Platform.OS === 'ios' && (dim.height >= 812 || dim.width >= 812);
+}
