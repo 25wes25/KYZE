@@ -282,8 +282,9 @@ const styles = StyleSheet.create({
     fontFamily: fonts.gothic,
     fontSize: 16,
     fontWeight: '500',
+    paddingTop: 5,
   },
   nextArrow: {
-    paddingLeft: 10,
+    marginLeft: 10,
   },
 });
