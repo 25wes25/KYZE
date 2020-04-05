@@ -8,25 +8,22 @@ import {
   View,
 } from 'react-native';
 import {colors, fonts} from '../../styles';
-var moment = require('moment');
 
-moment().date();
-moment.updateLocale('en', {
-  calendar: Object,
-});
 let dates = [
   {
     id: '0',
     weekday: 'Mon',
     date: 23,
-    session: [
+    sessions: [
       {
         subject: 'Calculus I',
         time: '4:00pm -> 5:00pm',
+        color: '#84E1FF',
       },
       {
         subject: 'Algebra II',
         time: '6:00pm -> 7:00pm',
+        color: '#E0C951',
       },
     ],
   },
@@ -34,44 +31,96 @@ let dates = [
     id: '1',
     weekday: 'Tue',
     date: 24,
-    session: [],
+    sessions: [
+      {
+        subject: 'Physics II',
+        time: '12:00pm -> 2:00pm',
+        color: '#ffa1f8',
+      },
+      {
+        subject: 'Biology I',
+        time: '4:00pm -> 5:00pm',
+        color: '#5be073',
+      },
+    ],
   },
   {
     id: '2',
     weekday: 'Wed',
     date: 25,
-    session: [],
+    sessions: [
+      {
+        subject: 'Calculus I',
+        time: '4:00pm -> 5:00pm',
+        color: '#84E1FF',
+      },
+      {
+        subject: 'Algebra II',
+        time: '6:00pm -> 7:00pm',
+        color: '#E0C951',
+      },
+    ],
   },
   {
     id: '3',
     weekday: 'Thu',
     date: 26,
-    session: [],
+    sessions: [
+      {
+        subject: 'Physics II',
+        time: '12:00pm -> 2:00pm',
+        color: '#ffa1f8',
+      },
+      {
+        subject: 'Biology I',
+        time: '4:00pm -> 5:00pm',
+        color: '#5be073',
+      },
+    ],
   },
   {
     id: '4',
     weekday: 'Fri',
     date: 27,
-    session: [],
+    sessions: [],
   },
   {
     id: '5',
     weekday: 'Sat',
     date: 28,
-    session: [],
+    sessions: [
+      {
+        subject: 'Chemistry I',
+        time: '4:00pm -> 5:00pm',
+        color: '#f7ff8a',
+      },
+    ],
   },
   {
     id: '6',
     weekday: 'Sun',
     date: 29,
-    session: [],
+    sessions: [
+      {
+        subject: 'Chemistry I',
+        time: '4:00pm -> 5:00pm',
+        color: '#f7ff8a',
+      },
+    ],
   },
 ];
 
 export default class ScheduleScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      selection: 'Week',
+      today: 23,
+    };
+  }
+
+  onPressDateSelectionButton(selection) {
+    this.setState({selection: selection});
   }
 
   render() {
@@ -79,20 +128,64 @@ export default class ScheduleScreen extends React.Component {
       <SafeAreaView style={styles.container}>
         <View style={styles.dateHeaderContainer}>
           <View style={styles.dateSelectionContainer}>
-            <TouchableOpacity style={styles.dateSelectionButton}>
-              <Text style={styles.dateSelectionText}>3 Day</Text>
+            <TouchableOpacity
+              style={[
+                styles.dateSelectionButton,
+                this.state.selection === '3 Day' && {
+                  backgroundColor: colors.darkGray,
+                },
+              ]}
+              onPress={() => this.onPressDateSelectionButton('3 Day')}
+            >
+              <Text
+                style={[
+                  styles.dateSelectionText,
+                  this.state.selection === '3 Day' && {
+                    color: colors.white,
+                  },
+                ]}>
+                3 Day
+              </Text>
             </TouchableOpacity>
             <View style={styles.dateSelectionDivider} />
             <TouchableOpacity
               style={[
                 styles.dateSelectionButton,
-                {backgroundColor: colors.lightGray},
-              ]}>
-              <Text style={styles.dateSelectionText}>Week</Text>
+                this.state.selection === 'Week' && {
+                  backgroundColor: colors.darkGray,
+                },
+              ]}
+              onPress={() => this.onPressDateSelectionButton('Week')}
+            >
+              <Text
+                style={[
+                  styles.dateSelectionText,
+                  this.state.selection === 'Week' && {
+                    color: colors.white,
+                  },
+                ]}>
+                Week
+              </Text>
             </TouchableOpacity>
             <View style={styles.dateSelectionDivider} />
-            <TouchableOpacity style={styles.dateSelectionButton}>
-              <Text style={styles.dateSelectionText}>Month</Text>
+            <TouchableOpacity
+              style={[
+                styles.dateSelectionButton,
+                this.state.selection === 'Month' && {
+                  backgroundColor: colors.darkGray,
+                },
+              ]}
+              onPress={() => this.onPressDateSelectionButton('Month')}
+            >
+              <Text
+                style={[
+                  styles.dateSelectionText,
+                  this.state.selection === 'Month' && {
+                    color: colors.white,
+                  },
+                ]}>
+                Month
+              </Text>
             </TouchableOpacity>
           </View>
           <Text style={styles.dateHeaderText}>MARCH 2020</Text>
@@ -108,13 +201,15 @@ export default class ScheduleScreen extends React.Component {
     );
   }
 
-  renderSession(day) {
+  renderSession(session) {
     return (
-      <View>
-        <View />
-        <View>
-          <Text>{day.session[0].subject}</Text>
-          <Text>{day.session[0].time}</Text>
+      <View style={styles.sessionContainer}>
+        <View
+          style={[styles.sessionColorView, {backgroundColor: session.color}]}
+        />
+        <View style={styles.sessionDetailsContainer}>
+          <Text style={styles.sessionSubjectText}>{session.subject}</Text>
+          <Text style={styles.sessionTimeText}>{session.time}</Text>
         </View>
       </View>
     );
@@ -122,12 +217,18 @@ export default class ScheduleScreen extends React.Component {
 
   renderDay(item) {
     return (
-      <View style={styles.dateRowContainer}>
+      <TouchableOpacity style={styles.dateRowContainer}>
         <View style={styles.dateDayContainer}>
           <View style={styles.dateDayPair}>
             <Text style={styles.dateWeekdayText}>{item.weekday}</Text>
             <Text style={styles.dateText}>{item.date}</Text>
           </View>
+          <View
+            style={[
+              styles.dateDaySelection,
+              item.date === this.state.today && {backgroundColor: colors.black},
+            ]}
+          />
         </View>
         <View
           style={[
@@ -136,21 +237,30 @@ export default class ScheduleScreen extends React.Component {
               ? {backgroundColor: colors.calendarBlue}
               : {backgroundColor: colors.calendarBlueLight},
           ]}>
-          {/*{day.session.length > 0 && this.renderSession(day)}*/}
+          {item.sessions.map(session => {
+            return this.renderSession(session);
+          })}
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
 const styles = StyleSheet.create({
   dateRowContainer: {
     flex: 1,
+    height: 85, // Faked height for prototype purposes
     flexDirection: 'row',
   },
   dateDayContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     width: 70,
+  },
+  dateDaySelection: {
+    flexDirection: 'column',
+    width: 4,
+    borderRadius: 2,
+    backgroundColor: colors.white,
   },
   dateDayPair: {
     alignItems: 'center',
@@ -177,6 +287,32 @@ const styles = StyleSheet.create({
   },
   dateContentContainer: {
     flex: 1,
+    flexGrow: 1,
+  },
+  sessionContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  sessionColorView: {
+    width: 5,
+    borderRadius: 2.5,
+    marginVertical: 4,
+    marginHorizontal: 10,
+  },
+  sessionDetailsContainer: {
+    justifyContent: 'center',
+  },
+  sessionSubjectText: {
+    fontFamily: fonts.gothic,
+    fontSize: 15,
+    fontWeight: '500',
+    color: colors.white,
+  },
+  sessionTimeText: {
+    fontFamily: fonts.gothic,
+    fontSize: 9,
+    fontWeight: '500',
+    color: colors.white,
   },
   container: {
     flex: 1,
