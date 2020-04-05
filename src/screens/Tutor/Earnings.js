@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   FlatList,
+  Image,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -55,22 +56,27 @@ let sessionsData = [
 ];
 
 export default class EarningsScreen extends React.Component {
-
   renderItem(item) {
     return (
-        <TouchableOpacity style={styles.sessionButton}>
-          <View style={styles.sessionContainer}>
-            <View style={styles.sessionIcon}/>
-            <View style={styles.sessionDetailsContainer}>
-              <Text style={styles.sessionSubjectText}>{item.subject}</Text>
-              <Text style={styles.sessionDetailsText}>{item.date} * {item.duration} hrs</Text>
-            </View>
-            <View style={styles.sessionEarningsContainer}>
-              <Text style={styles.sessionEarnings}>${item.earnings}.00</Text>
-            </View>
+      <TouchableOpacity style={styles.sessionButton}>
+        <View style={styles.sessionContainer}>
+          <View style={styles.sessionIcon} />
+          <View style={styles.sessionDetailsContainer}>
+            <Text style={styles.sessionSubjectText}>{item.subject}</Text>
+            <Text style={styles.sessionDetailsText}>
+              {item.date} * {item.duration} hrs
+            </Text>
           </View>
-          <View style={[styles.divider, {marginHorizontal: 20}]}/>
-        </TouchableOpacity>
+          <View style={styles.sessionEarningsContainer}>
+            <Text style={styles.sessionEarnings}>${item.earnings}.00</Text>
+            <Image
+              style={styles.nextArrow}
+              source={require('../../../res/images/rightArrow.png')}
+            />
+          </View>
+        </View>
+        <View style={[styles.divider, {marginHorizontal: 20}]} />
+      </TouchableOpacity>
     );
   }
 
@@ -96,33 +102,37 @@ export default class EarningsScreen extends React.Component {
             </View>
           </View>
         </View>
-        <View style={styles.separator}/>
+        <View style={styles.separator} />
         <View style={styles.balanceContainer}>
           <Text style={styles.balanceTitleText}>Balance</Text>
-          <View style={styles.divider}/>
+          <View style={styles.divider} />
           <View style={styles.balanceRow}>
             <Text style={styles.balanceText}>$100.00</Text>
+            <TouchableOpacity style={styles.transferButton}>
+              <Text style={styles.transferText}>Transfer</Text>
+            </TouchableOpacity>
           </View>
-          <View style={[styles.divider, {marginHorizontal: 20}]}/>
-          <TouchableOpacity style={styles.transferButton}>
-            <Text style={styles.transferText}>
-              Transfer To: Bank of America **** 1919
+          <View style={[styles.divider, {marginHorizontal: 20}]} />
+          <TouchableOpacity style={styles.bankDetailsButton}>
+            <Text style={styles.bankDetailsText}>
+              Bank of America **** 1919
             </Text>
-            {/*<Image source={}/>*/}
+            <Image
+              style={styles.nextArrow}
+              source={require('../../../res/images/rightArrow.png')}
+            />
           </TouchableOpacity>
         </View>
-        <View style={styles.separator}/>
+        <View style={styles.separator} />
         <View style={styles.earningsHistoryContainer}>
           <Text style={styles.earningsHistoryTitleText}>Earnings History</Text>
-          <View style={styles.divider}/>
+          <View style={styles.divider} />
           <View style={styles.earningsHistoryList}>
             <FlatList
-            data={sessionsData}
-            renderItem={({item}) => this.renderItem(item)}
-            keyExtractor={item => item.id}
-            >
-
-            </FlatList>
+              data={sessionsData}
+              renderItem={({item}) => this.renderItem(item)}
+              keyExtractor={item => item.id}
+            />
           </View>
         </View>
       </SafeAreaView>
@@ -134,8 +144,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.white,
   },
-  earningsHeaderContainer: {
-  },
+  earningsHeaderContainer: {},
   earningsTodayContainer: {
     alignItems: 'center',
   },
@@ -143,6 +152,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: fonts.gothic,
     fontSize: 20,
+    paddingTop: 10,
   },
   earningsSessionTitleText: {
     textAlign: 'center',
@@ -165,48 +175,63 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: fonts.gothic,
     fontSize: 15,
+    paddingBottom: 4,
   },
   separator: {
     height: 10,
-    backgroundColor: colors.lightGray,
+    backgroundColor: colors.tan,
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: colors.black,
   },
-  balanceContainer: {
-
-  },
+  balanceContainer: {},
   balanceTitleText: {
     fontFamily: fonts.gothic,
     fontSize: 18,
     fontWeight: '600',
-    paddingTop: 8,
-    paddingBottom: 4,
+    paddingTop: 14,
+    paddingBottom: 10,
     paddingHorizontal: 20,
-  },
-  balanceRow: {
-    paddingTop: 8,
-    paddingBottom: 4,
-    paddingHorizontal: 20,
-  },
-  balanceText: {
-    fontFamily: fonts.gothic,
-    fontSize: 15,
-    paddingVertical: 4,
   },
   divider: {
     height: 1,
     backgroundColor: colors.black,
   },
-  transferButton: {
+  balanceRow: {
     flexDirection: 'row',
-    paddingTop: 12,
-    paddingBottom: 10,
+    alignItems: 'center',
+    paddingTop: 16,
+    paddingBottom: 12,
     paddingHorizontal: 20,
+  },
+  balanceText: {
+    flex: 1,
+    fontFamily: fonts.gothic,
+    fontSize: 20,
+  },
+  transferButton: {
+    backgroundColor: colors.yellowGold,
+    borderRadius: 4,
+    borderWidth: 1,
   },
   transferText: {
     fontFamily: fonts.gothic,
     fontSize: 12,
+    fontWeight: '500',
+    paddingTop: 4,
+    paddingBottom: 2,
+    paddingHorizontal: 8,
+  },
+  bankDetailsButton: {
+    flexDirection: 'row',
+    paddingTop: 18,
+    paddingBottom: 14,
+    paddingHorizontal: 20,
+  },
+  bankDetailsText: {
+    flex: 1,
+    fontFamily: fonts.gothic,
+    fontSize: 14,
   },
   earningsHistoryContainer: {
     flex: 1,
@@ -215,25 +240,23 @@ const styles = StyleSheet.create({
     fontFamily: fonts.gothic,
     fontSize: 18,
     fontWeight: '600',
-    paddingTop: 8,
-    paddingBottom: 4,
+    paddingTop: 14,
+    paddingBottom: 10,
     paddingHorizontal: 20,
   },
   earningsHistoryList: {
     flex: 1,
   },
-  sessionButton: {
-
-  },
+  sessionButton: {},
   sessionContainer: {
     flexDirection: 'row',
     paddingVertical: 10,
     paddingHorizontal: 20,
   },
   sessionIcon: {
-    height: 40,
-    width: 40,
-    borderRadius: 20,
+    height: 32,
+    width: 32,
+    borderRadius: 16,
     backgroundColor: colors.lightGray,
   },
   sessionDetailsContainer: {
@@ -251,11 +274,16 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   sessionEarningsContainer: {
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   sessionEarnings: {
     fontFamily: fonts.gothic,
     fontSize: 16,
     fontWeight: '500',
+  },
+  nextArrow: {
+    paddingLeft: 10,
   },
 });

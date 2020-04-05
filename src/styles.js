@@ -1,4 +1,4 @@
-import { Dimensions, Platform } from 'react-native';
+import {Dimensions, Platform} from 'react-native';
 
 export const colors = {
   white: '#ffffff',
@@ -9,6 +9,8 @@ export const colors = {
   opaqueBlack: 'rgba(0, 0, 0, 0.4)',
   mintGreen: '#3D9690',
   red: '#FF0000',
+  tan: '#ede9d6',
+  yellowGold: '#efca55',
 };
 
 export const fonts = {
