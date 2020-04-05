@@ -1,4 +1,4 @@
-import { Dimensions, Platform } from 'react-native';
+import {Dimensions, Platform} from 'react-native';
 
 export const colors = {
   white: '#ffffff',
@@ -10,6 +10,9 @@ export const colors = {
   mintGreen: '#3D9690',
   red: '#FF0000',
   tan: '#ede9d6',
+  yellowGold: '#efca55',
+  calendarBlue: '#5C7BEB',
+  calendarBlueLight: 'rgba(92, 123, 235, 0.9)',
 };
 
 export const fonts = {
