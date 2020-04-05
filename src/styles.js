@@ -9,6 +9,8 @@ export const colors = {
   opaqueBlack: 'rgba(0, 0, 0, 0.4)',
   mintGreen: '#3D9690',
   red: '#FF0000',
+  tan: '#ede9d6',
+  yellowGold: '#efca55',
   calendarBlue: '#5C7BEB',
   calendarBlueLight: 'rgba(92, 123, 235, 0.9)',
 };
