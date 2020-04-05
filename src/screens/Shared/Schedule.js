@@ -123,84 +123,6 @@ export default class ScheduleScreen extends React.Component {
     this.setState({selection: selection});
   }
 
-  render() {
-    return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.dateHeaderContainer}>
-          <View style={styles.dateSelectionContainer}>
-            <TouchableOpacity
-              style={[
-                styles.dateSelectionButton,
-                this.state.selection === '3 Day' && {
-                  backgroundColor: colors.darkGray,
-                },
-              ]}
-              onPress={() => this.onPressDateSelectionButton('3 Day')}
-            >
-              <Text
-                style={[
-                  styles.dateSelectionText,
-                  this.state.selection === '3 Day' && {
-                    color: colors.white,
-                  },
-                ]}>
-                3 Day
-              </Text>
-            </TouchableOpacity>
-            <View style={styles.dateSelectionDivider} />
-            <TouchableOpacity
-              style={[
-                styles.dateSelectionButton,
-                this.state.selection === 'Week' && {
-                  backgroundColor: colors.darkGray,
-                },
-              ]}
-              onPress={() => this.onPressDateSelectionButton('Week')}
-            >
-              <Text
-                style={[
-                  styles.dateSelectionText,
-                  this.state.selection === 'Week' && {
-                    color: colors.white,
-                  },
-                ]}>
-                Week
-              </Text>
-            </TouchableOpacity>
-            <View style={styles.dateSelectionDivider} />
-            <TouchableOpacity
-              style={[
-                styles.dateSelectionButton,
-                this.state.selection === 'Month' && {
-                  backgroundColor: colors.darkGray,
-                },
-              ]}
-              onPress={() => this.onPressDateSelectionButton('Month')}
-            >
-              <Text
-                style={[
-                  styles.dateSelectionText,
-                  this.state.selection === 'Month' && {
-                    color: colors.white,
-                  },
-                ]}>
-                Month
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.dateHeaderText}>MARCH 2020</Text>
-        </View>
-        <View style={styles.dateListContainer}>
-          <FlatList
-            data={dates}
-            renderItem={({item}) => this.renderDay(item)}
-            keyExtractor={item => item.id}
-          />
-        </View>
-      </SafeAreaView>
-    );
-  }
-
   renderSession(session) {
     return (
       <View style={styles.sessionContainer}>
@@ -244,8 +166,128 @@ export default class ScheduleScreen extends React.Component {
       </TouchableOpacity>
     );
   }
+
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.dateHeaderContainer}>
+          <View style={styles.dateSelectionContainer}>
+            <TouchableOpacity
+              style={[
+                styles.dateSelectionButton,
+                this.state.selection === '3 Day' && {
+                  backgroundColor: colors.darkGray,
+                },
+              ]}
+              onPress={() => this.onPressDateSelectionButton('3 Day')}>
+              <Text
+                style={[
+                  styles.dateSelectionText,
+                  this.state.selection === '3 Day' && {
+                    color: colors.white,
+                  },
+                ]}>
+                3 Day
+              </Text>
+            </TouchableOpacity>
+            <View style={styles.dateSelectionDivider} />
+            <TouchableOpacity
+              style={[
+                styles.dateSelectionButton,
+                this.state.selection === 'Week' && {
+                  backgroundColor: colors.darkGray,
+                },
+              ]}
+              onPress={() => this.onPressDateSelectionButton('Week')}>
+              <Text
+                style={[
+                  styles.dateSelectionText,
+                  this.state.selection === 'Week' && {
+                    color: colors.white,
+                  },
+                ]}>
+                Week
+              </Text>
+            </TouchableOpacity>
+            <View style={styles.dateSelectionDivider} />
+            <TouchableOpacity
+              style={[
+                styles.dateSelectionButton,
+                this.state.selection === 'Month' && {
+                  backgroundColor: colors.darkGray,
+                },
+              ]}
+              onPress={() => this.onPressDateSelectionButton('Month')}>
+              <Text
+                style={[
+                  styles.dateSelectionText,
+                  this.state.selection === 'Month' && {
+                    color: colors.white,
+                  },
+                ]}>
+                Month
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.dateHeaderText}>MARCH 2020</Text>
+        </View>
+        <View style={styles.dateListContainer}>
+          <FlatList
+            data={dates}
+            renderItem={({item}) => this.renderDay(item)}
+            keyExtractor={item => item.id}
+          />
+        </View>
+      </SafeAreaView>
+    );
+  }
 }
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: colors.white,
+  },
+  dateHeaderContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 20,
+    borderBottomWidth: 1,
+    borderColor: colors.black,
+  },
+  dateSelectionContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderRadius: 4,
+    borderColor: colors.black,
+  },
+  dateSelectionButton: {
+    paddingTop: 10,
+    paddingBottom: 8,
+    paddingHorizontal: 16,
+  },
+  dateSelectionText: {
+    textAlign: 'center',
+    fontFamily: fonts.gothic,
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  dateSelectionDivider: {
+    width: 1,
+    paddingVertical: 12,
+    backgroundColor: colors.black,
+  },
+  dateHeaderText: {
+    textAlign: 'center',
+    fontFamily: fonts.gothic,
+    fontSize: 22,
+    fontWeight: '600',
+    paddingTop: 16,
+    paddingBottom: 12,
+  },
   dateRowContainer: {
     flex: 1,
     height: 85, // Faked height for prototype purposes
@@ -313,50 +355,5 @@ const styles = StyleSheet.create({
     fontSize: 9,
     fontWeight: '500',
     color: colors.white,
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: colors.white,
-  },
-  dateHeaderContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 20,
-    borderBottomWidth: 1,
-    borderColor: colors.black,
-  },
-  dateSelectionContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: colors.black,
-  },
-  dateSelectionButton: {
-    paddingTop: 10,
-    paddingBottom: 8,
-    paddingHorizontal: 16,
-  },
-  dateSelectionText: {
-    textAlign: 'center',
-    fontFamily: fonts.gothic,
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  dateSelectionDivider: {
-    width: 1,
-    paddingVertical: 12,
-    backgroundColor: colors.black,
-  },
-  dateHeaderText: {
-    textAlign: 'center',
-    fontFamily: fonts.gothic,
-    fontSize: 22,
-    fontWeight: '600',
-    paddingTop: 16,
-    paddingBottom: 12,
   },
 });
