@@ -12,8 +12,7 @@ import TermsAndAgreementScreen from './screens/TutorRegistration/TermsAndAgreeme
 import EmailConfirmationScreen from './screens/TutorRegistration/EmailConfirmation';
 import PreferencesScreen from './screens/TutorRegistration/Preferences';
 import BasicInfoScreen from './screens/TutorRegistration/BasicInfo';
-import StudentDashboardScreen from './screens/Student/StudentDashboard';
-import TutorDashboardScreen from './screens/Tutor/TutorDashboard';
+import DashboardScreen from './screens/Dashboard';
 import SearchScreen from './screens/Student/Search';
 import EarningsScreen from './screens/Tutor/Earnings';
 import ScheduleScreen from './screens/Shared/Schedule';
@@ -31,10 +30,10 @@ const Stack = createStackNavigator();
 const StudentBottomTab = createBottomTabNavigator();
 const TutorBottomTab = createBottomTabNavigator();
 
-function StudentDashboardStack() {
+function DashboardStack() {
   return (
     <Stack.Navigator
-      initialRouteName="StudentDashboard"
+      initialRouteName="Dashboard"
       screenOptions={{
         gestureEnabled: false,
         title: '',
@@ -43,28 +42,8 @@ function StudentDashboardStack() {
         headerBackTitleVisible: false,
       }}>
       <Stack.Screen
-        name="StudentDashboard"
-        component={StudentDashboardScreen}
-        options={{title: 'Dashboard'}}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function TutorDashboardStack() {
-  return (
-    <Stack.Navigator
-      initialRouteName="TutorDashboard"
-      screenOptions={{
-        gestureEnabled: false,
-        title: '',
-        headerStyle: {backgroundColor: colors.darkGray},
-        headerTintColor: colors.white,
-        headerBackTitleVisible: false,
-      }}>
-      <Stack.Screen
-        name="TutorDashboard"
-        component={TutorDashboardScreen}
+        name="Dashboard"
+        component={DashboardScreen}
         options={{title: 'Dashboard'}}
       />
     </Stack.Navigator>
@@ -227,8 +206,8 @@ function StudentBottomTabNavigator() {
         },
       }}>
       <StudentBottomTab.Screen
-        name="StudentDashboard"
-        component={StudentDashboardStack}
+        name="Dashboard"
+        component={DashboardStack}
         options={{
           tabBarLabel: 'Dashboard',
           tabBarIcon: ({focused}) => {
@@ -371,8 +350,8 @@ function TutorBottomTabNavigator() {
         },
       }}>
       <TutorBottomTab.Screen
-        name="TutorDashboard"
-        component={TutorDashboardStack}
+        name="Dashboard"
+        component={DashboardStack}
         options={{
           tabBarLabel: 'Dashboard',
           tabBarIcon: ({focused}) => {

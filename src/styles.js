@@ -9,6 +9,7 @@ export const colors = {
   opaqueBlack: 'rgba(0, 0, 0, 0.4)',
   mintGreen: '#3D9690',
   red: '#FF0000',
+  tan: '#ede9d6',
 };
 
 export const fonts = {
