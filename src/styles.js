@@ -11,6 +11,8 @@ export const colors = {
   red: '#FF0000',
   tan: '#ede9d6',
   yellowGold: '#efca55',
+  calendarBlue: '#5C7BEB',
+  calendarBlueLight: 'rgba(92, 123, 235, 0.9)',
 };
 
 export const fonts = {
