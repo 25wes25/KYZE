@@ -30,7 +30,7 @@ const Stack = createStackNavigator();
 const StudentBottomTab = createBottomTabNavigator();
 const TutorBottomTab = createBottomTabNavigator();
 
-function DashboardStack() {
+function DashboardStack(type) {
   return (
     <Stack.Navigator
       initialRouteName="Dashboard"
@@ -44,6 +44,7 @@ function DashboardStack() {
       <Stack.Screen
         name="Dashboard"
         component={DashboardScreen}
+        initialParams={{type: type}}
         options={{title: 'Dashboard'}}
       />
     </Stack.Navigator>
@@ -207,7 +208,7 @@ function StudentBottomTabNavigator() {
       }}>
       <StudentBottomTab.Screen
         name="Dashboard"
-        component={DashboardStack}
+        component={() => DashboardStack('Student')}
         options={{
           tabBarLabel: 'Dashboard',
           tabBarIcon: ({focused}) => {
@@ -351,7 +352,7 @@ function TutorBottomTabNavigator() {
       }}>
       <TutorBottomTab.Screen
         name="Dashboard"
-        component={DashboardStack}
+        component={() => DashboardStack('Tutor')}
         options={{
           tabBarLabel: 'Dashboard',
           tabBarIcon: ({focused}) => {
