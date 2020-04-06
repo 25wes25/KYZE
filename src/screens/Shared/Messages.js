@@ -11,6 +11,7 @@ import {
   TextInput,
 } from 'react-native';
 import nextArrow from '../../../res/images/nextArrow.png';
+import search from '../../../res/images/searchbarIcon.png';
 import {colors} from '../../styles';
 
 const DATA = [
@@ -87,9 +88,9 @@ export default class MessagesScreen extends React.Component {
           renderItem={({item}) => (
             <View style={styles.itemContainer}>
               {item.id == 0 ? (
-                <View>
+                <View style={[styles.input,{flex: 1, flexDirection: 'row'}]}>
+                  <Image source={search} style={{marginRight:10}}/>
                   <TextInput
-                    style={styles.input}
                     placeholder="Search"
                     placeholderTextColor={colors.opaqueBlack}
                   />
