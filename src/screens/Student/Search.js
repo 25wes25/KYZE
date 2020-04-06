@@ -15,46 +15,51 @@ import {colors} from '../../styles';
 
 const DATA = [
   {
-    id: 0
+    id: 0,
   },
   {
     id: 1,
-    name: "Deanna E.",
+    name: 'Deanna E.',
     avgRating: 4.9,
-    headline: "M.S. in Engineering from UCLA with 10+ years of tutoring experience",
-    hours: "200+",
+    headline:
+      'M.S. in Engineering from UCLA with 10+ years of tutoring experience',
+    hours: '200+',
     rate: 60,
   },
   {
     id: 2,
-    name: "Deanna E.",
+    name: 'Deanna E.',
     avgRating: 4.9,
-    headline: "M.S. in Engineering from UCLA with 10+ years of tutoring experience",
-    hours: "200+",
+    headline:
+      'M.S. in Engineering from UCLA with 10+ years of tutoring experience',
+    hours: '200+',
     rate: 60,
   },
   {
     id: 3,
-    name: "Deanna E.",
+    name: 'Deanna E.',
     avgRating: 4.9,
-    headline: "M.S. in Engineering from UCLA with 10+ years of tutoring experience",
-    hours: "200+",
+    headline:
+      'M.S. in Engineering from UCLA with 10+ years of tutoring experience',
+    hours: '200+',
     rate: 60,
   },
   {
     id: 4,
-    name: "Deanna E.",
+    name: 'Deanna E.',
     avgRating: 4.9,
-    headline: "M.S. in Engineering from UCLA with 10+ years of tutoring experience",
-    hours: "200+",
+    headline:
+      'M.S. in Engineering from UCLA with 10+ years of tutoring experience',
+    hours: '200+',
     rate: 60,
   },
   {
     id: 5,
-    name: "Deanna E.",
+    name: 'Deanna E.',
     avgRating: 4.9,
-    headline: "M.S. in Engineering from UCLA with 10+ years of tutoring experience",
-    hours: "200+",
+    headline:
+      'M.S. in Engineering from UCLA with 10+ years of tutoring experience',
+    hours: '200+',
     rate: 60,
   },
 ];
@@ -104,146 +109,153 @@ export default class SearchScreen extends React.Component {
       <SafeAreaView style={styles.container}>
         <FlatList
           data={DATA}
-          renderItem={({ item }) => (
+          renderItem={({item}) => (
             <View>
-              {
-                (item.id==0) ? (
+              {item.id == 0 ? (
+                <View>
+                  <View key={item.id} style={styles.itemContainer}>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Search course or subject"
+                      placeholderTextColor={colors.opaqueBlack}
+                      onChangeText={course => this.onChangeCourse(course)}
+                      value={this.state.course}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Set meeting location"
+                      placeholderTextColor={colors.opaqueBlack}
+                      onChangeText={location => this.onChangeLocation(location)}
+                      value={this.state.location}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Set date, time, and duration"
+                      placeholderTextColor={colors.opaqueBlack}
+                      onChangeText={date => this.onChangeDate(date)}
+                      value={this.state.date}
+                    />
+                    <TouchableOpacity
+                      style={[
+                        styles.loginButtonContainer,
+                        validInputs && {backgroundColor: colors.mintGreen},
+                      ]}
+                      disabled={!validInputs}
+                      onPress={() => this.onPressSearch()}>
+                      <Text style={styles.loginButtonText}>Search</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={styles.dividerLine} />
                   <View>
-                    <View key={item.id} style={styles.itemContainer}>
-                      <TextInput
-                        style={styles.input}
-                        placeholder="Search course or subject"
-                        placeholderTextColor={colors.opaqueBlack}
-                        onChangeText={course => this.onChangeCourse(course)}
-                        value={this.state.course}
-                      />
-                      <TextInput
-                        style={styles.input}
-                        placeholder="Set meeting location"
-                        placeholderTextColor={colors.opaqueBlack}
-                        onChangeText={location => this.onChangeLocation(location)}
-                        value={this.state.location}
-                      />
-                      <TextInput
-                        style={styles.input}
-                        placeholder="Set date, time, and duration"
-                        placeholderTextColor={colors.opaqueBlack}
-                        onChangeText={date => this.onChangeDate(date)}
-                        value={this.state.date}
-                      />
-                      <TouchableOpacity
-                        style={[
-                          styles.loginButtonContainer,
-                          validInputs && {backgroundColor: colors.mintGreen},
-                        ]}
-                        disabled={!validInputs}
-                        onPress={() => this.onPressSearch()}>
-                        <Text style={styles.loginButtonText}>Search</Text>
-                      </TouchableOpacity>
-                    </View>
-                    <View style={styles.dividerLine}/>
+                    {this.state.searched ? (
+                      <View
+                        style={{
+                          flex: 1,
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          marginHorizontal: 30,
+                          marginBottom: 10,
+                        }}>
+                        <Text style={styles.heading}>List of local tutors</Text>
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            marginLeft: 'auto',
+                            borderWidth: 1,
+                            borderRadius: 5,
+                            width: 50,
+                            height: 20,
+                          }}>
+                          <Text style={{fontSize: 10}}>Sort</Text>
+                          <Image
+                            source={nextArrow}
+                            style={{
+                              width: 20,
+                              height: 20,
+                              transform: [{rotate: '90deg'}],
+                            }}
+                          />
+                        </View>
+                      </View>
+                    ) : (
+                      <View
+                        style={{
+                          flex: 1,
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}>
+                        <View style={{height: 150}} />
+                        <Text style={styles.quoteTextLarge}>
+                          "An investment in knowledge
+                        </Text>
+                        <Text style={styles.quoteTextLarge}>
+                          pays the mest interest"
+                        </Text>
+                        <Text style={styles.quoteTextSmall}>
+                          - Benjamin Franlkin
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                </View>
+              ) : (
+                <View key={item.id} style={styles.itemContainer}>
+                  {this.state.searched ? (
                     <View>
-                      {
-                        this.state.searched ? (
-                          <View style={{
+                      <TouchableOpacity style={{flexDirection: 'row'}}>
+                        <View style={styles.icon} />
+                        <View style={{marginLeft: 10, flex: 3}}>
+                          <View style={{flexDirection: 'column'}}>
+                            <Text style={styles.messageName}>{item.name}</Text>
+                            <View
+                              style={{
+                                flex: 1,
+                                flexDirection: 'row',
+                              }}>
+                              <Text style={[styles.reviewAvg, {marginLeft: 0}]}>
+                                {item.avgRating}
+                              </Text>
+                              <View
+                                style={{
+                                  flexDirection: 'row',
+                                  marginHorizontal: 10,
+                                }}>
+                                {Array(5)
+                                  .fill(0)
+                                  .map((e, i) => {
+                                    return (
+                                      <Image key={10000 + i} source={star} />
+                                    );
+                                  })}
+                              </View>
+                            </View>
+                            <Text style={styles.messagePreview}>
+                              {item.headline}
+                            </Text>
+                          </View>
+                        </View>
+                        <View
+                          style={{
                             flex: 1,
                             flexDirection: 'row',
                             alignItems: 'center',
-                            marginHorizontal: 30,
-                            marginBottom: 10,
                           }}>
-                            <Text style={styles.heading}>
-                              List of local tutors
-                            </Text>
-                            <View style={{
-                              flexDirection: 'row',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              marginLeft: 'auto',
-                              borderWidth: 1,
-                              borderRadius: 5,
-                              width: 50,
-                              height: 20,
-                            }}>
-                              <Text style={{fontSize: 10,}}>
-                                Sort
-                              </Text>
-                              <Image source={nextArrow} style={{
-                                width: 20,
-                                height: 20,
-                                transform: [{rotate: '90deg'}],
-                              }}/>
-                            </View>
-                          </View>
-                        ) : (
-                          <View style={{
-                            flex: 1,
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                          }}>
-                            <View style={{height: 150}}/>
-                            <Text style={styles.quoteTextLarge}>
-                              "An investment in knowledge
-                            </Text>
-                            <Text style={styles.quoteTextLarge}>
-                              pays the mest interest"
-                            </Text>
-                            <Text style={styles.quoteTextSmall}>
-                              - Benjamin Franlkin
-                            </Text>
-                          </View>
-                        )
-                      }
-                    </View>
-                  </View>
-                ) : (
-                  <View key={item.id} style={styles.itemContainer}>
-                    {
-                      this.state.searched ? (
-                        <View>
-                          <TouchableOpacity style={{flexDirection: "row"}}>
-                            <View style={styles.icon}/>
-                            <View style={{marginLeft: 10, flex: 3}}>
-                              <View style={{flexDirection: "column"}}>
-                                <Text style={styles.messageName}>{item.name}</Text>
-                                <View style={{
-                                  flex: 1,
-                                  flexDirection: 'row',
-                                }}>
-                                  <Text style={[styles.reviewAvg, {marginLeft: 0}]}>
-                                    {item.avgRating}
-                                  </Text>
-                                  <View style={{
-                                    flexDirection: 'row',
-                                    marginHorizontal: 10,
-                                  }}>
-                                    {Array(5).fill(0).map((e, i) => {
-                                      return (
-                                        <Image key={10000+i} source={star}/>
-                                      );
-                                    })}
-                                  </View>
-                                </View>
-                                <Text style={styles.messagePreview}>{item.headline}</Text>
-                              </View>
-                            </View>
-                            <View style={{flex: 1, flexDirection: 'row', alignItems: 'center'}}>
-                              <Text style={{marginLeft: 'auto'}}>
-                                {'$'+item.rate+'/hr'}
-                              </Text>
-                              <Image source={nextArrow}/>
-                            </View>
-                          </TouchableOpacity>
-                          <View style={styles.dividerLine}/>
+                          <Text style={{marginLeft: 'auto'}}>
+                            {'$' + item.rate + '/hr'}
+                          </Text>
+                          <Image source={nextArrow} />
                         </View>
-                      ) : (
-                        <View/>
-                      )
-                    }
-                  </View>
-                )
-              }
+                      </TouchableOpacity>
+                      <View style={styles.dividerLine} />
+                    </View>
+                  ) : (
+                    <View />
+                  )}
+                </View>
+              )}
             </View>
           )}
         />

@@ -17,11 +17,7 @@ const user = {
   name: 'Pedram H.',
 };
 
-const shortcuts = [
-  "Home",
-  "Favorite Starbucks",
-  "Santa Monica Library",
-];
+const shortcuts = ['Home', 'Favorite Starbucks', 'Santa Monica Library'];
 
 let sessionsData = [
   {
@@ -96,53 +92,45 @@ export default class StudentProfileScreen extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <ScrollView
-          keyboardShouldPersistTaps="handled">
-          <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-            <View style={styles.blackBar}/>
-            <Image style={styles.photo} source={pedram}/>
+        <ScrollView keyboardShouldPersistTaps="handled">
+          <View
+            style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
+            <View style={styles.blackBar} />
+            <Image style={styles.photo} source={pedram} />
           </View>
           <View style={styles.contentContainer}>
             <View style={styles.topContent}>
-              <Text style={styles.name}>
-                {user.name}
-              </Text>
+              <Text style={styles.name}>{user.name}</Text>
             </View>
           </View>
-          <View style={styles.dividerLine}/>
+          <View style={styles.dividerLine} />
           <View style={styles.contentContainer}>
-            <Text style={styles.heading}>
-              Shortcuts
-            </Text>
+            <Text style={styles.heading}>Shortcuts</Text>
             {shortcuts.map((e, i) => {
-                return (
-                  <View key={i}>
-                    <View style={styles.dividerLine}/>
-                    <TouchableOpacity>
-                      <View style={{
+              return (
+                <View key={i}>
+                  <View style={styles.dividerLine} />
+                  <TouchableOpacity>
+                    <View
+                      style={{
                         flex: 1,
                         flexDirection: 'row',
                         alignItems: 'center',
                         marginVertical: 10,
                       }}>
-                        <View style={styles.icon}/>
-                        <Text style={styles.heading}>
-                          {e}
-                        </Text>
-                      </View>
-                    </TouchableOpacity>
-                  </View>
-                );
-              })
-            }
+                      <View style={styles.icon} />
+                      <Text style={styles.heading}>{e}</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              );
+            })}
           </View>
-          <View style={styles.dividerLine}/>
-          <View style={styles.dividerLine}/>
+          <View style={styles.dividerLine} />
+          <View style={styles.dividerLine} />
           <View style={styles.contentContainer}>
-            <Text style={styles.heading}>
-              Session History
-            </Text>
-            <View style={styles.dividerLine}/>
+            <Text style={styles.heading}>Session History</Text>
+            <View style={styles.dividerLine} />
             <FlatList
               data={sessionsData}
               renderItem={({item}) => this.renderItem(item)}
@@ -166,14 +154,14 @@ const styles = StyleSheet.create({
   },
   dividerLine: {
     flex: 1,
-    backgroundColor: colors.black,
+    backgroundColor: colors.darkGray,
     height: 1,
     marginVertical: 10,
   },
   blackBar: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: colors.black,
+    backgroundColor: colors.darkGray,
     height: 100,
   },
   photo: {

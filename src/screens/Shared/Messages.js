@@ -76,8 +76,7 @@ const DATA = [
 export default class MessagesScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    this.state = {};
   }
 
   render() {
@@ -85,34 +84,35 @@ export default class MessagesScreen extends React.Component {
       <SafeAreaView style={styles.container}>
         <FlatList
           data={DATA}
-          renderItem={({ item }) => (
+          renderItem={({item}) => (
             <View style={styles.itemContainer}>
-              {
-                (item.id==0) ? (
-                  <View>
-                    <TextInput
-                      style={styles.input}
-                      placeholder="Search"
-                      placeholderTextColor={colors.opaqueBlack}
-                    />
-                  </View>
-                ) : (
-                  <View>
-                    <View style={styles.dividerLine}/>
-                    <TouchableOpacity style={{flexDirection: "row"}}>
-                      <View style={styles.icon}/>
-                      <View style={{marginLeft: 10, flex: 1}}>
-                        <View style={{flexDirection: "row"}}>
-                          <Text style={styles.messageName}>{item.name}</Text>
-                          <Text style={[styles.messageDate, {marginLeft: "auto"}]}>{item.date}</Text>
-                        </View>
-                        <Text style={styles.messagePreview}>{item.preview}</Text>
+              {item.id == 0 ? (
+                <View>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Search"
+                    placeholderTextColor={colors.opaqueBlack}
+                  />
+                </View>
+              ) : (
+                <View>
+                  <View style={styles.dividerLine} />
+                  <TouchableOpacity style={{flexDirection: 'row'}}>
+                    <View style={styles.icon} />
+                    <View style={{marginLeft: 10, flex: 1}}>
+                      <View style={{flexDirection: 'row'}}>
+                        <Text style={styles.messageName}>{item.name}</Text>
+                        <Text
+                          style={[styles.messageDate, {marginLeft: 'auto'}]}>
+                          {item.date}
+                        </Text>
                       </View>
-                      <Image source={nextArrow}/>
-                    </TouchableOpacity>
-                  </View>
-                )
-              }
+                      <Text style={styles.messagePreview}>{item.preview}</Text>
+                    </View>
+                    <Image source={nextArrow} />
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
           )}
         />

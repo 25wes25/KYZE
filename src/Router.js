@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image} from 'react-native';
+import {Image, TouchableOpacity} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import LandingScreen from './screens/Landing';
@@ -138,14 +138,35 @@ function StudentProfileStack() {
       screenOptions={{
         gestureEnabled: false,
         title: '',
-        headerStyle: {backgroundColor: colors.darkGray},
+        headerStyle: {
+          backgroundColor: colors.darkGray,
+          shadowColor: 'transparent',
+        },
         headerTintColor: colors.white,
         headerBackTitleVisible: false,
       }}>
       <Stack.Screen
         name="StudentProfile"
         component={StudentProfileScreen}
-        options={{title: 'Profile'}}
+        options={{
+          title: 'Profile',
+          headerLeft: () => (
+            <TouchableOpacity
+              style={{
+                paddingHorizontal: 20,
+              }}>
+              <Image source={require('../res/images/settingsIcon.png')} />
+            </TouchableOpacity>
+          ),
+          headerRight: () => (
+            <TouchableOpacity
+              style={{
+                paddingHorizontal: 20,
+              }}>
+              <Image source={require('../res/images/editProfileIcon.png')} />
+            </TouchableOpacity>
+          ),
+        }}
       />
       <Stack.Screen
         name="StudentSettings"
@@ -163,14 +184,35 @@ function TutorProfileStack() {
       screenOptions={{
         gestureEnabled: false,
         title: '',
-        headerStyle: {backgroundColor: colors.darkGray},
+        headerStyle: {
+          backgroundColor: colors.darkGray,
+          shadowColor: 'transparent',
+        },
         headerTintColor: colors.white,
         headerBackTitleVisible: false,
       }}>
       <Stack.Screen
         name="TutorProfile"
         component={TutorProfileScreen}
-        options={{title: 'Profile'}}
+        options={{
+          title: 'Profile',
+          headerLeft: () => (
+            <TouchableOpacity
+              style={{
+                paddingHorizontal: 20,
+              }}>
+              <Image source={require('../res/images/settingsIcon.png')} />
+            </TouchableOpacity>
+          ),
+          headerRight: () => (
+            <TouchableOpacity
+              style={{
+                paddingHorizontal: 20,
+              }}>
+              <Image source={require('../res/images/editProfileIcon.png')} />
+            </TouchableOpacity>
+          ),
+        }}
       />
       <Stack.Screen
         name="TutorSettings"
