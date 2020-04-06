@@ -105,47 +105,103 @@ export default class SearchScreen extends React.Component {
         <FlatList
           data={DATA}
           renderItem={({ item }) => (
-            <View style={styles.itemContainer}>
+            <View>
               {
                 (item.id==0) ? (
-                  <View key={item.id}>
-                    <TextInput
-                      style={styles.input}
-                      placeholder="Search course or subject"
-                      placeholderTextColor={colors.opaqueBlack}
-                      onChangeText={course => this.onChangeCourse(course)}
-                      value={this.state.course}
-                    />
-                    <TextInput
-                      style={styles.input}
-                      placeholder="Set meeting location"
-                      placeholderTextColor={colors.opaqueBlack}
-                      onChangeText={location => this.onChangeLocation(location)}
-                      value={this.state.location}
-                    />
-                    <TextInput
-                      style={styles.input}
-                      placeholder="Set date, time, and duration"
-                      placeholderTextColor={colors.opaqueBlack}
-                      onChangeText={date => this.onChangeDate(date)}
-                      value={this.state.date}
-                    />
-                    <TouchableOpacity
-                      style={[
-                        styles.loginButtonContainer,
-                        validInputs && {backgroundColor: colors.mintGreen},
-                      ]}
-                      disabled={!validInputs}
-                      onPress={() => this.onPressSearch()}>
-                      <Text style={styles.loginButtonText}>Search</Text>
-                    </TouchableOpacity>
+                  <View>
+                    <View key={item.id} style={styles.itemContainer}>
+                      <TextInput
+                        style={styles.input}
+                        placeholder="Search course or subject"
+                        placeholderTextColor={colors.opaqueBlack}
+                        onChangeText={course => this.onChangeCourse(course)}
+                        value={this.state.course}
+                      />
+                      <TextInput
+                        style={styles.input}
+                        placeholder="Set meeting location"
+                        placeholderTextColor={colors.opaqueBlack}
+                        onChangeText={location => this.onChangeLocation(location)}
+                        value={this.state.location}
+                      />
+                      <TextInput
+                        style={styles.input}
+                        placeholder="Set date, time, and duration"
+                        placeholderTextColor={colors.opaqueBlack}
+                        onChangeText={date => this.onChangeDate(date)}
+                        value={this.state.date}
+                      />
+                      <TouchableOpacity
+                        style={[
+                          styles.loginButtonContainer,
+                          validInputs && {backgroundColor: colors.mintGreen},
+                        ]}
+                        disabled={!validInputs}
+                        onPress={() => this.onPressSearch()}>
+                        <Text style={styles.loginButtonText}>Search</Text>
+                      </TouchableOpacity>
+                    </View>
+                    <View style={styles.dividerLine}/>
+                    <View>
+                      {
+                        this.state.searched ? (
+                          <View style={{
+                            flex: 1,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginHorizontal: 30,
+                            marginBottom: 10,
+                          }}>
+                            <Text style={styles.heading}>
+                              List of local tutors
+                            </Text>
+                            <View style={{
+                              flexDirection: 'row',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              marginLeft: 'auto',
+                              borderWidth: 1,
+                              borderRadius: 5,
+                              width: 50,
+                              height: 20,
+                            }}>
+                              <Text style={{fontSize: 10,}}>
+                                Sort
+                              </Text>
+                              <Image source={nextArrow} style={{
+                                width: 20,
+                                height: 20,
+                                transform: [{rotate: '90deg'}],
+                              }}/>
+                            </View>
+                          </View>
+                        ) : (
+                          <View style={{
+                            flex: 1,
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }}>
+                            <View style={{height: 150}}/>
+                            <Text style={styles.quoteTextLarge}>
+                              "An investment in knowledge
+                            </Text>
+                            <Text style={styles.quoteTextLarge}>
+                              pays the mest interest"
+                            </Text>
+                            <Text style={styles.quoteTextSmall}>
+                              - Benjamin Franlkin
+                            </Text>
+                          </View>
+                        )
+                      }
+                    </View>
                   </View>
                 ) : (
-                  <View key={item.id}>
+                  <View key={item.id} style={styles.itemContainer}>
                     {
                       this.state.searched ? (
                         <View>
-                          <View style={styles.dividerLine}/>
                           <TouchableOpacity style={{flexDirection: "row"}}>
                             <View style={styles.icon}/>
                             <View style={{marginLeft: 10, flex: 3}}>
@@ -179,6 +235,7 @@ export default class SearchScreen extends React.Component {
                               <Image source={nextArrow}/>
                             </View>
                           </TouchableOpacity>
+                          <View style={styles.dividerLine}/>
                         </View>
                       ) : (
                         <View/>
@@ -254,5 +311,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: colors.black,
     overflow: 'hidden',
+  },
+  quoteTextLarge: {
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 20,
+    color: colors.black,
+  },
+  quoteTextSmall: {
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 15,
+    color: colors.black,
+    marginLeft: 150,
+  },
+  heading: {
+    fontFamily: 'Apple SD Gothic Neo',
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.black,
   },
 });

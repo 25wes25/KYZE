@@ -15,6 +15,7 @@ import cancellation from '../../../res/images/cancellation.png';
 import verified from '../../../res/images/verified.png';
 import info from '../../../res/images/info.png';
 import checkmark from '../../../res/images/checkmark.png';
+import pedram from '../../../res/images/pedram.png';
 import {colors} from '../../styles';
 
 const user = {
@@ -41,7 +42,7 @@ export default class TutorProfileScreen extends React.Component {
           keyboardShouldPersistTaps="handled">
           <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
             <View style={styles.blackBar}/>
-            <View style={styles.photo}/>
+            <Image style={styles.photo} source={pedram}/>
           </View>
           <View style={styles.contentContainer}>
             <View style={styles.topContent}>

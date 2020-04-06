@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
+import pedram from '../../../res/images/pedram.png';
 import {colors, fonts} from '../../styles';
 
 const user = {
@@ -99,7 +100,7 @@ export default class StudentProfileScreen extends React.Component {
           keyboardShouldPersistTaps="handled">
           <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
             <View style={styles.blackBar}/>
-            <View style={styles.photo}/>
+            <Image style={styles.photo} source={pedram}/>
           </View>
           <View style={styles.contentContainer}>
             <View style={styles.topContent}>
