@@ -15,7 +15,13 @@ class TitleComponent extends React.Component {
         <Text style={styles.appTitle}>KYZE</Text>
         <View style={styles.dividerContainer}>
           <View style={styles.dividerLine} />
-          <Text style={styles.dividerText}>{this.props.title}</Text>
+          {
+            this.props.title !== '' ? (
+              <Text style={styles.dividerText}>{this.props.title}</Text>
+            ) : (
+              null
+            )
+          }
           <View style={styles.dividerLine} />
         </View>
       </View>
@@ -28,7 +34,7 @@ TitleComponent.propTypes = {
 };
 
 TitleComponent.defaultProps = {
-  title: 'Title',
+  title: '',
 };
 
 export default TitleComponent;

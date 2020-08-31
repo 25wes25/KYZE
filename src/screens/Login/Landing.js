@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import {colors} from '../styles';
-import backgroundImage from '../../res/images/landingBackground.jpg';
+import {colors} from '../../styles';
+import backgroundImage from '../../../res/images/landingBackground.jpg';
 import {CommonActions} from '@react-navigation/routers';
 
 export default class LandingScreen extends React.Component {
@@ -18,11 +18,17 @@ export default class LandingScreen extends React.Component {
 
   onPressLoginAsStudent = () => {
     this.props.navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{name: 'StudentBottomTabNavigator'}],
+      }),
+    );
+    /*this.props.navigation.dispatch(
       CommonActions.navigate({
         name: 'Login',
         params: {type: 'Student'},
       }),
-    );
+    );*/
   };
 
   onPressLoginAsTutor = () => {
@@ -73,11 +79,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignContent: 'center',
-  },
-  contentContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 60,
   },
   appTitle: {
     flex: 1,

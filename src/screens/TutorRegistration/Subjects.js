@@ -1,17 +1,17 @@
 import React from 'react';
 import {
   Image,
-  SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
 import {colors} from '../../styles';
-import checkmarkImage from '../../../res/images/checkmark.png';
 import nextArrow from '../../../res/images/nextArrow.png';
 import TitleComponent from '../../components/TitleComponent';
+import ButtonComponent from '../../components/ButtonComponent';
+import ContainerComponent from '../../components/ContainerComponent';
+import CheckboxComponent from '../../components/CheckboxComponent';
 
 export default class SubjectsScreen extends React.Component {
   constructor(props) {
@@ -83,136 +83,71 @@ export default class SubjectsScreen extends React.Component {
   render() {
     let validInputs = true;
     return (
-      <SafeAreaView style={styles.container}>
-        <ScrollView
-          contentContainerStyle={styles.contentContainer}
-          keyboardShouldPersistTaps="handled">
-          <TitleComponent title={'Tutor Registration'} />
-          <Text style={styles.blockText}>
-            <Text>
-              Click on a subject and check ALL the courses that you would like
-              to tutor{'\n\n'}
-            </Text>
-            <Text style={{fontWeight: 'bold'}}>Note: </Text>
-            <Text>
-              You must complete and successfully pass an individual assessment
-              for each course you select in order to be verified to tutor that
-              course (this will be discussed in more detail once your account
-              has been created)
-            </Text>
+      <ContainerComponent>
+        <TitleComponent title='Tutor Registration' />
+        <Text style={styles.blockText}>
+          <Text>
+            Click on a subject and check ALL the courses that you would like
+            to tutor{'\n\n'}
           </Text>
-          {this.state.subjects.map((subject, i) => {
-            return (
-              <View key={i}>
-                <TouchableOpacity
-                  style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                  }}
-                  onPress={index => this.openClose(i)}>
-                  <Image
-                    source={nextArrow}
-                    style={subject.expanded ? styles.arrowUp : styles.arrowDown}
-                  />
-                  <Text style={styles.subjectText}>{subject.title}</Text>
-                </TouchableOpacity>
-                {subject.expanded ? (
-                  subject.courses.map((course, j) => {
-                    return (
-                      <View
-                        key={j}
-                        style={{
-                          flex: 1,
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                        }}>
-                        <TouchableOpacity
-                          style={[
-                            styles.checkbox,
-                            course.selected && {
-                              backgroundColor: colors.mintGreen,
-                            },
-                          ]}
-                          onPress={(indexI, indexJ) => this.onPressCheck(i, j)}>
-                          {course.selected ? (
-                            <Image
-                              source={checkmarkImage}
-                              style={styles.checkmark}
-                            />
-                          ) : (
-                            <View />
-                          )}
-                        </TouchableOpacity>
-                        <Text style={styles.courseText}>{course.title}</Text>
-                      </View>
-                    );
-                  })
-                ) : (
-                  <View />
-                )}
-              </View>
-            );
-          })}
-          <TouchableOpacity
-            style={[
-              styles.nextButtonContainer,
-              validInputs && {backgroundColor: colors.mintGreen},
-            ]}
-            disabled={!validInputs}
-            onPress={this.onPressNext}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'center',
-              }}>
-              <Text style={styles.nextButtonText}>Next</Text>
-              <Image source={nextArrow} />
+          <Text style={{fontWeight: 'bold'}}>Note: </Text>
+          <Text>
+            You must complete and successfully pass an individual assessment
+            for each course you select in order to be verified to tutor that
+            course (this will be discussed in more detail once your account
+            has been created)
+          </Text>
+        </Text>
+        {this.state.subjects.map((subject, i) => {
+          return (
+            <View key={i}>
+              <TouchableOpacity
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                }}
+                onPress={index => this.openClose(i)}>
+                <Image
+                  source={nextArrow}
+                  style={subject.expanded ? styles.arrowUp : styles.arrowDown}
+                />
+                <Text style={styles.subjectText}>{subject.title}</Text>
+              </TouchableOpacity>
+              {subject.expanded ? (
+                subject.courses.map((course, j) => {
+                  return (
+                    <View
+                      key={j}
+                      style={{
+                        flex: 1,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginVertical: 8,
+                      }}>
+                      <CheckboxComponent
+                        enabled={course.selected}
+                        onPress={(indexI, indexJ) => this.onPressCheck(i, j)}/>
+                      <Text style={styles.courseText}>{course.title}</Text>
+                    </View>
+                  );
+                })
+              ) : (
+                <View />
+              )}
             </View>
-          </TouchableOpacity>
-        </ScrollView>
-      </SafeAreaView>
+          );
+        })}
+        <ButtonComponent
+          enabled={validInputs}
+          onPress={this.onPressNext}
+          text='Next'
+          arrow={true}/>
+      </ContainerComponent>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: colors.white,
-  },
-  contentContainer: {
-    justifyContent: 'center',
-    marginHorizontal: 40,
-  },
-  appTitle: {
-    fontFamily: 'Apple SD Gothic Neo',
-    textAlign: 'left',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    padding: 20,
-    fontSize: 50,
-    color: colors.black,
-    marginTop: 40,
-    marginBottom: 14,
-  },
-  nextButtonContainer: {
-    borderWidth: 1,
-    borderRadius: 4,
-    backgroundColor: colors.lightGray,
-    marginVertical: 20,
-  },
-  nextButtonText: {
-    fontFamily: 'Apple SD Gothic Neo',
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    padding: 10,
-    fontSize: 16,
-    color: colors.black,
-    overflow: 'hidden',
-  },
   blockText: {
     fontFamily: 'Apple SD Gothic Neo',
     fontSize: 14,
@@ -236,19 +171,5 @@ const styles = StyleSheet.create({
   },
   arrowUp: {
     transform: [{rotate: '-90deg'}],
-  },
-  checkbox: {
-    width: 20,
-    height: 20,
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: colors.black,
-    marginHorizontal: 10,
-    marginVertical: 8,
-  },
-  checkmark: {
-    width: 15,
-    height: 15,
-    margin: 1.5,
   },
 });

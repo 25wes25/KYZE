@@ -2,25 +2,31 @@ import React from 'react';
 import {Image, TouchableOpacity} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import LandingScreen from './screens/Landing';
-import LoginScreen from './screens/Login';
-import ForgotPasswordScreen from './screens/ForgotPassword';
-import RegisterScreen from './screens/Register';
+
+import LandingScreen from './screens/Login/Landing';
+import LoginScreen from './screens/Login/Login';
+import ForgotPasswordScreen from './screens/Login/ForgotPassword';
+import RegisterScreen from './screens/Login/Register';
+
 import SubjectsScreen from './screens/TutorRegistration/Subjects';
 import PersonalizeProfileScreen from './screens/TutorRegistration/PersonalizeProfile';
 import TermsAndAgreementScreen from './screens/TutorRegistration/TermsAndAgreement';
 import EmailConfirmationScreen from './screens/TutorRegistration/EmailConfirmation';
 import PreferencesScreen from './screens/TutorRegistration/Preferences';
 import BasicInfoScreen from './screens/TutorRegistration/BasicInfo';
-import DashboardScreen from './screens/Dashboard';
+
+import StudentDashboardScreen from './screens/Student/StudentDashboard';
 import SearchScreen from './screens/Student/Search';
+import StudentSettingsScreen from './screens/Student/StudentSettings';
+import StudentProfileScreen from './screens/Student/StudentProfile';
+
 import EarningsScreen from './screens/Tutor/Earnings';
+import TutorProfileScreen from './screens/Tutor/TutorProfile';
+import TutorSettingsScreen from './screens/Tutor/TutorSettings';
+
 import ScheduleScreen from './screens/Shared/Schedule';
 import MessagesScreen from './screens/Shared/Messages';
-import StudentProfileScreen from './screens/Student/StudentProfile';
-import TutorProfileScreen from './screens/Tutor/TutorProfile';
-import StudentSettingsScreen from './screens/Student/StudentSettings';
-import TutorSettingsScreen from './screens/Tutor/TutorSettings';
+
 import TermsOfServiceScreen from './screens/TermsOfService';
 import PrivacyPolicyScreen from './screens/PrivacyPolicy';
 
@@ -43,7 +49,7 @@ function DashboardStack(type) {
       }}>
       <Stack.Screen
         name="Dashboard"
-        component={DashboardScreen}
+        component={StudentDashboardScreen}
         initialParams={{type: type}}
         options={{title: 'Dashboard'}}
       />

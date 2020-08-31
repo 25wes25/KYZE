@@ -1,8 +1,6 @@
 import React from 'react';
 import {
   Image,
-  SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -13,6 +11,8 @@ import {colors} from '../../styles';
 import nextArrow from '../../../res/images/nextArrow.png';
 import addProfilePhoto from '../../../res/images/addProfilePhoto.png';
 import TitleComponent from '../../components/TitleComponent';
+import ButtonComponent from '../../components/ButtonComponent';
+import ContainerComponent from '../../components/ContainerComponent';
 
 export default class PersonalizeProfileScreen extends React.Component {
   constructor(props) {
@@ -41,110 +41,69 @@ export default class PersonalizeProfileScreen extends React.Component {
 
   render() {
     let validInputs =
-      this.state.headline.length > 0 && this.state.bio.length > 0;
+      this.state.headline.length > 0 &&
+      this.state.bio.length > 0;
     return (
-      <SafeAreaView style={styles.container}>
-        <ScrollView
-          contentContainerStyle={styles.contentContainer}
-          keyboardShouldPersistTaps="handled">
-          <TitleComponent title="Tutor Registration" />
-          <Text style={styles.sectionTitle}>Profile Picture</Text>
-          <View
-            style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}>
-            <TouchableOpacity style={styles.profilePhoto}>
-              <Image
-                source={addProfilePhoto}
-                style={{marginHorizontal: 17, marginVertical: 29}}
-              />
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.sectionTitle}>Profile Headline</Text>
-          <Text style={styles.blockText}>
-            This will appear at the top of your profile and is one of the first
-            things a student sees about you
-          </Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Short headline about yourself"
-            multiline={true}
-            maxLength={40}
-            onChangeText={headline => this.onChangeHeadline(headline)}
-          />
-
-          <Text style={styles.sectionTitle}>Bio</Text>
-          <Text style={styles.blockText}>
-            <Text>
-              Help students get to know you and encourage them to contact you
-              {'\n\n'}
-            </Text>
-            <Text style={{fontWeight: 'bold'}}>Note: </Text>
-            <Text>
-              this section must be 1-2 paragraphs long and cannot be in ALL CAPS
-              or resume format
-            </Text>
-          </Text>
-          <TextInput
-            style={[styles.input, {minHeight: 200}]}
-            placeholder="Do you have experience tutoring or teaching? What do
-              you love about tutoring? What makes you a qualified tutor?"
-            multiline={true}
-            maxLength={1000}
-            onChangeText={bio => this.onChangeBio(bio)}
-          />
-
-          <TouchableOpacity
-            style={[
-              styles.nextButtonContainer,
-              validInputs && {backgroundColor: colors.mintGreen},
-            ]}
-            disabled={!validInputs}
-            onPress={this.onPressNext}>
-            <View
-              style={{
-                flex: 1,
-                flexDirection: 'row',
-                justifyContent: 'center',
-              }}>
-              <Text style={styles.nextButtonText}>Next</Text>
-              <Image source={nextArrow} />
-            </View>
+      <ContainerComponent>
+        <TitleComponent title="Tutor Registration" />
+        <Text style={styles.sectionTitle}>Profile Picture</Text>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+          }}>
+          <TouchableOpacity style={styles.profilePhoto}>
+            <Image
+              source={addProfilePhoto}
+              style={{marginHorizontal: 17, marginVertical: 29}}
+            />
           </TouchableOpacity>
-        </ScrollView>
-      </SafeAreaView>
+        </View>
+        <Text style={styles.sectionTitle}>Profile Headline</Text>
+        <Text style={styles.blockText}>
+          This will appear at the top of your profile and is one of the first
+          things a student sees about you
+        </Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Short headline about yourself"
+          multiline={true}
+          maxLength={40}
+          onChangeText={headline => this.onChangeHeadline(headline)}
+        />
+
+        <Text style={styles.sectionTitle}>Bio</Text>
+        <Text style={styles.blockText}>
+          <Text>
+            Help students get to know you and encourage them to contact you
+            {'\n\n'}
+          </Text>
+          <Text style={{fontWeight: 'bold'}}>Note: </Text>
+          <Text>
+            this section must be 1-2 paragraphs long and cannot be in ALL CAPS
+            or resume format
+          </Text>
+        </Text>
+        <TextInput
+          style={[styles.input, {minHeight: 200}]}
+          placeholder="Do you have experience tutoring or teaching? What do
+            you love about tutoring? What makes you a qualified tutor?"
+          multiline={true}
+          maxLength={1000}
+          onChangeText={bio => this.onChangeBio(bio)}
+        />
+        <ButtonComponent
+          enabled={validInputs}
+          onPress={this.onPressNext}
+          text='Next'
+          arrow={true}/>
+      </ContainerComponent>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: colors.white,
-  },
-  contentContainer: {
-    justifyContent: 'center',
-    marginHorizontal: 40,
-  },
-  nextButtonContainer: {
-    borderWidth: 1,
-    borderRadius: 4,
-    backgroundColor: colors.lightGray,
-    marginVertical: 20,
-  },
-  nextButtonText: {
-    fontFamily: 'Apple SD Gothic Neo',
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    padding: 10,
-    fontSize: 16,
-    color: colors.black,
-    overflow: 'hidden',
-  },
   sectionTitle: {
     fontFamily: 'Apple SD Gothic Neo',
     fontSize: 18,
