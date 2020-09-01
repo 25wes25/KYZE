@@ -5,6 +5,7 @@ import {
   View,
   Text,
   FlatList,
+  Content,
 } from 'react-native';
 import styles from './styles';
 import {colors} from '../../styles';
@@ -23,13 +24,18 @@ class CalendarComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      today: 23,
+      viewHeight: 100,
     };
   }
 
   renderDay(item) {
     return (
-      <TouchableOpacity style={styles.dateRowContainer}>
+      <TouchableOpacity style={[
+        styles.dateRowContainer,
+        {
+          height: this.state.viewHeight/this.props.days,
+        }
+      ]}>
         <View style={styles.dateDayContainer}>
           <View style={styles.dateDayPair}>
             <Text style={styles.dateWeekdayText}>{item.weekday}</Text>
@@ -38,14 +44,14 @@ class CalendarComponent extends React.Component {
           <View
             style={[
               styles.dateDaySelection,
-              item.date === this.state.today && {backgroundColor: colors.black},
+              item.date === (new Date()).getDate() && {backgroundColor: colors.black},
             ]}
           />
         </View>
         <View
           style={[
             styles.dateContentContainer,
-            item.date % 2 === 1
+            item.day % 2 === 1
               ? {backgroundColor: colors.calendarBlue}
               : {backgroundColor: colors.calendarBlueLight},
           ]}>
@@ -59,7 +65,12 @@ class CalendarComponent extends React.Component {
 
   renderSession(session) {
     return (
-      <View style={styles.sessionContainer}>
+      <View style={[
+        styles.sessionContainer,
+        {
+          height: (100/this.props.maxSessionsPerDay).toString()+'%',
+        }
+      ]}>
         <View
           style={[styles.sessionColorView, {backgroundColor: session.color}]}
         />
@@ -71,32 +82,38 @@ class CalendarComponent extends React.Component {
     );
   }
 
+  measureViewHeight(event) {
+    this.setState({
+      viewHeight: event.nativeEvent.layout.height
+    });
+  }
+
   render() {
     let dates = [];
+    let weekOffset = 0;
+    if (this.props.days == 7) {
+      weekOffset = (new Date()).getDay();
+    }
     for (let i=0; i<this.props.days; i++) {
       let d = new Date();
-      d.setDate(d.getDate() + i);
+      d.setDate(d.getDate() + i - weekOffset);
       dates.push({
         id: i.toString(),
         weekday: dow[d.getDay()],
         date: d.getDate(),
-        sessions: [
-          {
-            subject: 'Calculus I',
-            time: '4:00pm -> 5:00pm',
-            color: '#84E1FF',
-          },
-          {
-            subject: 'Algebra II',
-            time: '6:00pm -> 7:00pm',
-            color: '#E0C951',
-          },
-        ],
+        day: d.getDay(),
+        sessions: this.props.sessions[d.getDate()] ? (
+          this.props.sessions[d.getDate()].slice(0, this.props.maxSessionsPerDay)
+        ) : (
+          []
+        ),
       });
     }
 
     return (
-      <View style={styles.calendarContainer}>
+      <View
+        style={styles.calendarContainer}
+        onLayout={(event) => this.measureViewHeight(event)}>
         <FlatList
           data={dates}
           renderItem={({item}) => this.renderDay(item)}
@@ -107,5 +124,17 @@ class CalendarComponent extends React.Component {
     );
   }
 }
+
+CalendarComponent.propTypes = {
+  sessions: PropTypes.objects,
+  days: PropTypes.number,
+  maxSessionsPerDay: PropTypes.number,
+};
+
+CalendarComponent.defaultProps = {
+  sessions: {},
+  days: 3,
+  maxSessionsPerDay: 2,
+};
 
 export default CalendarComponent;

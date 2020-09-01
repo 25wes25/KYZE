@@ -10,16 +10,16 @@ import {
 } from 'react-native';
 import {colors, fonts} from '../../styles';
 import {
-  dates,
   rewardsAndPromoData,
-  notificationsData
+  notificationsData,
+  sessions,
 } from '../../testing';
 import CalendarComponent from '../../components/CalendarComponent';
 
 
 
 
-export default class StudentDashboardScreen extends React.Component {
+export default class DashboardScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,8 +47,7 @@ export default class StudentDashboardScreen extends React.Component {
             <Text style={styles.categoryTitleText}>Upcoming Sessions</Text>
           </View>
           <View style={styles.divider} />
-          <CalendarComponent
-            days={3}/>
+          <CalendarComponent sessions={sessions}/>
         </View>
         <View style={styles.separator} />
         {this.state.type === 'Student' ? (
@@ -110,6 +109,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: colors.white,
   },
+  sessionsContainer: {
+    height: '40%',
+  },
   sessionsTitleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -148,7 +150,6 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     paddingHorizontal: 32,
   },
-  rewardsAndPromosContainer: {},
   rewardsAndPromosTitleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -166,7 +167,6 @@ const styles = StyleSheet.create({
   notificationsList: {
     flex: 1,
   },
-  notificationButton: {},
   notificationContainer: {
     height: 50,
     flexDirection: 'row',

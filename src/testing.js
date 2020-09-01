@@ -43,59 +43,59 @@ export const subjects = [
   },
 ];
 
-export const dates = [
-  {
-    id: '0',
-    weekday: 'Mon',
-    date: 23,
-    sessions: [
-      {
-        subject: 'Calculus I',
-        time: '4:00pm -> 5:00pm',
-        color: '#84E1FF',
-      },
-      {
-        subject: 'Algebra II',
-        time: '6:00pm -> 7:00pm',
-        color: '#E0C951',
-      },
-    ],
-  },
-  {
-    id: '1',
-    weekday: 'Tue',
-    date: 24,
-    sessions: [
-      {
-        subject: 'Physics II',
-        time: '12:00pm -> 2:00pm',
-        color: '#ffa1f8',
-      },
-      {
-        subject: 'Biology I',
-        time: '4:00pm -> 5:00pm',
-        color: '#5be073',
-      },
-    ],
-  },
-  {
-    id: '2',
-    weekday: 'Wed',
-    date: 25,
-    sessions: [
-      {
-        subject: 'Calculus I',
-        time: '4:00pm -> 5:00pm',
-        color: '#84E1FF',
-      },
-      {
-        subject: 'Algebra II',
-        time: '6:00pm -> 7:00pm',
-        color: '#E0C951',
-      },
-    ],
-  },
-];
+export const sessions = {
+  31: [
+    {
+      subject: 'Calculus I',
+      time: '4:00pm -> 5:00pm',
+      color: '#84E1FF',
+    },
+    {
+      subject: 'Algebra II',
+      time: '6:00pm -> 7:00pm',
+      color: '#E0C951',
+    },
+  ],
+  1: [
+    {
+      subject: 'Physics II',
+      time: '12:00pm -> 2:00pm',
+      color: '#ffa1f8',
+    },
+    {
+      subject: 'Biology I',
+      time: '4:00pm -> 5:00pm',
+      color: '#5be073',
+    },
+    {
+      subject: 'Algebra II',
+      time: '5:00pm -> 6:30pm',
+      color: '#E0C951',
+    },
+    {
+      subject: 'Calculus I',
+      time: '7:00pm -> 8:00pm',
+      color: '#84E1FF',
+    },
+  ],
+  2: [
+    {
+      subject: 'Calculus I',
+      time: '4:00pm -> 5:00pm',
+      color: '#84E1FF',
+    },
+    {
+      subject: 'Algebra II',
+      time: '6:00pm -> 7:00pm',
+      color: '#E0C951',
+    },
+    {
+      subject: 'Biology I',
+      time: '7:00pm -> 8:00pm',
+      color: '#5be073',
+    },
+  ],
+};
 
 export const rewardsAndPromoData = [
   {

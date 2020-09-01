@@ -195,7 +195,7 @@ export default class RegisterScreen extends React.Component {
   }
 
   render() {
-    let validInputs = true;/*
+    let validInputs =
       this.state.firstName.length > 0 &&
       this.state.lastName.length > 0 &&
       this.state.sex != -1 &&
@@ -206,7 +206,7 @@ export default class RegisterScreen extends React.Component {
       this.state.password.length >= 8 &&
       this.state.confirmPassword.length >= 8 &&
       this.state.password === this.state.confirmPassword &&
-      this.state.tosAgree;*/
+      this.state.tosAgree;
     return (
       <ContainerComponent>
         <TitleComponent title={this.state.type+' Registration'}/>

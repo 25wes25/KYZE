@@ -7,7 +7,7 @@ export default StyleSheet.create({
   },
   dateRowContainer: {
     flex: 1,
-    height: 85, // Faked height for prototype purposes
+    //height: 85, // Faked height for prototype purposes
     flexDirection: 'row',
   },
   dateDayContainer: {
@@ -47,9 +47,9 @@ export default StyleSheet.create({
   dateContentContainer: {
     flex: 1,
     flexGrow: 1,
+    justifyContent: 'center',
   },
   sessionContainer: {
-    flex: 1,
     flexDirection: 'row',
   },
   sessionColorView: {

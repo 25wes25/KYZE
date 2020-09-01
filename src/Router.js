@@ -15,7 +15,6 @@ import EmailConfirmationScreen from './screens/TutorRegistration/EmailConfirmati
 import PreferencesScreen from './screens/TutorRegistration/Preferences';
 import BasicInfoScreen from './screens/TutorRegistration/BasicInfo';
 
-import StudentDashboardScreen from './screens/Student/StudentDashboard';
 import SearchScreen from './screens/Student/Search';
 import StudentSettingsScreen from './screens/Student/StudentSettings';
 import StudentProfileScreen from './screens/Student/StudentProfile';
@@ -24,6 +23,7 @@ import EarningsScreen from './screens/Tutor/Earnings';
 import TutorProfileScreen from './screens/Tutor/TutorProfile';
 import TutorSettingsScreen from './screens/Tutor/TutorSettings';
 
+import DashboardScreen from './screens/Shared/Dashboard';
 import ScheduleScreen from './screens/Shared/Schedule';
 import MessagesScreen from './screens/Shared/Messages';
 
@@ -49,7 +49,7 @@ function DashboardStack(type) {
       }}>
       <Stack.Screen
         name="Dashboard"
-        component={StudentDashboardScreen}
+        component={DashboardScreen}
         initialParams={{type: type}}
         options={{title: 'Dashboard'}}
       />
