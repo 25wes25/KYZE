@@ -5,7 +5,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import {colors} from '../../styles';
+import {colors, fonts} from '../../styles';
 import checkmarkImage from '../../../res/images/checkmark.png';
 import nextArrow from '../../../res/images/nextArrow.png';
 import TitleComponent from '../../components/TitleComponent';
@@ -124,7 +124,7 @@ export default class TermsAndAgreementScreen extends React.Component {
 
 const styles = StyleSheet.create({
   blockText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 14,
     color: colors.black,
     marginTop: 9,

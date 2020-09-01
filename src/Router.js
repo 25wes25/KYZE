@@ -30,7 +30,7 @@ import MessagesScreen from './screens/Shared/Messages';
 import TermsOfServiceScreen from './screens/TermsOfService';
 import PrivacyPolicyScreen from './screens/PrivacyPolicy';
 
-import {colors, dynamicSizes} from './styles';
+import {colors, fonts, dynamicSizes} from './styles';
 
 const Stack = createStackNavigator();
 const StudentBottomTab = createBottomTabNavigator();
@@ -245,7 +245,7 @@ function StudentBottomTabNavigator() {
         activeTintColor: colors.black,
         inactiveTintColor: colors.mediumGray,
         labelStyle: {
-          fontFamily: 'Apple SD Gothic Neo',
+          fontFamily: fonts.gothic,
           fontSize: 12,
           fontWeight: 'bold',
         },
@@ -385,7 +385,7 @@ function TutorBottomTabNavigator() {
         activeTintColor: colors.black,
         inactiveTintColor: colors.mediumGray,
         labelStyle: {
-          fontFamily: 'Apple SD Gothic Neo',
+          fontFamily: fonts.gothic,
           fontSize: 12,
           fontWeight: 'bold',
           marginBottom: 5,

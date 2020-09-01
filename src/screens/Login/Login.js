@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import {CommonActions} from '@react-navigation/native';
-import {colors} from '../../styles';
+import {colors, fonts} from '../../styles';
 import {validateEmail} from '../../utils';
 import {user} from '../../testing';
 import TextInputComponent from '../../components/TextInputComponent';
@@ -123,7 +123,7 @@ export default class LoginScreen extends React.Component {
 
 const styles = StyleSheet.create({
   errorText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     justifyContent: 'center',
     alignSelf: 'center',
     fontSize: 16,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   forgotPasswordButtonText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     textAlign: 'center',
     fontSize: 16,
     color: colors.mintGreen,
@@ -157,12 +157,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   registerText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 16,
     color: colors.black,
   },
   registerButtonText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     textAlign: 'center',
     fontSize: 16,
     color: colors.mintGreen,

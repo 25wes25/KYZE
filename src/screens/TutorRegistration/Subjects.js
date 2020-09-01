@@ -7,7 +7,7 @@ import {
   View,
   FlatList,
 } from 'react-native';
-import {colors} from '../../styles';
+import {colors, fonts} from '../../styles';
 import {subjects} from '../../testing';
 import nextArrow from '../../../res/images/nextArrow.png';
 import TitleComponent from '../../components/TitleComponent';
@@ -147,19 +147,19 @@ export default class SubjectsScreen extends React.Component {
 
 const styles = StyleSheet.create({
   blockText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 14,
     color: colors.black,
     marginTop: 9,
   },
   subjectText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 20,
     color: colors.black,
     marginVertical: 10,
   },
   courseText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 13,
     color: colors.black,
     marginTop: 3,

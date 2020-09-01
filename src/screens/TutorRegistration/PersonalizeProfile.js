@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors} from '../../styles';
+import {colors, fonts} from '../../styles';
 import nextArrow from '../../../res/images/nextArrow.png';
 import addProfilePhoto from '../../../res/images/addProfilePhoto.png';
 import TitleComponent from '../../components/TitleComponent';
@@ -105,7 +105,7 @@ export default class PersonalizeProfileScreen extends React.Component {
 
 const styles = StyleSheet.create({
   sectionTitle: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 18,
     color: colors.black,
     marginTop: 20,
@@ -118,14 +118,14 @@ const styles = StyleSheet.create({
     height: 120,
   },
   blockText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 14,
     color: colors.black,
     marginTop: 9,
     marginBottom: 5,
   },
   input: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 18,
     lineHeight: 22,
     color: colors.black,

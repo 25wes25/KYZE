@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors} from '../../styles';
+import {colors, fonts} from '../../styles';
 import {
   validateState,
   validateZipCode,
@@ -219,13 +219,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   sectionTitle: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 18,
     color: colors.black,
     marginTop: 20,
   },
   addDegreeText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 14,
     color: colors.black,
   },

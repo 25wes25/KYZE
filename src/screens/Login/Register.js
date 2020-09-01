@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import {CommonActions} from '@react-navigation/native';
-import {colors} from '../../styles';
+import {colors, fonts} from '../../styles';
 import {
   validateEmail,
   validatePhone,
@@ -351,12 +351,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   tosText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 12,
     color: colors.black,
   },
   tosButtonText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     textAlign: 'center',
     fontSize: 12,
     color: colors.mintGreen,

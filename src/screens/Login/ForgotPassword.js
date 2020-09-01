@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors} from '../../styles';
+import {colors, fonts} from '../../styles';
 import {validateEmail} from '../../utils';
 import {CommonActions} from '@react-navigation/native';
 import ButtonComponent from '../../components/ButtonComponent';
@@ -91,7 +91,7 @@ export default class ForgotPasswordScreen extends React.Component {
 
 const styles = StyleSheet.create({
   forgotPasswordText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 20,
     fontWeight: 'bold',
     lineHeight: 25,
@@ -100,14 +100,14 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   descriptionText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 14,
     lineHeight: 17,
     color: colors.black,
     paddingLeft: 10,
   },
   textInput: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 18,
     lineHeight: 22,
     color: colors.black,
@@ -136,12 +136,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   bottomText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 16,
     color: colors.black,
   },
   bottomButtonText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     textAlign: 'center',
     fontSize: 16,
     color: colors.mintGreen,

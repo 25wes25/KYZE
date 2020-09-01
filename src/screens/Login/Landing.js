@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import {colors} from '../../styles';
+import {colors, fonts} from '../../styles';
 import backgroundImage from '../../../res/images/landingBackground.jpg';
 import {CommonActions} from '@react-navigation/routers';
 
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   appTitle: {
     flex: 1,
     marginTop: 60,
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     textAlign: 'left',
     justifyContent: 'center',
     alignSelf: 'center',
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     borderColor: colors.white,
   },
   buttonText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     textAlign: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     height: 1,
   },
   dividerText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     textAlign: 'center',
     paddingHorizontal: 20,
     fontSize: 18,

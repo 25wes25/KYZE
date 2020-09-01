@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import nextArrow from '../../../res/images/nextArrow.png';
 import star from '../../../res/images/starSmall.png';
-import {colors} from '../../styles';
+import {colors, fonts} from '../../styles';
 
 const DATA = [
   {
@@ -286,18 +286,18 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGray,
   },
   messageName: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 16,
     fontWeight: 'bold',
     color: colors.black,
   },
   messagePreview: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 12,
     color: colors.black,
   },
   input: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 18,
     lineHeight: 22,
     color: colors.black,
@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 50,
   },
   loginButtonText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     textAlign: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
@@ -325,18 +325,18 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   quoteTextLarge: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 20,
     color: colors.black,
   },
   quoteTextSmall: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 15,
     color: colors.black,
     marginLeft: 150,
   },
   heading: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 18,
     fontWeight: 'bold',
     color: colors.black,

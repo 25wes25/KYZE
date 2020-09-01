@@ -16,7 +16,7 @@ import verified from '../../../res/images/verified.png';
 import info from '../../../res/images/info.png';
 import checkmark from '../../../res/images/checkmark.png';
 import pedram from '../../../res/images/pedram.png';
-import {colors} from '../../styles';
+import {colors, fonts} from '../../styles';
 
 const user = {
   name: 'Pedram H.',
@@ -296,20 +296,20 @@ const styles = StyleSheet.create({
     marginTop: -50,
   },
   heading: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 18,
     fontWeight: 'bold',
     color: colors.black,
   },
   subheading: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 14,
     fontWeight: 'bold',
     color: colors.black,
     marginTop: 5,
   },
   degree: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 12,
     color: colors.black,
     marginTop: 5,
@@ -318,14 +318,14 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   name: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 22,
     color: colors.black,
     textAlign: 'center',
     marginBottom: 5,
   },
   headline: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 13,
     color: colors.black,
     textAlign: 'center',
@@ -347,7 +347,7 @@ const styles = StyleSheet.create({
   },
   statsHeading: {
     flex: 1,
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 10,
     color: colors.black,
     textAlign: 'center',
@@ -355,7 +355,7 @@ const styles = StyleSheet.create({
   },
   statsValue: {
     flex: 1,
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 25,
     color: colors.black,
     textAlign: 'center',
@@ -367,24 +367,24 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   reviewAvg: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 16,
     color: colors.black,
     marginLeft: 'auto',
   },
   reviewCnt: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 9,
     color: colors.black,
   },
   blockText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 12,
     color: colors.black,
     marginVertical: 9,
   },
   reviewer: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 8,
     color: colors.black,
   },

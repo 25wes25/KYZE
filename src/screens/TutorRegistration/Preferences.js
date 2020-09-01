@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors} from '../../styles';
+import {colors, fonts} from '../../styles';
 import nextArrow from '../../../res/images/nextArrow.png';
 import TitleComponent from '../../components/TitleComponent';
 import DropdownComponent from '../../components/DropdownComponent';
@@ -232,13 +232,13 @@ export default class PreferencesScreen extends React.Component {
 
 const styles = StyleSheet.create({
   sectionTitle: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 18,
     color: colors.black,
     marginTop: 20,
   },
   blockText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 14,
     color: colors.black,
     marginTop: 9,
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
   },
   radioButtonText: {
     flex: 1,
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 12,
     color: colors.black,
     marginLeft: 10,

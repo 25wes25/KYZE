@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors} from '../../styles';
+import {colors, fonts} from '../../styles';
 import nextArrow from '../../../res/images/nextArrow.png';
 import {CommonActions} from '@react-navigation/routers';
 import TitleComponent from '../../components/TitleComponent';
@@ -59,13 +59,13 @@ export default class EmailConfirmationScreen extends React.Component {
 
 const styles = StyleSheet.create({
   header: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 20,
     color: colors.black,
     marginVertical: 10,
   },
   blockText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 14,
     color: colors.black,
     marginTop: 9,
