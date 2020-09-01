@@ -6,7 +6,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors, fonts} from '../../styles';
+import {
+  colors,
+  fonts,
+  sectionTitle,
+  blockText,
+} from '../../styles';
+import {
+  bypassChecks,
+} from '../../testing';
 import nextArrow from '../../../res/images/nextArrow.png';
 import TitleComponent from '../../components/TitleComponent';
 import DropdownComponent from '../../components/DropdownComponent';
@@ -46,10 +54,10 @@ export default class PreferencesScreen extends React.Component {
   }
 
   render() {
-    let validInputs =
+    let validInputs = bypassChecks || (
       this.state.cancellationPolicy != -1 &&
       this.state.currentRadius != -1 &&
-      this.state.homeRadius != -1;
+      this.state.homeRadius != -1);
     return (
       <ContainerComponent>
         <TitleComponent title="Tutor Registration" />
@@ -231,18 +239,6 @@ export default class PreferencesScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  sectionTitle: {
-    fontFamily: fonts.gothic,
-    fontSize: 18,
-    color: colors.black,
-    marginTop: 20,
-  },
-  blockText: {
-    fontFamily: fonts.gothic,
-    fontSize: 14,
-    color: colors.black,
-    marginTop: 9,
-  },
   radioButtonContainer: {
     flex: 1,
     flexDirection: 'row',

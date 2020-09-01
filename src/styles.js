@@ -19,6 +19,20 @@ export const fonts = {
   gothic: 'Apple SD Gothic Neo',
 };
 
+export const sectionTitle = {
+  fontFamily: fonts.gothic,
+  fontSize: 18,
+  color: colors.black,
+  marginTop: 20,
+};
+
+export const blockText = {
+  fontFamily: fonts.gothic,
+  fontSize: 14,
+  color: colors.black,
+  marginVertical: 9,
+};
+
 export let dynamicSizes = {
   tabNavigatorHeight: isIphoneXorGreater() ? 100 : 60,
 };

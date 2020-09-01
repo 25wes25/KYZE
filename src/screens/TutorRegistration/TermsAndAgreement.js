@@ -5,7 +5,14 @@ import {
   Text,
   View,
 } from 'react-native';
-import {colors, fonts} from '../../styles';
+import {
+  colors,
+  fonts,
+  blockText,
+} from '../../styles';
+import {
+  bypassChecks,
+} from '../../testing';
 import checkmarkImage from '../../../res/images/checkmark.png';
 import nextArrow from '../../../res/images/nextArrow.png';
 import TitleComponent from '../../components/TitleComponent';
@@ -54,11 +61,11 @@ export default class TermsAndAgreementScreen extends React.Component {
   }
 
   render() {
-    let validInputs =
+    let validInputs = bypassChecks || (
       this.state.termsAgree &&
       this.state.legalWorking &&
       this.state.firstName.length > 0 &&
-      this.state.lastName.length > 0;
+      this.state.lastName.length > 0);
     return (
       <ContainerComponent>
         <TitleComponent title={'Tutor Registration'} />
@@ -123,13 +130,6 @@ export default class TermsAndAgreementScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  blockText: {
-    fontFamily: fonts.gothic,
-    fontSize: 14,
-    color: colors.black,
-    marginTop: 9,
-    marginBottom: 20,
-  },
   checkbox: {
     width: 20,
     height: 20,

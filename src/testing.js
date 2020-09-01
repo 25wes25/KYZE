@@ -1,3 +1,5 @@
+export const bypassChecks = true;
+
 export const user = {
   email: 'test@gmail.com',
   password: 'test1234',

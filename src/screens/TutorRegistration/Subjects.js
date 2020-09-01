@@ -7,8 +7,15 @@ import {
   View,
   FlatList,
 } from 'react-native';
-import {colors, fonts} from '../../styles';
-import {subjects} from '../../testing';
+import {
+  colors,
+  fonts,
+  blockText
+} from '../../styles';
+import {
+  subjects,
+  bypassChecks
+} from '../../testing';
 import nextArrow from '../../../res/images/nextArrow.png';
 import TitleComponent from '../../components/TitleComponent';
 import ButtonComponent from '../../components/ButtonComponent';
@@ -112,7 +119,7 @@ export default class SubjectsScreen extends React.Component {
   }
 
   render() {
-    let validInputs = true;
+    let validInputs = bypassChecks || true;
     return (
       <ContainerComponent>
         <TitleComponent title='Tutor Registration' />
@@ -146,12 +153,6 @@ export default class SubjectsScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  blockText: {
-    fontFamily: fonts.gothic,
-    fontSize: 14,
-    color: colors.black,
-    marginTop: 9,
-  },
   subjectText: {
     fontFamily: fonts.gothic,
     fontSize: 20,

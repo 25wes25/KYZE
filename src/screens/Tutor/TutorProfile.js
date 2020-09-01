@@ -16,7 +16,11 @@ import verified from '../../../res/images/verified.png';
 import info from '../../../res/images/info.png';
 import checkmark from '../../../res/images/checkmark.png';
 import pedram from '../../../res/images/pedram.png';
-import {colors, fonts} from '../../styles';
+import {
+  colors,
+  fonts,
+  blockText,
+} from '../../styles';
 
 const user = {
   name: 'Pedram H.',
@@ -376,12 +380,6 @@ const styles = StyleSheet.create({
     fontFamily: fonts.gothic,
     fontSize: 9,
     color: colors.black,
-  },
-  blockText: {
-    fontFamily: fonts.gothic,
-    fontSize: 12,
-    color: colors.black,
-    marginVertical: 9,
   },
   reviewer: {
     fontFamily: fonts.gothic,

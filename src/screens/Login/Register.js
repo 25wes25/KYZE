@@ -3,12 +3,14 @@ import {
   Alert,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 import {CommonActions} from '@react-navigation/native';
-import {colors, fonts} from '../../styles';
+import {
+  colors,
+  fonts,
+} from '../../styles';
 import {
   validateEmail,
   validatePhone,
@@ -16,7 +18,11 @@ import {
   validateZipCode,
   stripPhoneNumber
 } from '../../utils';
-import {user, promo} from '../../testing';
+import {
+  user,
+  promo,
+  bypassChecks,
+} from '../../testing';
 import TextInputComponent from '../../components/TextInputComponent';
 import DropdownComponent from '../../components/DropdownComponent';
 import TitleComponent from '../../components/TitleComponent';
@@ -195,7 +201,7 @@ export default class RegisterScreen extends React.Component {
   }
 
   render() {
-    let validInputs =
+    let validInputs = bypassChecks || (
       this.state.firstName.length > 0 &&
       this.state.lastName.length > 0 &&
       this.state.sex != -1 &&
@@ -206,7 +212,7 @@ export default class RegisterScreen extends React.Component {
       this.state.password.length >= 8 &&
       this.state.confirmPassword.length >= 8 &&
       this.state.password === this.state.confirmPassword &&
-      this.state.tosAgree;
+      this.state.tosAgree);
     return (
       <ContainerComponent>
         <TitleComponent title={this.state.type+' Registration'}/>
@@ -237,7 +243,7 @@ export default class RegisterScreen extends React.Component {
           <View style={styles.inlineFiller} />
           <TextInputComponent
             title="Date of Birth"
-            placeholderText="1/25/1998"
+            placeholderText="1/1/2000"
             autoCapitalize="words"
             onChangeText={dob => this.onChangeDob(dob)}
             value={this.state.dob}

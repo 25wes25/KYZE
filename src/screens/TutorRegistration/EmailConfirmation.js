@@ -6,7 +6,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors, fonts} from '../../styles';
+import {
+  colors,
+  fonts,
+  blockText,
+} from '../../styles';
+import {
+  bypassChecks,
+} from '../../testing';
 import nextArrow from '../../../res/images/nextArrow.png';
 import {CommonActions} from '@react-navigation/routers';
 import TitleComponent from '../../components/TitleComponent';
@@ -29,7 +36,7 @@ export default class EmailConfirmationScreen extends React.Component {
   };
 
   render() {
-    let validInputs = true;
+    let validInputs = bypassChecks || true;
     return (
       <ContainerComponent>
         <TitleComponent title='Tutor Registration' />
@@ -63,11 +70,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: colors.black,
     marginVertical: 10,
-  },
-  blockText: {
-    fontFamily: fonts.gothic,
-    fontSize: 14,
-    color: colors.black,
-    marginTop: 9,
   },
 });

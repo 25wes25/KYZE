@@ -6,11 +6,18 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors, fonts} from '../../styles';
+import {
+  colors,
+  fonts,
+  sectionTitle,
+} from '../../styles';
 import {
   validateState,
   validateZipCode,
 } from '../../utils';
+import {
+  bypassChecks,
+} from '../../testing';
 import plusSign from '../../../res/images/plusSign.png';
 import TextInputComponent from '../../components/TextInputComponent';
 import TitleComponent from '../../components/TitleComponent';
@@ -94,11 +101,11 @@ export default class BasicInfoScreen extends React.Component {
   }
 
   render() {
-    let validInputs =
+    let validInputs = bypassChecks || (
       this.state.street.length > 0 &&
       this.state.city.length > 0 &&
       validateState(this.state.state) &&
-      validateZipCode(this.state.zipCode);
+      validateZipCode(this.state.zipCode));
     return (
       <ContainerComponent>
         <TitleComponent title="Tutor Registration" />
@@ -211,18 +218,8 @@ const styles = StyleSheet.create({
   inlineFiller: {
     flex: 1,
   },
-  textInputContainer: {
-    flex: 3,
-    marginVertical: 10,
-  },
   textInputContainerInline: {
     flexDirection: 'row',
-  },
-  sectionTitle: {
-    fontFamily: fonts.gothic,
-    fontSize: 18,
-    color: colors.black,
-    marginTop: 20,
   },
   addDegreeText: {
     fontFamily: fonts.gothic,

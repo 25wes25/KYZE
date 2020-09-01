@@ -7,7 +7,15 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {colors, fonts} from '../../styles';
+import {
+  colors,
+  fonts,
+  sectionTitle,
+  blockText,
+} from '../../styles';
+import {
+  bypassChecks,
+} from '../../testing';
 import nextArrow from '../../../res/images/nextArrow.png';
 import addProfilePhoto from '../../../res/images/addProfilePhoto.png';
 import TitleComponent from '../../components/TitleComponent';
@@ -40,9 +48,9 @@ export default class PersonalizeProfileScreen extends React.Component {
   }
 
   render() {
-    let validInputs =
+    let validInputs = bypassChecks || (
       this.state.headline.length > 0 &&
-      this.state.bio.length > 0;
+      this.state.bio.length > 0);
     return (
       <ContainerComponent>
         <TitleComponent title="Tutor Registration" />
@@ -104,25 +112,12 @@ export default class PersonalizeProfileScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  sectionTitle: {
-    fontFamily: fonts.gothic,
-    fontSize: 18,
-    color: colors.black,
-    marginTop: 20,
-  },
   profilePhoto: {
     borderWidth: 2,
     borderRadius: 60,
     borderColor: colors.black,
     width: 120,
     height: 120,
-  },
-  blockText: {
-    fontFamily: fonts.gothic,
-    fontSize: 14,
-    color: colors.black,
-    marginTop: 9,
-    marginBottom: 5,
   },
   input: {
     fontFamily: fonts.gothic,

@@ -1,10 +1,7 @@
 import React from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -14,6 +11,7 @@ import {CommonActions} from '@react-navigation/native';
 import ButtonComponent from '../../components/ButtonComponent';
 import ContainerComponent from '../../components/ContainerComponent';
 import TitleComponent from '../../components/TitleComponent';
+import TextInputComponent from '../../components/TextInputComponent';
 
 export default class ForgotPasswordScreen extends React.Component {
   constructor(props) {
@@ -53,11 +51,9 @@ export default class ForgotPasswordScreen extends React.Component {
           Enter your email below and we will send you a link to reset your
           password
         </Text>
-        <TextInput
-          style={styles.textInput}
-          placeholder={'Enter your email'}
-          placeholderTextColor={colors.opaqueBlack}
-          autoCapitalize="none"
+        <TextInputComponent
+          title=''
+          placeholderText='Enter your email'
           onChangeText={email => this.onChangeEmail(email)}
           value={this.state.email}
         />
@@ -105,17 +101,6 @@ const styles = StyleSheet.create({
     lineHeight: 17,
     color: colors.black,
     paddingLeft: 10,
-  },
-  textInput: {
-    fontFamily: fonts.gothic,
-    fontSize: 18,
-    lineHeight: 22,
-    color: colors.black,
-    borderWidth: 1,
-    borderRadius: 4,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    marginVertical: 20,
   },
   dividerContainer: {
     display: 'flex',
