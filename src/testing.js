@@ -7,6 +7,42 @@ export const promo = {
   code: 'BILL2020',
 };
 
+export const subjects = [
+  {
+    name: 'Math',
+    courses: [
+      'Below Algebra I',
+      'Algebra I',
+      'Geometry',
+      'Algebra II',
+      'ACT & SAT Math',
+      'Statistics',
+    ],
+  },
+  {
+    name: 'Chemistry',
+    courses: [
+      'Below General Chemistry',
+      'General Chemistry I',
+      'General Chrmistry II',
+      'Organic Chemistry I',
+      'Organic Chemistry II',
+      'Above Organic Chemistry',
+    ],
+  },
+  {
+    name: 'English',
+    courses: [
+      'Below High School Level Writing',
+      'High School Level Writing',
+      'ACT & SAT Writing',
+      'ACT & SAT Reading Comprehension',
+      'College/University Level Writing',
+      'Above College/University Level Writing',
+    ],
+  },
+];
+
 export const dates = [
   {
     id: '0',

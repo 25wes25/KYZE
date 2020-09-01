@@ -5,8 +5,10 @@ import {
   Text,
   TouchableOpacity,
   View,
+  FlatList,
 } from 'react-native';
 import {colors} from '../../styles';
+import {subjects} from '../../testing';
 import nextArrow from '../../../res/images/nextArrow.png';
 import TitleComponent from '../../components/TitleComponent';
 import ButtonComponent from '../../components/ButtonComponent';
@@ -16,45 +18,28 @@ import CheckboxComponent from '../../components/CheckboxComponent';
 export default class SubjectsScreen extends React.Component {
   constructor(props) {
     super(props);
+    let subjectList = [];
+    for (let i=0; i<subjects.length; i++) {
+      let subject = subjects[i];
+      let courseList = [];
+      for (let j=0; j<subject.courses.length; j++) {
+        let course = subject.courses[j];
+        courseList.push({
+          id: j,
+          title: course,
+          selected: false,
+        });
+      }
+      subjectList.push({
+        id: i,
+        title: subject.name,
+        expanded: false,
+        courses: courseList,
+      });
+    }
+
     this.state = {
-      subjects: [
-        {
-          title: 'Math',
-          expanded: false,
-          courses: [
-            {title: 'Below Algebra I', selected: false},
-            {title: 'Algebra I', selected: false},
-            {title: 'Geometry', selected: false},
-            {title: 'Algebra II', selected: false},
-            {title: 'ACT & SAT Math', selected: false},
-            {title: 'Statistics', selected: false},
-          ],
-        },
-        {
-          title: 'Chemistry',
-          expanded: false,
-          courses: [
-            {title: 'Below General Chemistry', selected: false},
-            {title: 'General Chemistry I', selected: false},
-            {title: 'General Chrmistry II', selected: false},
-            {title: 'Organic Chemistry I', selected: false},
-            {title: 'Organic Chemistry II', selected: false},
-            {title: 'Above Organic Chemistry', selected: false},
-          ],
-        },
-        {
-          title: 'English',
-          expanded: false,
-          courses: [
-            {title: 'Below High School Level Writing', selected: false},
-            {title: 'High School Level Writing', selected: false},
-            {title: 'ACT & SAT Writing', selected: false},
-            {title: 'ACT & SAT Reading Comprehension', selected: false},
-            {title: 'College/University Level Writing', selected: false},
-            {title: 'Above College/University Level Writing', selected: false},
-          ],
-        },
-      ],
+      subjects: subjectList
     };
   }
 
@@ -80,6 +65,52 @@ export default class SubjectsScreen extends React.Component {
     });
   }
 
+  renderSubject(subject) {
+    return (
+      <View>
+        <TouchableOpacity
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+          }}
+          onPress={index => this.openClose(subject.id)}>
+          <Image
+            source={nextArrow}
+            style={subject.expanded ? styles.arrowUp : styles.arrowDown}
+          />
+          <Text style={styles.subjectText}>{subject.title}</Text>
+        </TouchableOpacity>
+        {subject.expanded ? (
+          <FlatList
+            data={subject.courses}
+            renderItem={({item}) => this.renderCourse(item, subject)}
+            keyExtractor={item => item.id}
+            scrollEnabled={false}
+          />
+        ) : (
+          <View />
+        )}
+      </View>
+    );
+  }
+
+  renderCourse(course, subject) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          alignItems: 'center',
+          marginVertical: 8,
+        }}>
+        <CheckboxComponent
+          enabled={course.selected}
+          onPress={(indexI, indexJ) => this.onPressCheck(subject.id, course.id)}/>
+        <Text style={styles.courseText}>{course.title}</Text>
+      </View>
+    );
+  }
+
   render() {
     let validInputs = true;
     return (
@@ -98,45 +129,12 @@ export default class SubjectsScreen extends React.Component {
             has been created)
           </Text>
         </Text>
-        {this.state.subjects.map((subject, i) => {
-          return (
-            <View key={i}>
-              <TouchableOpacity
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                }}
-                onPress={index => this.openClose(i)}>
-                <Image
-                  source={nextArrow}
-                  style={subject.expanded ? styles.arrowUp : styles.arrowDown}
-                />
-                <Text style={styles.subjectText}>{subject.title}</Text>
-              </TouchableOpacity>
-              {subject.expanded ? (
-                subject.courses.map((course, j) => {
-                  return (
-                    <View
-                      key={j}
-                      style={{
-                        flex: 1,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        marginVertical: 8,
-                      }}>
-                      <CheckboxComponent
-                        enabled={course.selected}
-                        onPress={(indexI, indexJ) => this.onPressCheck(i, j)}/>
-                      <Text style={styles.courseText}>{course.title}</Text>
-                    </View>
-                  );
-                })
-              ) : (
-                <View />
-              )}
-            </View>
-          );
-        })}
+        <FlatList
+          data={this.state.subjects}
+          renderItem={({item}) => this.renderSubject(item)}
+          keyExtractor={item => item.id}
+          scrollEnabled={false}
+        />
         <ButtonComponent
           enabled={validInputs}
           onPress={this.onPressNext}
