@@ -2,29 +2,35 @@ import React from 'react';
 import {Image, TouchableOpacity} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import LandingScreen from './screens/Landing';
-import LoginScreen from './screens/Login';
-import ForgotPasswordScreen from './screens/ForgotPassword';
-import RegisterScreen from './screens/Register';
+
+import LandingScreen from './screens/Login/Landing';
+import LoginScreen from './screens/Login/Login';
+import ForgotPasswordScreen from './screens/Login/ForgotPassword';
+import RegisterScreen from './screens/Login/Register';
+
 import SubjectsScreen from './screens/TutorRegistration/Subjects';
 import PersonalizeProfileScreen from './screens/TutorRegistration/PersonalizeProfile';
 import TermsAndAgreementScreen from './screens/TutorRegistration/TermsAndAgreement';
 import EmailConfirmationScreen from './screens/TutorRegistration/EmailConfirmation';
 import PreferencesScreen from './screens/TutorRegistration/Preferences';
 import BasicInfoScreen from './screens/TutorRegistration/BasicInfo';
-import DashboardScreen from './screens/Dashboard';
+
 import SearchScreen from './screens/Student/Search';
+import StudentSettingsScreen from './screens/Student/StudentSettings';
+import StudentProfileScreen from './screens/Student/StudentProfile';
+
 import EarningsScreen from './screens/Tutor/Earnings';
+import TutorProfileScreen from './screens/Tutor/TutorProfile';
+import TutorSettingsScreen from './screens/Tutor/TutorSettings';
+
+import DashboardScreen from './screens/Shared/Dashboard';
 import ScheduleScreen from './screens/Shared/Schedule';
 import MessagesScreen from './screens/Shared/Messages';
-import StudentProfileScreen from './screens/Student/StudentProfile';
-import TutorProfileScreen from './screens/Tutor/TutorProfile';
-import StudentSettingsScreen from './screens/Student/StudentSettings';
-import TutorSettingsScreen from './screens/Tutor/TutorSettings';
+
 import TermsOfServiceScreen from './screens/TermsOfService';
 import PrivacyPolicyScreen from './screens/PrivacyPolicy';
 
-import {colors, dynamicSizes} from './styles';
+import {colors, fonts, dynamicSizes} from './styles';
 
 const Stack = createStackNavigator();
 const StudentBottomTab = createBottomTabNavigator();
@@ -239,7 +245,7 @@ function StudentBottomTabNavigator() {
         activeTintColor: colors.black,
         inactiveTintColor: colors.mediumGray,
         labelStyle: {
-          fontFamily: 'Apple SD Gothic Neo',
+          fontFamily: fonts.gothic,
           fontSize: 12,
           fontWeight: 'bold',
         },
@@ -379,7 +385,7 @@ function TutorBottomTabNavigator() {
         activeTintColor: colors.black,
         inactiveTintColor: colors.mediumGray,
         labelStyle: {
-          fontFamily: 'Apple SD Gothic Neo',
+          fontFamily: fonts.gothic,
           fontSize: 12,
           fontWeight: 'bold',
           marginBottom: 5,

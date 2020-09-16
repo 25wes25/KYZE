@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import nextArrow from '../../../res/images/nextArrow.png';
 import search from '../../../res/images/searchbarIcon.png';
-import {colors} from '../../styles';
+import {colors, fonts} from '../../styles';
 
 const DATA = [
   {
@@ -144,23 +144,23 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightGray,
   },
   messageName: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 16,
     fontWeight: 'bold',
     color: colors.black,
   },
   messageDate: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 12,
     color: colors.black,
   },
   messagePreview: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 12,
     color: colors.black,
   },
   input: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 18,
     lineHeight: 22,
     color: colors.black,

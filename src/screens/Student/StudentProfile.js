@@ -175,12 +175,12 @@ const styles = StyleSheet.create({
     marginTop: -50,
   },
   heading: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 18,
     color: colors.black,
   },
   subheading: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 14,
     fontWeight: 'bold',
     color: colors.black,
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   name: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     fontSize: 22,
     color: colors.black,
     textAlign: 'center',

@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
-import {colors} from '../styles';
-import backgroundImage from '../../res/images/landingBackground.jpg';
+import {colors, fonts} from '../../styles';
+import backgroundImage from '../../../res/images/landingBackground.jpg';
 import {CommonActions} from '@react-navigation/routers';
 
 export default class LandingScreen extends React.Component {
@@ -17,6 +17,12 @@ export default class LandingScreen extends React.Component {
   };
 
   onPressLoginAsStudent = () => {
+    /*this.props.navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{name: 'StudentBottomTabNavigator'}],
+      }),
+    );*/
     this.props.navigation.dispatch(
       CommonActions.navigate({
         name: 'Login',
@@ -74,15 +80,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
   },
-  contentContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: 60,
-  },
   appTitle: {
     flex: 1,
     marginTop: 60,
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     textAlign: 'left',
     justifyContent: 'center',
     alignSelf: 'center',
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
     borderColor: colors.white,
   },
   buttonText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     textAlign: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
     height: 1,
   },
   dividerText: {
-    fontFamily: 'Apple SD Gothic Neo',
+    fontFamily: fonts.gothic,
     textAlign: 'center',
     paddingHorizontal: 20,
     fontSize: 18,
