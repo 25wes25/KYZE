@@ -1,18 +1,13 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {CommonActions} from '@react-navigation/native';
 import {colors, fonts} from '../../styles';
 import {validateEmail} from '../../utils';
-import {user} from '../../testing';
 import TextInputComponent from '../../components/TextInputComponent';
 import TitleComponent from '../../components/TitleComponent';
 import ButtonComponent from '../../components/ButtonComponent';
 import ContainerComponent from '../../components/ContainerComponent';
+import kyze from '../../api/apiConfig';
 
 export default class LoginScreen extends React.Component {
   constructor(props) {
@@ -25,16 +20,34 @@ export default class LoginScreen extends React.Component {
   }
 
   onPressLogin = () => {
-    if (
-      this.state.email === user.email &&
-      this.state.password === user.password
-    ) {
-      this.props.navigation.dispatch(
-        CommonActions.reset({
-          index: 0,
-          routes: [{name: this.props.route.params.type + 'BottomTabNavigator'}],
-        }),
-      );
+    if (this.state.email !== '' && this.state.password !== '') {
+      kyze.api
+        .getUserByEmail(this.state.email.toLowerCase())
+        .then(user => {
+          this.setState({isLoggingIn: false});
+          this.props.navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [
+                {
+                  name: this.props.route.params.type + 'BottomTabNavigator',
+                  params: {user: user},
+                },
+              ],
+            }),
+          );
+        })
+        .catch(error => {
+          this.setState({isLoggingIn: false});
+          Alert.alert(
+            'Error',
+            error.code + ' ' + error.message,
+            [{text: 'OK'}],
+            {
+              cancelable: false,
+            },
+          );
+        });
     } else {
       this.setState({invalidLogin: true});
     }
