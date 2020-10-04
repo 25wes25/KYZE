@@ -19,7 +19,6 @@ import {
   stripPhoneNumber
 } from '../../utils';
 import {
-  user,
   promo,
   bypassChecks,
 } from '../../testing';
@@ -29,6 +28,7 @@ import TitleComponent from '../../components/TitleComponent';
 import ButtonComponent from '../../components/ButtonComponent';
 import ContainerComponent from '../../components/ContainerComponent';
 import CheckboxComponent from '../../components/CheckboxComponent';
+import kyze from '../../api/apiConfig';
 
 export default class RegisterScreen extends React.Component {
   constructor(props) {
@@ -61,11 +61,11 @@ export default class RegisterScreen extends React.Component {
     let invalidEmail = false;
     let invalidPassword = false;
     let invalidPromo = false;
-    if (this.state.email === user.email) {
-      invalidEmail = true;
-      valid = false;
-      this.alert('An account with this email already exists');
-    }
+    // if (this.state.email === user.email) {
+    //   invalidEmail = true;
+    //   valid = false;
+    //   this.alert('An account with this email already exists');
+    // }
     if (!(this.state.password === this.state.confirmPassword)) {
       invalidPassword = true;
       valid = false;
@@ -80,16 +80,43 @@ export default class RegisterScreen extends React.Component {
       this.alert('Invalid promotional code');
     }
     this.setState({invalidEmail, invalidPassword, invalidPromo});
+
+    let user = {
+      email: this.state.email,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      phoneNumber: this.state.phoneNumber,
+      state: this.state.state,
+      zipCode: this.state.zipCode,
+      sex: this.state.sex,
+      dob: this.state.dob,
+      type: this.state.type,
+    }
+
     if (valid) {
-      if (this.state.type === 'Students') {
-        this.props.navigation.dispatch(
-          CommonActions.reset({
-            index: 0,
-            routes: [
-              {name: this.props.route.params.type + 'BottomTabNavigator'},
-            ],
-          }),
-        );
+      if (this.state.type === 'Student') {
+        kyze.api
+          .createUser(user)
+          .then(user => {
+            this.props.navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [
+                  {name: this.props.route.params.type + 'BottomTabNavigator', params: {user: user}},
+                ],
+              }),
+            );
+            })
+            .catch(error => {
+              Alert.alert(
+                'Error',
+                error.code + ' ' + error.message,
+                [{text: 'OK'}],
+                {
+                  cancelable: false,
+                },
+              );
+            });
       } else if (this.state.type === 'Tutor') {
         this.props.navigation.navigate('Subjects');
       }
