@@ -1,5 +1,6 @@
 import React from 'react';
 import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Auth} from 'aws-amplify';
 import {CommonActions} from '@react-navigation/native';
 import {colors, fonts} from '../../styles';
 import {validateEmail} from '../../utils';
@@ -19,35 +20,41 @@ export default class LoginScreen extends React.Component {
     };
   }
 
-  onPressLogin = () => {
+  onPressLogin = async () => {
     if (this.state.email !== '' && this.state.password !== '') {
-      kyze.api
-        .getUserByEmail(this.state.email.toLowerCase())
-        .then(user => {
-          this.setState({isLoggingIn: false});
-          this.props.navigation.dispatch(
-            CommonActions.reset({
-              index: 0,
-              routes: [
-                {
-                  name: this.props.route.params.type + 'BottomTabNavigator',
-                  params: {user: user},
-                },
-              ],
-            }),
-          );
-        })
-        .catch(error => {
-          this.setState({isLoggingIn: false});
-          Alert.alert(
-            'Error',
-            error.code + ' ' + error.message,
-            [{text: 'OK'}],
-            {
-              cancelable: false,
-            },
-          );
-        });
+      try {
+        await Auth.signIn(this.state.email, this.state.password);
+
+        kyze.api
+          .getUserByEmail(this.state.email.toLowerCase())
+          .then(user => {
+            this.setState({isLoggingIn: false});
+            this.props.navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [
+                  {
+                    name: this.props.route.params.type + 'BottomTabNavigator',
+                    params: {user: user},
+                  },
+                ],
+              }),
+            );
+          })
+          .catch(error => {
+            this.setState({isLoggingIn: false});
+            Alert.alert(
+              'Error',
+              error.code + ' ' + error.message,
+              [{text: 'OK'}],
+              {
+                cancelable: false,
+              },
+            );
+          });
+      } catch (err) {
+        console.log({ err });
+      }
     } else {
       this.setState({invalidLogin: true});
     }

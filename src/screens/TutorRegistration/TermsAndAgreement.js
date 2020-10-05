@@ -5,6 +5,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import {Auth} from 'aws-amplify';
 import {
   colors,
   fonts,
@@ -34,6 +35,57 @@ export default class TermsAndAgreementScreen extends React.Component {
 
   onPressNext = () => {
     this.props.navigation.navigate('Email Confirmation');
+  };
+
+  onPressRegister = async () => {
+    let valid = true;
+
+    let user = {
+      email: this.state.email,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      phoneNumber: this.state.phoneNumber,
+      state: this.state.state,
+      zipCode: this.state.zipCode,
+      sex: this.state.sex,
+      dob: this.state.dob,
+      type: this.state.type,
+    }
+
+    if (valid) {
+      try {
+        await Auth.signUp({
+          username: this.state.email,
+          password: this.state.password,
+          attributes: {
+            email: this.state.email
+          }});
+        kyze.api
+          .createUser(user)
+          .then(user => {
+            this.props.navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [
+                  {name: this.props.route.params.type + 'BottomTabNavigator', params: {user: user}},
+                ],
+              }),
+            );
+            })
+            .catch(error => {
+              Alert.alert(
+                'Error',
+                error.code + ' ' + error.message,
+                [{text: 'OK'}],
+                {
+                  cancelable: false,
+                },
+              );
+            });
+      } catch (err) {
+        console.log({ err });
+      }
+    }
   };
 
   onChangeTermsAgree() {
@@ -120,10 +172,9 @@ export default class TermsAndAgreementScreen extends React.Component {
           />
         </View>
         <ButtonComponent
-          enabled={validInputs}
-          onPress={this.onPressNext}
-          text='Next'
-          arrow={true}/>
+          enabled={false&&validInputs}
+          onPress={this.onPressRegister}
+          text='Create Account'/>
       </ContainerComponent>
     );
   }

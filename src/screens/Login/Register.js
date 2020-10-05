@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {Auth} from 'aws-amplify';
 import {CommonActions} from '@react-navigation/native';
 import {
   colors,
@@ -56,7 +57,7 @@ export default class RegisterScreen extends React.Component {
     }
   }
 
-  onPressRegister = () => {
+  onPressRegister = async () => {
     let valid = true;
     let invalidEmail = false;
     let invalidPassword = false;
@@ -95,28 +96,38 @@ export default class RegisterScreen extends React.Component {
 
     if (valid) {
       if (this.state.type === 'Student') {
-        kyze.api
-          .createUser(user)
-          .then(user => {
-            this.props.navigation.dispatch(
-              CommonActions.reset({
-                index: 0,
-                routes: [
-                  {name: this.props.route.params.type + 'BottomTabNavigator', params: {user: user}},
-                ],
-              }),
-            );
-            })
-            .catch(error => {
-              Alert.alert(
-                'Error',
-                error.code + ' ' + error.message,
-                [{text: 'OK'}],
-                {
-                  cancelable: false,
-                },
+        try {
+          await Auth.signUp({
+            username: this.state.email,
+            password: this.state.password,
+            attributes: {
+              email: this.state.email
+            }});
+          kyze.api
+            .createUser(user)
+            .then(user => {
+              this.props.navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [
+                    {name: this.props.route.params.type + 'BottomTabNavigator', params: {user: user}},
+                  ],
+                }),
               );
-            });
+              })
+              .catch(error => {
+                Alert.alert(
+                  'Error',
+                  error.code + ' ' + error.message,
+                  [{text: 'OK'}],
+                  {
+                    cancelable: false,
+                  },
+                );
+              });
+        } catch (err) {
+          console.log({ err });
+        }
       } else if (this.state.type === 'Tutor') {
         this.props.navigation.navigate('Subjects');
       }

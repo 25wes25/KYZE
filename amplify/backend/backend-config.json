@@ -1,6 +1,6 @@
 {
   "auth": {
-    "kyze4cfa549d": {
+    "kyze44e18ef4": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
