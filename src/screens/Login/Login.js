@@ -29,31 +29,68 @@ export default class LoginScreen extends React.Component {
           .getUserByEmail(this.state.email.toLowerCase())
           .then(user => {
             this.setState({isLoggingIn: false});
-            this.props.navigation.dispatch(
-              CommonActions.reset({
-                index: 0,
-                routes: [
+            if (user.subjects) {
+              this.props.navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [
+                    {
+                      name: this.props.route.params.type + 'BottomTabNavigator',
+                      params: {user: user},
+                    },
+                  ],
+                }),
+              );
+            } else {
+              Alert.alert(
+                'Error',
+                'Your email does not have an associated tutor account.\
+                Create one now?',
+                [
                   {
-                    name: this.props.route.params.type + 'BottomTabNavigator',
-                    params: {user: user},
+                    text: 'Yes',
+                    onPress: () => {
+                      this.props.navigation.dispatch(
+                        CommonActions.navigate({
+                          name: 'Register',
+                          params: {type: "Tutor", user: user},
+                        }),
+                      );
+                    }
                   },
+                  {
+                    text: 'No',
+                    style: 'cancel'
+                  }
                 ],
-              }),
-            );
+                {
+                  cancelable: false,
+                },
+              );
+            }
           })
           .catch(error => {
+            console.log("Kyze Error", error);
             this.setState({isLoggingIn: false});
             Alert.alert(
               'Error',
-              error.code + ' ' + error.message,
+              error.message,
               [{text: 'OK'}],
               {
                 cancelable: false,
               },
             );
           });
-      } catch (err) {
-        console.log({ err });
+      } catch (error) {
+        console.log("Cognito Error", error);
+        Alert.alert(
+          'Error',
+          error.message,
+          [{text: 'OK'}],
+          {
+            cancelable: false,
+          },
+        );
       }
     } else {
       this.setState({invalidLogin: true});

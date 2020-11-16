@@ -34,6 +34,9 @@ import kyze from '../../api/apiConfig';
 export default class RegisterScreen extends React.Component {
   constructor(props) {
     super(props);
+    if (this.props.route.params.user) {
+      this.props.navigation.navigate('Subjects');
+    }
     this.state = {
       confirmPassword: '',
       email: '',
@@ -97,6 +100,7 @@ export default class RegisterScreen extends React.Component {
     if (valid) {
       if (this.state.type === 'Student') {
         try {
+        
           await Auth.signUp({
             username: this.state.email,
             password: this.state.password,
@@ -116,17 +120,18 @@ export default class RegisterScreen extends React.Component {
               );
               })
               .catch(error => {
+                console.log("Kyze Error", error)
                 Alert.alert(
                   'Error',
-                  error.code + ' ' + error.message,
+                  error.message,
                   [{text: 'OK'}],
                   {
                     cancelable: false,
                   },
                 );
               });
-        } catch (err) {
-          console.log({ err });
+        } catch (error) {
+          console.log("Cognito Error", error);
         }
       } else if (this.state.type === 'Tutor') {
         this.props.navigation.navigate('Subjects');
