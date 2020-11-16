@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Alert,
   Button,
   SafeAreaView,
   ScrollView,
@@ -9,6 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import kyze from '../../api/apiConfig';
 import nextArrow from '../../../res/images/nextArrow.png';
 import star from '../../../res/images/star.png';
 import cancellation from '../../../res/images/cancellation.png';
@@ -21,6 +23,7 @@ import {
   fonts,
   blockText,
 } from '../../styles';
+
 
 const user = {
   name: 'Pedram H.',
@@ -37,15 +40,45 @@ export default class TutorProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.loadUser();
+  }
+
+  loadUser = () => {
+    kyze.api
+      .getTutorByEmail("tutor@kyze.com")
+      .then(user => {
+        this.setState({
+          user: user
+        });
+      })
+      .catch(error => {
+        console.log("Kyze Error", error);
+        this.setState({isLoggingIn: false});
+        Alert.alert(
+          'Error',
+          error.message,
+          [{text: 'OK'}],
+          {
+            cancelable: false,
+          },
+        );
+      });
   }
 
   render() {
+    if (!this.state.user) {
+      return (
+        <View></View>
+      );
+    }
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView keyboardShouldPersistTaps="handled">
           <View style={styles.topContent}>
             <Image style={styles.photo} source={pedram} />
-            <Text style={styles.name}>{user.name}</Text>
+            <Text style={styles.name}>
+              {this.state.user.firstName + " " + this.state.user.lastName[0] + "."}
+            </Text>
             <View
               style={{
                 flex: 1,
@@ -67,18 +100,18 @@ export default class TutorProfileScreen extends React.Component {
                   })}
               </View>
             </View>
-            <Text style={styles.headline}>{user.headline}</Text>
+            <Text style={styles.headline}>{this.state.user.headline || 'UNDEFINED'}</Text>
             <View style={styles.statsBox}>
               <View style={styles.stat}>
-                <Text style={styles.statsValue}>{user.hours}</Text>
+                <Text style={styles.statsValue}>{this.state.user.hours || 'NA'}</Text>
                 <Text style={styles.statsHeading}>Hours Tutored</Text>
               </View>
               <View style={styles.stat}>
-                <Text style={styles.statsValue}>${user.rate}</Text>
+                <Text style={styles.statsValue}>${this.state.user.rate || 'NA'}</Text>
                 <Text style={styles.statsHeading}>Rate/hr</Text>
               </View>
               <View style={styles.stat}>
-                <Text style={styles.statsValue}>{user.students}</Text>
+                <Text style={styles.statsValue}>{this.state.user.students || 'NA'}</Text>
                 <Text style={styles.statsHeading}>Students Tutored</Text>
               </View>
             </View>
@@ -88,30 +121,23 @@ export default class TutorProfileScreen extends React.Component {
               <Text style={styles.heading}>About</Text>
               <Text style={styles.blockText}>
                 <Text>
-                  Your mom is an amazing tutor. She is patient, thorough, and
-                  explains the material in a way that is easy to learn and
-                  understand. My son had a blah blah mom is an amazing tutor.
-                  She is patient, thorough, and explains the material in a way
-                  that is ...
+                  {this.state.user.headline || 'UNDEFINED'}
                 </Text>
               </Text>
             </View>
             <View style={{marginTop: 40}}>
               <Text style={styles.heading}>Education</Text>
-              <Text style={styles.subheading}>Undergraduate</Text>
-              <Text style={styles.degree}>
-                B.S. Bioengineering{'\n'}
-                University of California Los Angeles
-              </Text>
-              <Text style={styles.subheading}>Graduate</Text>
-              <Text style={styles.degree}>
-                M.S. Computer Science{'\n'}
-                University of California Saddleback
-              </Text>
-              <Text style={styles.degree}>
-                Ph.D Education{'\n'}
-                University of California Irvine
-              </Text>
+              {this.state.user.education.map((e, i) => {
+                  return (
+                    <View>
+                      <Text key={i} style={styles.subheading}>SUBHEADING</Text>
+                      <Text key={i} style={styles.degree}>
+                        DEGREE{'\n'}
+                        SCHOOL
+                      </Text>
+                    </View>
+                  );
+                })}
             </View>
             <View style={{marginTop: 40}}>
               <Text style={styles.heading}>Policies</Text>
@@ -125,7 +151,7 @@ export default class TutorProfileScreen extends React.Component {
                 <Image source={verified} style={{marginRight: 10}} />
                 <Text>Background Check</Text>
                 <Text style={{fontWeight: 'bold', marginLeft: 'auto'}}>
-                  1/15/20
+                  NA
                 </Text>
               </View>
               <View
@@ -138,7 +164,7 @@ export default class TutorProfileScreen extends React.Component {
                 <Image source={cancellation} style={{marginRight: 10}} />
                 <Text>Session Cancellation</Text>
                 <Text style={{fontWeight: 'bold', marginLeft: 'auto'}}>
-                  24 hour notice
+                  NA
                 </Text>
                 <TouchableOpacity>
                   <Image source={info} style={{marginLeft: 5}} />
@@ -147,60 +173,36 @@ export default class TutorProfileScreen extends React.Component {
             </View>
             <View style={{marginTop: 40}}>
               <Text style={styles.heading}>Certified Courses</Text>
-              <Text style={styles.subheading}>MATH</Text>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  marginVertical: 7,
-                  marginLeft: 10,
-                }}>
-                <Image
-                  source={checkmark}
-                  style={{width: 15, height: 15, marginRight: 7}}
-                />
-                <Text>Algebra I ($25/hr)</Text>
-              </View>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  marginVertical: 7,
-                  marginLeft: 10,
-                }}>
-                <Image
-                  source={checkmark}
-                  style={{width: 15, height: 15, marginRight: 7}}
-                />
-                <Text>Algebra II ($25/hr)</Text>
-              </View>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  marginVertical: 7,
-                  marginLeft: 10,
-                }}>
-                <Image
-                  source={checkmark}
-                  style={{width: 15, height: 15, marginRight: 7}}
-                />
-                <Text>Calculus I ($30/hr)</Text>
-              </View>
-              <Text style={styles.subheading}>CHEMISTRY</Text>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  marginVertical: 7,
-                  marginLeft: 10,
-                }}>
-                <Image
-                  source={checkmark}
-                  style={{width: 15, height: 15, marginRight: 7}}
-                />
-                <Text>Organic Chemistry I ($50/hr)</Text>
-              </View>
+              {this.state.user.subjects.map((e, i) => {
+                  return (
+                    <View>
+                      <Text style={styles.subheading}>SUBJECT</Text>
+                      {
+                        (Array.isArray(e)) ? (
+                          e.map((e2, i2) => {
+                            return(
+                              <View
+                                style={{
+                                  flex: 1,
+                                  flexDirection: 'row',
+                                  marginVertical: 7,
+                                  marginLeft: 10,
+                                }}>
+                                <Image
+                                  source={checkmark}
+                                  style={{width: 15, height: 15, marginRight: 7}}
+                                />
+                                <Text>COURSE ($NA/hr)</Text>
+                              </View>
+                            );
+                          })
+                        ) : (
+                          <View></View>
+                        )
+                      }
+                    </View>
+                  );
+                })}
             </View>
             <View style={{marginTop: 40}}>
               <View
