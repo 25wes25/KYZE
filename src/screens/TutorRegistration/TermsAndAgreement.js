@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Alert,
   Image,
   StyleSheet,
   Text,
@@ -21,6 +22,8 @@ import TextInputComponent from '../../components/TextInputComponent';
 import ButtonComponent from '../../components/ButtonComponent';
 import ContainerComponent from '../../components/ContainerComponent';
 import CheckboxComponent from '../../components/CheckboxComponent';
+import {CommonActions} from '@react-navigation/native';
+import kyze from '../../api/apiConfig';
 
 export default class TermsAndAgreementScreen extends React.Component {
   constructor(props) {
@@ -30,60 +33,65 @@ export default class TermsAndAgreementScreen extends React.Component {
       legalWorking: false,
       firstName: '',
       lastName: '',
+      user: this.props.route.params.user,
+      type: this.props.route.params.type || '',
     };
+    console.log(this.state.type);
   }
 
   onPressNext = () => {
-    this.props.navigation.navigate('Email Confirmation');
+    this.props.navigation.navigate('Email Confirmation', {user: this.state.user});
   };
 
   onPressRegister = async () => {
     let valid = true;
-
-    let user = {
-      email: this.state.email,
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      phoneNumber: this.state.phoneNumber,
-      state: this.state.state,
-      zipCode: this.state.zipCode,
-      sex: this.state.sex,
-      dob: this.state.dob,
-      type: this.state.type,
-    }
+    let password = this.state.user.password;
 
     if (valid) {
       try {
-        await Auth.signUp({
-          username: this.state.email,
-          password: this.state.password,
-          attributes: {
-            email: this.state.email
-          }});
+        if (!this.state.user.existingAccount) {
+          await Auth.signUp({
+            username: this.state.user.email,
+            password: password,
+            attributes: {
+              email: this.state.user.email
+            }});
+        }
+        delete this.state.user.existingAccount;
         kyze.api
-          .createUser(user)
+          .createTutor(this.state.user)
           .then(user => {
+            delete this.state.user.password;
             this.props.navigation.dispatch(
               CommonActions.reset({
                 index: 0,
                 routes: [
-                  {name: this.props.route.params.type + 'BottomTabNavigator', params: {user: user}},
+                  {name: this.state.type + 'BottomTabNavigator', params: {user: user}},
                 ],
               }),
             );
             })
             .catch(error => {
+              console.log("Kyze Error", error);
               Alert.alert(
                 'Error',
-                error.code + ' ' + error.message,
+                error.message,
                 [{text: 'OK'}],
                 {
                   cancelable: false,
                 },
               );
             });
-      } catch (err) {
-        console.log({ err });
+      } catch (error) {
+        console.log("Cognito Error", error);
+        Alert.alert(
+          'Error',
+          error.message,
+          [{text: 'OK'}],
+          {
+            cancelable: false,
+          },
+        );
       }
     }
   };
@@ -172,7 +180,7 @@ export default class TermsAndAgreementScreen extends React.Component {
           />
         </View>
         <ButtonComponent
-          enabled={false&&validInputs}
+          enabled={validInputs}
           onPress={this.onPressRegister}
           text='Create Account'/>
       </ContainerComponent>

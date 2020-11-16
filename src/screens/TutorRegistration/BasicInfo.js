@@ -31,19 +31,28 @@ export default class BasicInfoScreen extends React.Component {
       street: '',
       aptNum: '',
       city: '',
-      state: '',
-      zipCode: '',
+      state: this.props.route.params.user.state || '',
+      zipCode: this.props.route.params.user.zipCode || '',
       degrees: [
         {
           college: '',
           degree: '',
         },
       ],
+      user: this.props.route.params.user,
+      type: this.props.route.params.type || '',
     };
   }
 
   onPressNext = () => {
-    this.props.navigation.navigate('Preferences');
+    let newUser = this.state.user;
+    newUser.street = this.state.street;
+    newUser.aptNum = this.state.aptNum;
+    newUser.city = this.state.city;
+    newUser.state = this.state.state;
+    newUser.zipCode = this.state.zipCode;
+    newUser.degrees = this.state.degrees;
+    this.props.navigation.navigate('Preferences', {type: this.state.type, user: newUser});
   };
 
   onPressAddDegree = () => {

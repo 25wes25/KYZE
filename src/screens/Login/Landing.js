@@ -17,12 +17,6 @@ export default class LandingScreen extends React.Component {
   };
 
   onPressLoginAsStudent = () => {
-    /*this.props.navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{name: 'StudentBottomTabNavigator'}],
-      }),
-    );*/
     this.props.navigation.dispatch(
       CommonActions.navigate({
         name: 'Login',

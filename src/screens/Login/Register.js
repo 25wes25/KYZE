@@ -35,7 +35,9 @@ export default class RegisterScreen extends React.Component {
   constructor(props) {
     super(props);
     if (this.props.route.params.user) {
-      this.props.navigation.navigate('Subjects');
+      this.props.navigation.navigate('Subjects', {
+        type: this.props.route.params.type,
+        user: this.props.route.params.user});
     }
     this.state = {
       confirmPassword: '',
@@ -65,11 +67,6 @@ export default class RegisterScreen extends React.Component {
     let invalidEmail = false;
     let invalidPassword = false;
     let invalidPromo = false;
-    // if (this.state.email === user.email) {
-    //   invalidEmail = true;
-    //   valid = false;
-    //   this.alert('An account with this email already exists');
-    // }
     if (!(this.state.password === this.state.confirmPassword)) {
       invalidPassword = true;
       valid = false;
@@ -100,15 +97,16 @@ export default class RegisterScreen extends React.Component {
     if (valid) {
       if (this.state.type === 'Student') {
         try {
-        
+          // Cognito
           await Auth.signUp({
             username: this.state.email,
             password: this.state.password,
             attributes: {
               email: this.state.email
             }});
+          // Kyze
           kyze.api
-            .createUser(user)
+            .createStudent(user)
             .then(user => {
               this.props.navigation.dispatch(
                 CommonActions.reset({
@@ -134,7 +132,8 @@ export default class RegisterScreen extends React.Component {
           console.log("Cognito Error", error);
         }
       } else if (this.state.type === 'Tutor') {
-        this.props.navigation.navigate('Subjects');
+        user.password = this.state.password;
+        this.props.navigation.navigate('Subjects', {type: this.state.type, user: user});
       }
     }
   };
