@@ -43,112 +43,48 @@ export default class TutorProfileScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView keyboardShouldPersistTaps="handled">
-          <View
-            style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-            <View style={styles.blackBar} />
+          <View style={styles.topContent}>
             <Image style={styles.photo} source={pedram} />
-          </View>
-          <View style={styles.contentContainer}>
-            <View style={styles.topContent}>
-              <Text style={styles.name}>{user.name}</Text>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                }}>
-                <Text style={[styles.reviewAvg, {marginLeft: 0}]}>
-                  {user.avgRating}
-                </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    marginHorizontal: 10,
-                  }}>
-                  {Array(5)
-                    .fill(0)
-                    .map((e, i) => {
-                      return <Image key={i} source={star} sty />;
-                    })}
-                </View>
-              </View>
-              <Text style={styles.headline}>{user.headline}</Text>
-              <View style={styles.statsBox}>
-                <View style={styles.stat}>
-                  <Text style={styles.statsHeading}>Hours Tutored</Text>
-                  <Text style={styles.statsValue}>{user.hours}</Text>
-                </View>
-                <View style={styles.verticalDivider} />
-                <View style={styles.stat}>
-                  <Text style={styles.statsHeading}>Rate/hr</Text>
-                  <Text style={styles.statsValue}>${user.rate}</Text>
-                </View>
-                <View style={styles.verticalDivider} />
-                <View style={styles.stat}>
-                  <Text style={styles.statsHeading}>Students Tutored</Text>
-                  <Text style={styles.statsValue}>{user.students}</Text>
-                </View>
-              </View>
-            </View>
-            <View>
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <Text style={styles.heading}>Reviews</Text>
-                <Text style={styles.reviewAvg}>{user.avgRating}</Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    marginHorizontal: 10,
-                  }}>
-                  {Array(5)
-                    .fill(0)
-                    .map((e, i) => {
-                      return <Image key={i} source={star} sty />;
-                    })}
-                </View>
-                <Text style={styles.reviewCnt}>
-                  ({user.numRatings} Ratings)
-                </Text>
-              </View>
-              <Text style={styles.blockText}>
-                Your mom is an amazing tutor. She is patient, thorough, and
-                explains the material in a way that is easy to learn and
-                understand. My son had a blah blah mom is an amazing tutor. She
-                is patient, thorough, and explains the material in a way that is
-                ...
+            <Text style={styles.name}>{user.name}</Text>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}>
+              <Text style={[styles.reviewAvg, {marginLeft: 0}]}>
+                {user.avgRating}
               </Text>
               <View
                 style={{
-                  flex: 1,
                   flexDirection: 'row',
+                  marginHorizontal: 10,
                 }}>
-                <View>
-                  <Text style={styles.reviewer}>
-                    Lynn from Laguna Niguel, CA
-                  </Text>
-                  <Text style={styles.reviewer}>1/22/2020</Text>
-                </View>
-                <TouchableOpacity
-                  style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}>
-                  <Text style={{marginLeft: 'auto', color: '#2F80ED'}}>
-                    More reviews
-                  </Text>
-                  <Image
-                    source={nextArrow}
-                    style={{height: 25, width: 25, tintColor: '#2F80ED'}}
-                  />
-                </TouchableOpacity>
+                {Array(5)
+                  .fill(0)
+                  .map((e, i) => {
+                    return <Image key={i} source={star} sty />;
+                  })}
               </View>
             </View>
-            <View style={{marginTop: 20}}>
+            <Text style={styles.headline}>{user.headline}</Text>
+            <View style={styles.statsBox}>
+              <View style={styles.stat}>
+                <Text style={styles.statsValue}>{user.hours}</Text>
+                <Text style={styles.statsHeading}>Hours Tutored</Text>
+              </View>
+              <View style={styles.stat}>
+                <Text style={styles.statsValue}>${user.rate}</Text>
+                <Text style={styles.statsHeading}>Rate/hr</Text>
+              </View>
+              <View style={styles.stat}>
+                <Text style={styles.statsValue}>{user.students}</Text>
+                <Text style={styles.statsHeading}>Students Tutored</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.contentContainer}>
+            <View>
               <Text style={styles.heading}>About</Text>
               <Text style={styles.blockText}>
                 <Text>
@@ -160,7 +96,7 @@ export default class TutorProfileScreen extends React.Component {
                 </Text>
               </Text>
             </View>
-            <View style={{marginTop: 20}}>
+            <View style={{marginTop: 40}}>
               <Text style={styles.heading}>Education</Text>
               <Text style={styles.subheading}>Undergraduate</Text>
               <Text style={styles.degree}>
@@ -177,7 +113,7 @@ export default class TutorProfileScreen extends React.Component {
                 University of California Irvine
               </Text>
             </View>
-            <View style={{marginTop: 20}}>
+            <View style={{marginTop: 40}}>
               <Text style={styles.heading}>Policies</Text>
               <View
                 style={{
@@ -209,7 +145,7 @@ export default class TutorProfileScreen extends React.Component {
                 </TouchableOpacity>
               </View>
             </View>
-            <View style={{marginTop: 20}}>
+            <View style={{marginTop: 40}}>
               <Text style={styles.heading}>Certified Courses</Text>
               <Text style={styles.subheading}>MATH</Text>
               <View
@@ -266,6 +202,137 @@ export default class TutorProfileScreen extends React.Component {
                 <Text>Organic Chemistry I ($50/hr)</Text>
               </View>
             </View>
+            <View style={{marginTop: 40}}>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  marginVertical: 10,
+                }}>
+                <Text style={styles.heading}>Ratings & Reviews</Text>
+                <Text style={{marginLeft: 'auto', color: '#2F80ED'}}>
+                  View All
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <View
+                  style={{
+                    flex: 2,
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      fontFamily: fonts.gothic,
+                      fontSize: 40,
+                      color: colors.black,
+                      marginTop: 5,
+                    }}>
+                    {user.avgRating}
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      marginHorizontal: 10,
+                    }}>
+                    {Array(5)
+                      .fill(0)
+                      .map((e, i) => {
+                        return <Image key={i} source={star} sty />;
+                      })}
+                  </View>
+                  <Text style={styles.reviewCnt}>
+                    {user.numRatings} Ratings
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flex: 3,
+                    flexDirection: 'column',
+                  }}>
+                  <View style={{flex: 1, flexDirection: 'row'}}>
+                    <Text>
+                      Communication
+                    </Text>
+                    <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 'auto'}}>
+                      <Text>
+                        4.1
+                      </Text>
+                      <Image source={star} style={{width: 10, height: 10, tintColor: colors.black}}/>
+                    </View>
+                  </View>
+                  <View style={{flex: 1, flexDirection: 'row'}}>
+                    <Text>
+                      Prepared
+                    </Text>
+                    <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 'auto'}}>
+                      <Text>
+                        4.2
+                      </Text>
+                      <Image source={star} style={{width: 10, height: 10, tintColor: colors.black}}/>
+                    </View>
+                  </View>
+                  <View style={{flex: 1, flexDirection: 'row'}}>
+                    <Text>
+                      Friendly
+                    </Text>
+                    <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 'auto'}}>
+                      <Text>
+                        4.4
+                      </Text>
+                      <Image source={star} style={{width: 10, height: 10, tintColor: colors.black}}/>
+                    </View>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.dividerLine} />
+              <View style={{flex: 1, flexDirection: 'row'}}>
+                <Text>
+                  Fantastic Algebra Tutor
+                </Text>
+                <Text style={{marginLeft: 'auto', fontSize: 8}}>
+                  Sep. 29
+                </Text>
+              </View>
+              <View style={{flex: 1, flexDirection: 'row', marginBottom: 10}}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                  }}>
+                  {Array(5)
+                    .fill(0)
+                    .map((e, i) => {
+                      return <Image key={i} source={star} sty />;
+                    })}
+                </View>
+                <Text style={{marginLeft: 'auto', fontSize: 8}}>
+                  Michael Smith
+                </Text>
+              </View>
+              <Text style={styles.blockText}>
+                Your mom is an amazing tutor. She is patient, thorough, and
+                explains the material in a way that is easy to learn and
+                understand. My son had a blah blah mom is an amazing tutor. She
+                is patient, thorough, and explains the material in a way that is
+                ...
+              </Text>
+              <TouchableOpacity
+                style={{
+                  flex: 1,
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <Text style={{marginLeft: 'auto', color: '#2F80ED'}}>
+                  more
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -276,18 +343,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: colors.white,
   },
   contentContainer: {
     justifyContent: 'center',
     marginHorizontal: 40,
     marginBottom: 20,
   },
-  blackBar: {
+  dividerLine: {
     flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: colors.darkGray,
-    height: 100,
+    backgroundColor: colors.lightGray,
+    height: 1,
+    marginVertical: 10,
   },
   photo: {
     flex: 1,
@@ -297,7 +363,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderColor: colors.darkGray,
     backgroundColor: colors.white,
-    marginTop: -50,
   },
   heading: {
     fontFamily: fonts.gothic,
@@ -319,30 +384,34 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   topContent: {
-    margin: 10,
+    width: '100%',
+    marginTop: -500,
+    marginBottom: 20,
+    paddingTop: 520,
+    paddingHorizontal: 40,
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: colors.black,
   },
   name: {
     fontFamily: fonts.gothic,
     fontSize: 22,
-    color: colors.black,
+    color: colors.white,
     textAlign: 'center',
     marginBottom: 5,
   },
   headline: {
     fontFamily: fonts.gothic,
     fontSize: 13,
-    color: colors.black,
+    color: colors.white,
     textAlign: 'center',
     marginTop: 10,
   },
   statsBox: {
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: colors.black,
     flex: 1,
     flexDirection: 'row',
     marginTop: 10,
-    marginBottom: 20,
   },
   stat: {
     flex: 1,
@@ -353,7 +422,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: fonts.gothic,
     fontSize: 10,
-    color: colors.black,
+    color: colors.white,
     textAlign: 'center',
     marginBottom: 5,
   },
@@ -361,19 +430,13 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: fonts.gothic,
     fontSize: 25,
-    color: colors.black,
+    color: colors.white,
     textAlign: 'center',
-  },
-  verticalDivider: {
-    width: 0.5,
-    borderWidth: 0.5,
-    borderColor: colors.black,
-    marginVertical: 15,
   },
   reviewAvg: {
     fontFamily: fonts.gothic,
     fontSize: 16,
-    color: colors.black,
+    color: colors.white,
     marginLeft: 'auto',
   },
   reviewCnt: {
