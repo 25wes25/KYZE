@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Text,
   Image,
+  FlatList,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -47,8 +48,28 @@ export default class TutorProfileScreen extends React.Component {
     kyze.api
       .getTutorByEmail("tutor@kyze.com")
       .then(user => {
+        console.log(user);
+
+        let courseList = {};
+        for (let i=0; i<user.subjects.length; i++) {
+          let course = user.subjects[i];
+          if (courseList[course.subject]) {
+            courseList[course.subject].courses[course.title] = course;
+          }
+          else {
+            courseList[course.subject] = {
+              title: course.subject,
+              id: i,
+              courses: {},
+            };
+            courseList[course.subject].courses[course.title] = course;
+          }
+        }
+        console.log(courseList);
+
         this.setState({
-          user: user
+          user: user,
+          subjects: courseList,
         });
       })
       .catch(error => {
@@ -63,6 +84,53 @@ export default class TutorProfileScreen extends React.Component {
           },
         );
       });
+  }
+
+  renderEducation(education) {
+    return (
+      <View>
+        <Text style={styles.subheading}>DEGREE</Text>
+        <Text style={styles.degree}>
+          {education.degree}{'\n'}
+          {education.college}
+        </Text>
+      </View>
+    );
+  }
+
+  renderSubject(key) {
+    let subject = this.state.subjects[key];
+    return (
+      <View>
+        <Text style={styles.subheading}>{subject.title}</Text>
+        <FlatList
+          data={Object.keys(subject.courses)}
+          renderItem={({item}) => this.renderCourse(item, subject)}
+          listKey={item => item.id}
+          scrollEnabled={false}
+        />
+      </View>
+    );
+  }
+
+  renderCourse(key, subject) {
+    let course = subject.courses[key];
+    return (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          marginVertical: 7,
+          marginLeft: 10,
+        }}>
+        <Image
+          source={checkmark}
+          style={{width: 15, height: 15, marginRight: 7}}
+        />
+        <Text>{course.title}</Text>
+        <Text style={{marginLeft:'auto'}}>($NA/hr)</Text>
+      </View>
+    );
   }
 
   render() {
@@ -100,7 +168,7 @@ export default class TutorProfileScreen extends React.Component {
                   })}
               </View>
             </View>
-            <Text style={styles.headline}>{this.state.user.headline || 'UNDEFINED'}</Text>
+            <Text style={styles.headline}>{this.state.user.profileHeadline || 'UNDEFINED'}</Text>
             <View style={styles.statsBox}>
               <View style={styles.stat}>
                 <Text style={styles.statsValue}>{this.state.user.hours || 'NA'}</Text>
@@ -121,23 +189,18 @@ export default class TutorProfileScreen extends React.Component {
               <Text style={styles.heading}>About</Text>
               <Text style={styles.blockText}>
                 <Text>
-                  {this.state.user.headline || 'UNDEFINED'}
+                  {this.state.user.profileBio || 'UNDEFINED'}
                 </Text>
               </Text>
             </View>
             <View style={{marginTop: 40}}>
               <Text style={styles.heading}>Education</Text>
-              {this.state.user.education.map((e, i) => {
-                  return (
-                    <View>
-                      <Text key={i} style={styles.subheading}>SUBHEADING</Text>
-                      <Text key={i} style={styles.degree}>
-                        DEGREE{'\n'}
-                        SCHOOL
-                      </Text>
-                    </View>
-                  );
-                })}
+              <FlatList
+                data={this.state.user.education}
+                renderItem={({item}) => this.renderEducation(item)}
+                keyExtractor={item => item.id}
+                scrollEnabled={false}
+              />
             </View>
             <View style={{marginTop: 40}}>
               <Text style={styles.heading}>Policies</Text>
@@ -173,36 +236,12 @@ export default class TutorProfileScreen extends React.Component {
             </View>
             <View style={{marginTop: 40}}>
               <Text style={styles.heading}>Certified Courses</Text>
-              {this.state.user.subjects.map((e, i) => {
-                  return (
-                    <View>
-                      <Text style={styles.subheading}>SUBJECT</Text>
-                      {
-                        (Array.isArray(e)) ? (
-                          e.map((e2, i2) => {
-                            return(
-                              <View
-                                style={{
-                                  flex: 1,
-                                  flexDirection: 'row',
-                                  marginVertical: 7,
-                                  marginLeft: 10,
-                                }}>
-                                <Image
-                                  source={checkmark}
-                                  style={{width: 15, height: 15, marginRight: 7}}
-                                />
-                                <Text>COURSE ($NA/hr)</Text>
-                              </View>
-                            );
-                          })
-                        ) : (
-                          <View></View>
-                        )
-                      }
-                    </View>
-                  );
-                })}
+              <FlatList
+                data={Object.keys(this.state.subjects)}
+                renderItem={({item}) => this.renderSubject(item)}
+                keyExtractor={item => item.id}
+                scrollEnabled={false}
+              />
             </View>
             <View style={{marginTop: 40}}>
               <View
