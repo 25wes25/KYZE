@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Alert,
   Button,
   SafeAreaView,
   ScrollView,
@@ -10,6 +11,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from 'react-native';
+import kyze from '../../api/apiConfig';
 import pedram from '../../../res/images/pedram.png';
 import {colors, fonts} from '../../styles';
 
@@ -65,6 +67,34 @@ let sessionsData = [
 ];
 
 export default class StudentProfileScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.loadUser();
+  }
+
+  loadUser = () => {
+    kyze.api
+      .getStudentByEmail("student@kyze.com")
+      .then(user => {
+        this.setState({
+          user: user
+        });
+      })
+      .catch(error => {
+        console.log("Kyze Error", error);
+        this.setState({isLoggingIn: false});
+        Alert.alert(
+          'Error',
+          error.message,
+          [{text: 'OK'}],
+          {
+            cancelable: false,
+          },
+        );
+      });
+  }
+
   renderItem(item) {
     return (
       <TouchableOpacity style={styles.sessionButton}>
@@ -90,44 +120,36 @@ export default class StudentProfileScreen extends React.Component {
   }
 
   render() {
+    if (!this.state.user) {
+      return (
+        <View></View>
+      );
+    }
     return (
       <SafeAreaView style={styles.container}>
         <ScrollView keyboardShouldPersistTaps="handled">
-          <View
-            style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-            <View style={styles.blackBar} />
+          <View style={styles.topContent}>
             <Image style={styles.photo} source={pedram} />
+            <Text style={styles.name}>
+              {this.state.user.firstName + " " + this.state.user.lastName[0] + "."}
+            </Text>
           </View>
-          <View style={styles.contentContainer}>
-            <View style={styles.topContent}>
-              <Text style={styles.name}>{user.name}</Text>
-            </View>
+          <View>
+            <Text>
+              Email:
+            </Text>
+            <Text>
+              name@example.com
+            </Text>
           </View>
-          <View style={styles.dividerLine} />
-          <View style={styles.contentContainer}>
-            <Text style={styles.heading}>Shortcuts</Text>
-            {shortcuts.map((e, i) => {
-              return (
-                <View key={i}>
-                  <View style={styles.dividerLine} />
-                  <TouchableOpacity>
-                    <View
-                      style={{
-                        flex: 1,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        marginVertical: 10,
-                      }}>
-                      <View style={styles.icon} />
-                      <Text style={styles.heading}>{e}</Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              );
-            })}
+          <View>
+            <Text>
+              Phone:
+            </Text>
+            <Text>
+              (949) 555-5555
+            </Text>
           </View>
-          <View style={styles.dividerLine} />
-          <View style={styles.dividerLine} />
           <View style={styles.contentContainer}>
             <Text style={styles.heading}>Session History</Text>
             <View style={styles.dividerLine} />
@@ -158,21 +180,25 @@ const styles = StyleSheet.create({
     height: 1,
     marginVertical: 10,
   },
-  blackBar: {
-    flex: 1,
-    alignSelf: 'stretch',
-    backgroundColor: colors.darkGray,
-    height: 100,
-  },
   photo: {
     flex: 1,
     width: 100,
     height: 100,
     borderWidth: 2,
     borderRadius: 50,
-    borderColor: colors.black,
+    borderColor: colors.darkGray,
     backgroundColor: colors.white,
-    marginTop: -50,
+  },
+  topContent: {
+    width: '100%',
+    marginTop: -500,
+    marginBottom: 20,
+    paddingTop: 520,
+    paddingHorizontal: 40,
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    backgroundColor: colors.black,
   },
   heading: {
     fontFamily: fonts.gothic,
@@ -197,9 +223,9 @@ const styles = StyleSheet.create({
   name: {
     fontFamily: fonts.gothic,
     fontSize: 22,
-    color: colors.black,
+    color: colors.white,
     textAlign: 'center',
-    marginBottom: 5,
+    marginBottom: 25,
   },
   earningsHistoryList: {
     flex: 1,
