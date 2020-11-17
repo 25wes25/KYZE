@@ -134,20 +134,32 @@ export default class StudentProfileScreen extends React.Component {
               {this.state.user.firstName + " " + this.state.user.lastName[0] + "."}
             </Text>
           </View>
-          <View>
-            <Text>
-              Email:
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              marginLeft: 30,
+              marginVertical: 10,
+            }}>
+            <Text style={{fontSize:20, fontWeight:'500'}}>
+              Email:{' '}
             </Text>
-            <Text>
-              name@example.com
+            <Text style={{fontSize:20}}>
+              {this.state.user.email}
             </Text>
           </View>
-          <View>
-            <Text>
-              Phone:
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              marginLeft: 30,
+              marginVertical: 10,
+            }}>
+            <Text style={{fontSize:20, fontWeight:'500'}}>
+              Phone:{' '}
             </Text>
-            <Text>
-              (949) 555-5555
+            <Text style={{fontSize:20}}>
+              {this.state.user.phone}
             </Text>
           </View>
           <View style={styles.contentContainer}>
@@ -173,6 +185,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     justifyContent: 'center',
     marginHorizontal: 40,
+    marginTop: 10,
   },
   dividerLine: {
     flex: 1,
@@ -192,7 +205,7 @@ const styles = StyleSheet.create({
   topContent: {
     width: '100%',
     marginTop: -500,
-    marginBottom: 20,
+    marginBottom: 10,
     paddingTop: 520,
     paddingHorizontal: 40,
     flex: 1,
