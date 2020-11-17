@@ -15,8 +15,8 @@ import {
 import {
   validateEmail,
   validatePhone,
-  validateState,
-  validateZipCode,
+  validateAddressState,
+  validateaddressZipcode,
   stripPhoneNumber
 } from '../../utils';
 import {
@@ -40,21 +40,21 @@ export default class RegisterScreen extends React.Component {
         user: this.props.route.params.user});
     }
     this.state = {
-      confirmPassword: '',
-      email: '',
       firstName: '',
+      lastName: '',
+      sex: -1,
+      dob: '',
+      phone: '',
+      email: '',
+      addressState: '',
+      addressZipcode: '',
+      password: '',
+      confirmPassword: '',
+      promoCode: '',
+      tosAgree: false,
       invalidEmail: false,
       invalidPassword: false,
       invalidPromo: false,
-      lastName: '',
-      password: '',
-      phoneNumber: '',
-      promoCode: '',
-      state: '',
-      tosAgree: false,
-      zipCode: '',
-      sex: -1,
-      dob: '',
       type: this.props.route.params.type || '',
     };
     if (this.props.route.params.type === 'Tutor') {
@@ -86,9 +86,9 @@ export default class RegisterScreen extends React.Component {
       email: this.state.email,
       firstName: this.state.firstName,
       lastName: this.state.lastName,
-      phoneNumber: this.state.phoneNumber,
-      state: this.state.state,
-      zipCode: this.state.zipCode,
+      phone: this.state.phone,
+      addressState: this.state.addressState,
+      addressZipcode: this.state.addressZipcode,
       sex: this.state.sex,
       dob: this.state.dob,
       type: this.state.type,
@@ -188,23 +188,23 @@ export default class RegisterScreen extends React.Component {
     });
   }
 
-  onChangePhoneNumber(phoneNumber) {
-    let cleanPhoneNumber = stripPhoneNumber(phoneNumber);
-    let formattedPhoneNumber = '';
-    if (cleanPhoneNumber.length >= 10) {
-      formattedPhoneNumber =
+  onChangePhone(phone) {
+    let cleanphone = stripPhoneNumber(phone);
+    let formattedphone = '';
+    if (cleanphone.length >= 10) {
+      formattedphone =
         '(' +
-        phoneNumber.substring(0, 3) +
+        phone.substring(0, 3) +
         ') ' +
-        phoneNumber.substring(3, 6) +
+        phone.substring(3, 6) +
         '-' +
-        phoneNumber.substring(6, 10);
+        phone.substring(6, 10);
     } else {
-      formattedPhoneNumber = cleanPhoneNumber;
+      formattedphone = cleanphone;
     }
 
     this.setState({
-      phoneNumber: formattedPhoneNumber,
+      phone: formattedphone,
     });
   }
 
@@ -214,15 +214,15 @@ export default class RegisterScreen extends React.Component {
     });
   }
 
-  onChangeState(state) {
+  onChangeAddressState(addressState) {
     this.setState({
-      state: state,
+      addressState: addressState,
     });
   }
 
-  onChangeZipCode(zipCode) {
+  onChangeaddressZipcode(addressZipcode) {
     this.setState({
-      zipCode: zipCode,
+      addressZipcode: addressZipcode,
     });
   }
 
@@ -247,10 +247,10 @@ export default class RegisterScreen extends React.Component {
       this.state.firstName.length > 0 &&
       this.state.lastName.length > 0 &&
       this.state.sex != -1 &&
-      validatePhone(this.state.phoneNumber) &&
+      validatePhone(this.state.phone) &&
       validateEmail(this.state.email) &&
-      validateState(this.state.state) &&
-      validateZipCode(this.state.zipCode) &&
+      validateAddressState(this.state.addressState) &&
+      validateaddressZipcode(this.state.addressZipcode) &&
       this.state.password.length >= 8 &&
       this.state.confirmPassword.length >= 8 &&
       this.state.password === this.state.confirmPassword &&
@@ -295,8 +295,8 @@ export default class RegisterScreen extends React.Component {
           title="Phone Number"
           placeholderText="Phone Number"
           keyboardType="phone-pad"
-          onChangeText={phoneNumber => this.onChangePhoneNumber(phoneNumber)}
-          value={this.state.phoneNumber}
+          onChangeText={phone => this.onChangePhone(phone)}
+          value={this.state.phone}
         />
         <TextInputComponent
           title="Email Address"
@@ -311,16 +311,16 @@ export default class RegisterScreen extends React.Component {
             placeholderText="State"
             autoCapitalize="characters"
             maxLength={2}
-            onChangeText={state => this.onChangeState(state)}
-            value={this.state.state}
+            onChangeText={addressState => this.onChangeAddressState(addressState)}
+            value={this.state.addressState}
           />
           <View style={styles.inlineFiller} />
           <TextInputComponent
             title="Zip Code"
             placeholderText="Zip Code"
             maxLength={6}
-            onChangeText={zipCode => this.onChangeZipCode(zipCode)}
-            value={this.state.zipCode}
+            onChangeText={addressZipcode => this.onChangeaddressZipcode(addressZipcode)}
+            value={this.state.addressZipcode}
           />
         </View>
         <TextInputComponent

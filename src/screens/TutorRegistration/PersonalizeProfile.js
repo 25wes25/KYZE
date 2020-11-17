@@ -26,8 +26,8 @@ export default class PersonalizeProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      headline: '',
-      bio: '',
+      profileHeadline: '',
+      profileBio: '',
       user: this.props.route.params.user,
       type: this.props.route.params.type || '',
     };
@@ -35,27 +35,27 @@ export default class PersonalizeProfileScreen extends React.Component {
 
   onPressNext = () => {
     let newUser = this.state.user;
-    newUser.headline = this.state.headline;
-    newUser.bio = this.state.bio;
+    newUser.profileHeadline = this.state.profileHeadline;
+    newUser.profileBio = this.state.profileBio;
     this.props.navigation.navigate('Terms and Agreement', {type: this.state.type, user: newUser});
   };
 
-  onChangeHeadline(headline) {
+  onChangeProfileHeadline(profileHeadline) {
     this.setState({
-      headline: headline,
+      profileHeadline: profileHeadline,
     });
   }
 
-  onChangeBio(bio) {
+  onChangeProfileBio(profileBio) {
     this.setState({
-      bio: bio,
+      profileBio: profileBio,
     });
   }
 
   render() {
     let validInputs = bypassChecks || (
-      this.state.headline.length > 0 &&
-      this.state.bio.length > 0);
+      this.state.profileHeadline.length > 0 &&
+      this.state.profileBio.length > 0);
     return (
       <ContainerComponent>
         <TitleComponent title="Tutor Registration" />
@@ -83,10 +83,10 @@ export default class PersonalizeProfileScreen extends React.Component {
           placeholder="Short headline about yourself"
           multiline={true}
           maxLength={40}
-          onChangeText={headline => this.onChangeHeadline(headline)}
+          onChangeText={profileHeadline => this.onChangeProfileHeadline(profileHeadline)}
         />
 
-        <Text style={styles.sectionTitle}>Bio</Text>
+        <Text style={styles.sectionTitle}>profileBio</Text>
         <Text style={styles.blockText}>
           <Text>
             Help students get to know you and encourage them to contact you
@@ -104,7 +104,7 @@ export default class PersonalizeProfileScreen extends React.Component {
             you love about tutoring? What makes you a qualified tutor?"
           multiline={true}
           maxLength={1000}
-          onChangeText={bio => this.onChangeBio(bio)}
+          onChangeText={profileBio => this.onChangeProfileBio(profileBio)}
         />
         <ButtonComponent
           enabled={validInputs}

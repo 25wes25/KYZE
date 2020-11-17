@@ -36,7 +36,6 @@ export default class TermsAndAgreementScreen extends React.Component {
       user: this.props.route.params.user,
       type: this.props.route.params.type || '',
     };
-    console.log(this.state.type);
   }
 
   onPressNext = () => {
@@ -58,10 +57,10 @@ export default class TermsAndAgreementScreen extends React.Component {
             }});
         }
         delete this.state.user.existingAccount;
+        delete this.state.user.password;
         kyze.api
           .createTutor(this.state.user)
           .then(user => {
-            delete this.state.user.password;
             this.props.navigation.dispatch(
               CommonActions.reset({
                 index: 0,

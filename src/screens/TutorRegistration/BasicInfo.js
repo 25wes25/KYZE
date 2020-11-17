@@ -12,8 +12,8 @@ import {
   sectionTitle,
 } from '../../styles';
 import {
-  validateState,
-  validateZipCode,
+  validateAddressState,
+  validateaddressZipcode,
 } from '../../utils';
 import {
   bypassChecks,
@@ -28,12 +28,12 @@ export default class BasicInfoScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      street: '',
-      aptNum: '',
-      city: '',
-      state: this.props.route.params.user.state || '',
-      zipCode: this.props.route.params.user.zipCode || '',
-      degrees: [
+      addressStreet: '',
+      addressAptnum: '',
+      addressCity: '',
+      addressState: this.props.route.params.user.addressState || '',
+      addressZipcode: this.props.route.params.user.addressZipcode || '',
+      education: [
         {
           college: '',
           degree: '',
@@ -46,59 +46,59 @@ export default class BasicInfoScreen extends React.Component {
 
   onPressNext = () => {
     let newUser = this.state.user;
-    newUser.street = this.state.street;
-    newUser.aptNum = this.state.aptNum;
-    newUser.city = this.state.city;
-    newUser.state = this.state.state;
-    newUser.zipCode = this.state.zipCode;
-    newUser.degrees = this.state.degrees;
+    newUser.addressStreet = this.state.addressStreet;
+    newUser.addressAptnum = this.state.addressAptnum;
+    newUser.addressCity = this.state.addressCity;
+    newUser.addressState = this.state.addressState;
+    newUser.addressZipcode = this.state.addressZipcode;
+    newUser.education = this.state.education;
     this.props.navigation.navigate('Preferences', {type: this.state.type, user: newUser});
   };
 
   onPressAddDegree = () => {
-    this.state.degrees.push({
-      key: this.state.degrees.length + 1,
+    this.state.education.push({
+      key: this.state.education.length + 1,
       college: '',
       degree: '',
     });
     this.forceUpdate();
   };
 
-  onChangeStreet(street) {
+  onChangeAddressStreet(addressStreet) {
     this.setState({
-      street: street,
+      addressStreet: addressStreet,
     });
   }
 
-  onChangeAptNum(aptNum) {
+  onChangeAddressAptnum(addressAptnum) {
     this.setState({
-      aptNum: aptNum,
+      addressAptnum: addressAptnum,
     });
   }
 
-  onChangeCity(city) {
+  onChangeAddressCity(addressCity) {
     this.setState({
-      city: city,
+      addressCity: addressCity,
     });
   }
 
-  onChangeState(state) {
+  onChangeAddressState(addressState) {
     this.setState({
-      state: state,
+      addressState: addressState,
     });
   }
 
-  onChangeZipCode(zipCode) {
+  onChangeAddressZipcode(addressZipcode) {
     this.setState({
-      zipCode: zipCode,
+      addressZipcode: addressZipcode,
     });
   }
 
-  onChangeDegrees(value, index, key) {
-    let newDegrees = this.state.degrees;
-    newDegrees[index][key] = value;
+  onChangeEducation(value, index, key) {
+    let neweducation = this.state.education;
+    neweducation[index][key] = value;
     this.setState({
-      degrees: newDegrees,
+      education: neweducation,
     });
   }
 
@@ -111,10 +111,10 @@ export default class BasicInfoScreen extends React.Component {
 
   render() {
     let validInputs = bypassChecks || (
-      this.state.street.length > 0 &&
-      this.state.city.length > 0 &&
-      validateState(this.state.state) &&
-      validateZipCode(this.state.zipCode));
+      this.state.addressStreet.length > 0 &&
+      this.state.addressCity.length > 0 &&
+      validateAddressState(this.state.addressState) &&
+      validateaddressZipcode(this.state.addressZipcode));
     return (
       <ContainerComponent>
         <TitleComponent title="Tutor Registration" />
@@ -123,22 +123,22 @@ export default class BasicInfoScreen extends React.Component {
           title="Street"
           placeholderText="110 Wesley Way"
           autoCapitalize="words"
-          onChangeText={street => this.onChangeStreet(street)}
-          value={this.state.street}
+          onChangeText={addressStreet => this.onChangeAddressStreet(addressStreet)}
+          value={this.state.addressStreet}
         />
         <TextInputComponent
           title="Apt/Suite"
           placeholderText="2716"
           keyboardType="phone-pad"
-          onChangeText={aptNum => this.onChangeAptNum(aptNum)}
-          value={this.state.aptNum}
+          onChangeText={addressAptnum => this.onChangeAddressAptnum(addressAptnum)}
+          value={this.state.addressAptnum}
         />
         <TextInputComponent
           title="City"
           placeholderText="Mission Viejo"
           autoCapitalize="words"
-          onChangeText={city => this.onChangeCity(city)}
-          value={this.state.city}
+          onChangeText={addressCity => this.onChangeAddressCity(addressCity)}
+          value={this.state.addressCity}
         />
         <View style={styles.textInputContainerInline}>
           <TextInputComponent
@@ -146,8 +146,8 @@ export default class BasicInfoScreen extends React.Component {
             placeholderText="ZZ"
             maxLength={2}
             autoCapitalize="characters"
-            onChangeText={state => this.onChangeState(state)}
-            value={this.state.state}
+            onChangeText={addressState => this.onChangeAddressState(addressState)}
+            value={this.state.addressState}
           />
           <View style={styles.inlineFiller} />
           <TextInputComponent
@@ -155,45 +155,45 @@ export default class BasicInfoScreen extends React.Component {
             placeholderText="55555"
             keyboardType="phone-pad"
             maxLength={6}
-            onChangeText={zipCode => this.onChangeZipCode(zipCode)}
-            value={this.state.zipCode}
+            onChangeText={addressZipcode => this.onChangeAddressZipcode(addressZipcode)}
+            value={this.state.addressZipcode}
           />
         </View>
         <Text style={styles.sectionTitle}>Educational Background</Text>
         <TextInputComponent
           title="Undergraduate College"
           placeholderText="Undergraduate College"
-          onChangeText={(degrees, index, key) =>
-            this.onChangeDegrees(degrees, 0, 'college')
+          onChangeText={(education, index, key) =>
+            this.onChangeEducation(education, 0, 'college')
           }
-          value={this.state.degrees[0].college}
+          value={this.state.education[0].college}
         />
         <TextInputComponent
           title="Undergraduate Degree"
           placeholderText="Undergraduate Degree"
-          onChangeText={(degrees, index, key) =>
-            this.onChangeDegrees(degrees, 0, 'degree')
+          onChangeText={(education, index, key) =>
+            this.onChangeEducation(education, 0, 'degree')
           }
-          value={this.state.degrees[0].degree}
+          value={this.state.education[0].degree}
         />
-        {this.state.degrees.map((element, i) => {
+        {this.state.education.map((element, i) => {
           return i > 0 ? (
             <View key={i}>
               <TextInputComponent
                 title={'Graduate College ' + i}
                 placeholderText={'Graduate College ' + i}
-                onChangeText={(degrees, index, key) =>
-                  this.onChangeDegrees(degrees, i, 'college')
+                onChangeText={(education, index, key) =>
+                  this.onChangeEducation(education, i, 'college')
                 }
-                value={this.state.degrees[i].college}
+                value={this.state.education[i].college}
               />
               <TextInputComponent
                 title={'Graduate Degree ' + i}
                 placeholderText={'Graduate Degree ' + i}
-                onChangeText={(degrees, index, key) =>
-                  this.onChangeDegrees(degrees, i, 'degree')
+                onChangeText={(education, index, key) =>
+                  this.onChangeEducation(education, i, 'degree')
                 }
-                value={this.state.degrees[i].degree}
+                value={this.state.education[i].degree}
               />
             </View>
           ) : (
@@ -207,7 +207,7 @@ export default class BasicInfoScreen extends React.Component {
               flexDirection: 'row',
               alignItems: 'center',
             }}
-            disabled={this.state.degrees.length > 3}
+            disabled={this.state.education.length > 3}
             onPress={this.onPressAddDegree}>
             <Image source={plusSign} />
             <Text style={styles.addDegreeText}>Add more credentials </Text>

@@ -53,8 +53,22 @@ export default class SubjectsScreen extends React.Component {
   }
 
   onPressNext = () => {
+    let tutoredCourses = [];
+    for (let i=0; i<this.state.subjects.length; i++) {
+      let subject = this.state.subjects[i];
+      for (let j=0; j<subject.courses.length; j++) {
+        let course = subject.courses[j];
+        if (course.selected) {
+          tutoredCourses.push({
+            title: course.title,
+            subject: subject.title,
+            enabled: true,
+          });
+        }
+      }
+    }
     let newUser = this.state.user;
-    newUser.subjects = subjects;
+    newUser.subjects = tutoredCourses;
     this.props.navigation.navigate('Basic Info', {type: this.state.type, user: newUser});
   };
 
