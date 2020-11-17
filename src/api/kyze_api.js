@@ -84,32 +84,64 @@ export default class Api {
   }
 
   /*
-   * Users Endpoints
+   * Student Endpoints
    */
 
-  async createUser(userData) {
+  async createStudent(userData) {
     const config = {
       method: 'post',
-      endpoint: '/users/',
+      endpoint: '/students/',
       jsonData: userData,
     };
 
     return this.apiRequest(config).then(parseApiResponse);
   }
 
-  async getUserById(id) {
+  async getStudentById(id) {
     const config = {
       method: 'get',
-      endpoint: `/users/id/${id}`,
+      endpoint: `/students/id/${id}`,
     };
 
     return this.apiRequest(config).then(parseApiResponse);
   }
 
-  async getUserByEmail(userEmail) {
+  async getStudentByEmail(userEmail) {
     const config = {
       method: 'get',
-      endpoint: `/users/email/${userEmail}`,
+      endpoint: `/students/email/${userEmail}`,
+    };
+
+    return this.apiRequest(config).then(parseApiResponse);
+  }
+
+  /*
+   * Tutor Endpoints
+   */
+
+  async createTutor(userData) {
+    const config = {
+      method: 'post',
+      endpoint: '/tutors/',
+      jsonData: userData,
+    };
+
+    return this.apiRequest(config).then(parseApiResponse);
+  }
+
+  async getTutorById(id) {
+    const config = {
+      method: 'get',
+      endpoint: `/tutors/id/${id}`,
+    };
+
+    return this.apiRequest(config).then(parseApiResponse);
+  }
+
+  async getTutorByEmail(userEmail) {
+    const config = {
+      method: 'get',
+      endpoint: `/tutors/email/${userEmail}`,
     };
 
     return this.apiRequest(config).then(parseApiResponse);

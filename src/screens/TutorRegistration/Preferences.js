@@ -26,13 +26,19 @@ export default class PreferencesScreen extends React.Component {
     super(props);
     this.state = {
       cancellationPolicy: -1,
-      currentRadius: -1,
-      homeRadius: -1,
+      currentLocationRadius: -1,
+      homeLocationRadius: -1,
+      user: this.props.route.params.user,
+      type: this.props.route.params.type || '',
     };
   }
 
   onPressNext = () => {
-    this.props.navigation.navigate('Personalize Profile');
+    let newUser = this.state.user;
+    newUser.cancellationPolicy = this.state.cancellationPolicy;
+    newUser.currentLocationRadius = this.state.currentLocationRadius;
+    newUser.homeLocationRadius = this.state.homeLocationRadius;
+    this.props.navigation.navigate('Personalize Profile', {type: this.state.type, user: newUser});
   };
 
   onChangeCancellationPolicy(policy) {
@@ -41,23 +47,23 @@ export default class PreferencesScreen extends React.Component {
     });
   }
 
-  onChangeCurrentRadius(currentRadius) {
+  onChangeCurrentLocationRadius(currentLocationRadius) {
     this.setState({
-      currentRadius: currentRadius,
+      currentLocationRadius: currentLocationRadius,
     });
   }
 
-  onChangeHomeRadius(homeRadius) {
+  onChangeHomeLocationRadius(homeLocationRadius) {
     this.setState({
-      homeRadius: homeRadius,
+      homeLocationRadius: homeLocationRadius,
     });
   }
 
   render() {
     let validInputs = bypassChecks || (
       this.state.cancellationPolicy != -1 &&
-      this.state.currentRadius != -1 &&
-      this.state.homeRadius != -1);
+      this.state.currentLocationRadius != -1 &&
+      this.state.homeLocationRadius != -1);
     return (
       <ContainerComponent>
         <TitleComponent title="Tutor Registration" />
@@ -208,7 +214,7 @@ export default class PreferencesScreen extends React.Component {
           ]}
           default="10 miles"
           title=""
-          onSelect={selected => this.onChangeCurrentRadius(selected)}
+          onSelect={selected => this.onChangeCurrentLocationRadius(selected)}
         />
         <Text style={styles.blockText}>
           <Text>How far do you want to travel from your </Text>
@@ -226,7 +232,7 @@ export default class PreferencesScreen extends React.Component {
           ]}
           default="10 miles"
           title=""
-          onSelect={selected => this.onChangeHomeRadius(selected)}
+          onSelect={selected => this.onChangeHomeLocationRadius(selected)}
         />
         <ButtonComponent
           enabled={validInputs}
