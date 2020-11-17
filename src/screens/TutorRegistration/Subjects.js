@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Alert,
   Image,
   StyleSheet,
   Text,
@@ -16,6 +17,7 @@ import {
   subjects,
   bypassChecks
 } from '../../testing';
+import kyze from '../../api/apiConfig';
 import nextArrow from '../../../res/images/nextArrow.png';
 import TitleComponent from '../../components/TitleComponent';
 import ButtonComponent from '../../components/ButtonComponent';
@@ -25,28 +27,52 @@ import CheckboxComponent from '../../components/CheckboxComponent';
 export default class SubjectsScreen extends React.Component {
   constructor(props) {
     super(props);
-    let subjectList = [];
-    for (let i=0; i<subjects.length; i++) {
-      let subject = subjects[i];
-      let courseList = [];
-      for (let j=0; j<subject.courses.length; j++) {
-        let course = subject.courses[j];
-        courseList.push({
-          id: j,
-          title: course,
-          selected: false,
-        });
-      }
-      subjectList.push({
-        id: i,
-        title: subject.name,
-        expanded: false,
-        courses: courseList,
+
+    kyze.api
+      .getAllCourses()
+      .then(courses => {
+          let courseList = {};
+          for (let i=0; i<courses.length; i++) {
+            let course = courses[i];
+            if (courseList[course.subject]) {
+              courseList[course.subject].courses[course.title] = {
+                id: course.id,
+                title: course.title,
+                selected: false,
+              };
+            }
+            else {
+              courseList[course.subject] = {
+                title: course.subject,
+                id: i,
+                expanded: false,
+                courses: {},
+              };
+              courseList[course.subject].courses[course.title] = {
+                id: course.id,
+                title: course.title,
+                selected: false,
+              };
+            }
+          }
+          this.setState({
+            subjects: courseList,
+          })
+      })
+      .catch(error => {
+        console.log("Kyze Error", error)
+        Alert.alert(
+          'Error',
+          error.message,
+          [{text: 'OK'}],
+          {
+            cancelable: false,
+          },
+        );
       });
-    }
 
     this.state = {
-      subjects: subjectList,
+      subjects: {},
       user: this.props.route.params.user,
       type: this.props.route.params.type || '',
     };
@@ -54,10 +80,10 @@ export default class SubjectsScreen extends React.Component {
 
   onPressNext = () => {
     let tutoredCourses = [];
-    for (let i=0; i<this.state.subjects.length; i++) {
-      let subject = this.state.subjects[i];
-      for (let j=0; j<subject.courses.length; j++) {
-        let course = subject.courses[j];
+    for (let keyI in this.state.subjects) {
+      let subject = this.state.subjects[keyI];
+      for (let keyJ in subject.courses) {
+        let course = subject.courses[keyJ];
         if (course.selected) {
           tutoredCourses.push({
             title: course.title,
@@ -72,25 +98,24 @@ export default class SubjectsScreen extends React.Component {
     this.props.navigation.navigate('Basic Info', {type: this.state.type, user: newUser});
   };
 
-  openClose(index) {
+  openClose(key) {
     let newSubjects = this.state.subjects;
-    newSubjects[index].expanded = !newSubjects[index].expanded;
+    newSubjects[key].expanded = !newSubjects[key].expanded;
     this.setState({
       subjects: newSubjects,
     });
   }
 
-  onPressCheck(indexI, indexJ) {
+  onPressCheck(keyI, keyJ) {
     let newSubjects = this.state.subjects;
-    newSubjects[indexI].courses[indexJ].selected = !newSubjects[indexI].courses[
-      indexJ
-    ].selected;
+    newSubjects[keyI].courses[keyJ].selected = !newSubjects[keyI].courses[keyJ].selected;
     this.setState({
       subjects: newSubjects,
     });
   }
 
-  renderSubject(subject) {
+  renderSubject(key) {
+    let subject = this.state.subjects[key];
     return (
       <View>
         <TouchableOpacity
@@ -98,7 +123,7 @@ export default class SubjectsScreen extends React.Component {
             flex: 1,
             flexDirection: 'row',
           }}
-          onPress={index => this.openClose(subject.id)}>
+          onPress={(key) => this.openClose(subject.title)}>
           <Image
             source={nextArrow}
             style={subject.expanded ? styles.arrowUp : styles.arrowDown}
@@ -107,9 +132,9 @@ export default class SubjectsScreen extends React.Component {
         </TouchableOpacity>
         {subject.expanded ? (
           <FlatList
-            data={subject.courses}
+            data={Object.keys(subject.courses)}
             renderItem={({item}) => this.renderCourse(item, subject)}
-            keyExtractor={item => item.id}
+            listKey={item => item.id}
             scrollEnabled={false}
           />
         ) : (
@@ -119,7 +144,8 @@ export default class SubjectsScreen extends React.Component {
     );
   }
 
-  renderCourse(course, subject) {
+  renderCourse(key, subject) {
+    let course = subject.courses[key];
     return (
       <View
         style={{
@@ -130,7 +156,7 @@ export default class SubjectsScreen extends React.Component {
         }}>
         <CheckboxComponent
           enabled={course.selected}
-          onPress={(indexI, indexJ) => this.onPressCheck(subject.id, course.id)}/>
+          onPress={(keyI, keyJ) => this.onPressCheck(subject.title, key)}/>
         <Text style={styles.courseText}>{course.title}</Text>
       </View>
     );
@@ -138,6 +164,13 @@ export default class SubjectsScreen extends React.Component {
 
   render() {
     let validInputs = bypassChecks || true;
+    if (this.state.subjects.length == 0) {
+      return (
+        <View>
+
+        </View>
+      )
+    }
     return (
       <ContainerComponent>
         <TitleComponent title='Tutor Registration' />
@@ -155,7 +188,7 @@ export default class SubjectsScreen extends React.Component {
           </Text>
         </Text>
         <FlatList
-          data={this.state.subjects}
+          data={Object.keys(this.state.subjects)}
           renderItem={({item}) => this.renderSubject(item)}
           keyExtractor={item => item.id}
           scrollEnabled={false}

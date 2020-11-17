@@ -84,6 +84,19 @@ export default class Api {
   }
 
   /*
+   * Course Endpoints
+   */
+
+  async getAllCourses() {
+    const config = {
+      method: 'get',
+      endpoint: '/courses/',
+    };
+
+    return this.apiRequest(config).then(parseApiResponse);
+  }
+
+  /*
    * Student Endpoints
    */
 
