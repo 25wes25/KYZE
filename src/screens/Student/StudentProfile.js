@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: colors.black,
+    backgroundColor: colors.darkGray,
   },
   heading: {
     fontFamily: fonts.gothic,
