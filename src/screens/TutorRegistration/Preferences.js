@@ -28,11 +28,17 @@ export default class PreferencesScreen extends React.Component {
       cancellationPolicy: -1,
       currentRadius: -1,
       homeRadius: -1,
+      user: this.props.route.params.user,
+      type: this.props.route.params.type || '',
     };
   }
 
   onPressNext = () => {
-    this.props.navigation.navigate('Personalize Profile');
+    let newUser = this.state.user;
+    newUser.cancellationPolicy = this.state.cancellationPolicy;
+    newUser.currentRadius = this.state.currentRadius;
+    newUser.homeRadius = this.state.homeRadius;
+    this.props.navigation.navigate('Personalize Profile', {type: this.state.type, user: newUser});
   };
 
   onChangeCancellationPolicy(policy) {

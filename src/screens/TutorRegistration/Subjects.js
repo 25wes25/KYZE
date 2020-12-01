@@ -46,12 +46,16 @@ export default class SubjectsScreen extends React.Component {
     }
 
     this.state = {
-      subjects: subjectList
+      subjects: subjectList,
+      user: this.props.route.params.user,
+      type: this.props.route.params.type || '',
     };
   }
 
   onPressNext = () => {
-    this.props.navigation.navigate('Basic Info');
+    let newUser = this.state.user;
+    newUser.subjects = subjects;
+    this.props.navigation.navigate('Basic Info', {type: this.state.type, user: newUser});
   };
 
   openClose(index) {

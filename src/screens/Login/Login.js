@@ -1,5 +1,6 @@
 import React from 'react';
 import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Auth} from 'aws-amplify';
 import {CommonActions} from '@react-navigation/native';
 import {colors, fonts} from '../../styles';
 import {validateEmail} from '../../utils';
@@ -16,38 +17,127 @@ export default class LoginScreen extends React.Component {
       email: '',
       password: '',
       invalidLogin: false,
+      type: this.props.route.params.type || '',
     };
   }
 
-  onPressLogin = () => {
+  onPressLogin = async () => {
     if (this.state.email !== '' && this.state.password !== '') {
-      kyze.api
-        .getUserByEmail(this.state.email.toLowerCase())
-        .then(user => {
-          this.setState({isLoggingIn: false});
-          this.props.navigation.dispatch(
-            CommonActions.reset({
-              index: 0,
-              routes: [
+      if (this.state.type === 'Student') {
+        try {
+          // Cognito
+          await Auth.signIn(this.state.email, this.state.password);
+          // Kyze
+          kyze.api
+            .getStudentByEmail(this.state.email.toLowerCase())
+            .then(user => {
+              this.setState({isLoggingIn: false});
+              this.props.navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [
+                    {
+                      name: this.props.route.params.type + 'BottomTabNavigator',
+                      params: {user: user},
+                    },
+                  ],
+                }),
+              );
+            })
+            .catch(error => {
+              console.log("Kyze Error", error);
+              this.setState({isLoggingIn: false});
+              Alert.alert(
+                'Error',
+                error.message,
+                [{text: 'OK'}],
                 {
-                  name: this.props.route.params.type + 'BottomTabNavigator',
-                  params: {user: user},
+                  cancelable: false,
                 },
-              ],
-            }),
-          );
-        })
-        .catch(error => {
-          this.setState({isLoggingIn: false});
+              );
+            });
+        } catch (error) {
+          console.log("Cognito Error", error);
           Alert.alert(
             'Error',
-            error.code + ' ' + error.message,
+            error.message,
             [{text: 'OK'}],
             {
               cancelable: false,
             },
           );
-        });
+        }
+      } else if (this.state.type === 'Tutor') {
+        try {
+          // Cognito
+          await Auth.signIn(this.state.email, this.state.password);
+          // Kyze
+          kyze.api
+            .getTutorByEmail(this.state.email.toLowerCase())
+            .then(user => {
+              this.setState({isLoggingIn: false});
+              this.props.navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [
+                    {
+                      name: this.props.route.params.type + 'BottomTabNavigator',
+                      params: {user: user},
+                    },
+                  ],
+                }),
+              );
+            })
+            .catch(error => {
+              // Check for student account
+              kyze.api
+                .getStudentByEmail(this.state.email.toLowerCase())
+                .then(user => {
+                  this.setState({isLoggingIn: false});
+                  Alert.alert(
+                    'Error',
+                    'Your email does not have an associated tutor account.\
+                    Create one now?',
+                    [
+                      {
+                        text: 'Yes',
+                        onPress: () => {
+                          user.existingAccount = true;
+                          this.props.navigation.dispatch(
+                            CommonActions.navigate({
+                              name: 'Register',
+                              params: {type: "Tutor", user: user},
+                            }),
+                          );
+                        }
+                      },
+                      {
+                        text: 'No',
+                        style: 'cancel'
+                      }
+                    ],
+                    {
+                      cancelable: false,
+                    },
+                  );
+                })
+                .catch(error => {
+                  console.log("Kyze Error", error);
+                  this.setState({isLoggingIn: false});
+                });
+            });
+        } catch (error) {
+          console.log("Cognito Error", error);
+          Alert.alert(
+            'Error',
+            error.message,
+            [{text: 'OK'}],
+            {
+              cancelable: false,
+            },
+          );
+        }
+      }
     } else {
       this.setState({invalidLogin: true});
     }

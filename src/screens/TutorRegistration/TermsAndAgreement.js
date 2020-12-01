@@ -1,10 +1,12 @@
 import React from 'react';
 import {
+  Alert,
   Image,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
+import {Auth} from 'aws-amplify';
 import {
   colors,
   fonts,
@@ -20,6 +22,8 @@ import TextInputComponent from '../../components/TextInputComponent';
 import ButtonComponent from '../../components/ButtonComponent';
 import ContainerComponent from '../../components/ContainerComponent';
 import CheckboxComponent from '../../components/CheckboxComponent';
+import {CommonActions} from '@react-navigation/native';
+import kyze from '../../api/apiConfig';
 
 export default class TermsAndAgreementScreen extends React.Component {
   constructor(props) {
@@ -29,11 +33,67 @@ export default class TermsAndAgreementScreen extends React.Component {
       legalWorking: false,
       firstName: '',
       lastName: '',
+      user: this.props.route.params.user,
+      type: this.props.route.params.type || '',
     };
+    console.log(this.state.type);
   }
 
   onPressNext = () => {
-    this.props.navigation.navigate('Email Confirmation');
+    this.props.navigation.navigate('Email Confirmation', {user: this.state.user});
+  };
+
+  onPressRegister = async () => {
+    let valid = true;
+    let password = this.state.user.password;
+
+    if (valid) {
+      try {
+        if (!this.state.user.existingAccount) {
+          await Auth.signUp({
+            username: this.state.user.email,
+            password: password,
+            attributes: {
+              email: this.state.user.email
+            }});
+        }
+        delete this.state.user.existingAccount;
+        kyze.api
+          .createTutor(this.state.user)
+          .then(user => {
+            delete this.state.user.password;
+            this.props.navigation.dispatch(
+              CommonActions.reset({
+                index: 0,
+                routes: [
+                  {name: this.state.type + 'BottomTabNavigator', params: {user: user}},
+                ],
+              }),
+            );
+            })
+            .catch(error => {
+              console.log("Kyze Error", error);
+              Alert.alert(
+                'Error',
+                error.message,
+                [{text: 'OK'}],
+                {
+                  cancelable: false,
+                },
+              );
+            });
+      } catch (error) {
+        console.log("Cognito Error", error);
+        Alert.alert(
+          'Error',
+          error.message,
+          [{text: 'OK'}],
+          {
+            cancelable: false,
+          },
+        );
+      }
+    }
   };
 
   onChangeTermsAgree() {
@@ -121,9 +181,8 @@ export default class TermsAndAgreementScreen extends React.Component {
         </View>
         <ButtonComponent
           enabled={validInputs}
-          onPress={this.onPressNext}
-          text='Next'
-          arrow={true}/>
+          onPress={this.onPressRegister}
+          text='Create Account'/>
       </ContainerComponent>
     );
   }

@@ -28,11 +28,16 @@ export default class PersonalizeProfileScreen extends React.Component {
     this.state = {
       headline: '',
       bio: '',
+      user: this.props.route.params.user,
+      type: this.props.route.params.type || '',
     };
   }
 
   onPressNext = () => {
-    this.props.navigation.navigate('Terms and Agreement');
+    let newUser = this.state.user;
+    newUser.headline = this.state.headline;
+    newUser.bio = this.state.bio;
+    this.props.navigation.navigate('Terms and Agreement', {type: this.state.type, user: newUser});
   };
 
   onChangeHeadline(headline) {
